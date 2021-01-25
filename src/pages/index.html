@@ -3,14 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WTF: Webpack starter kit</title>
-    <meta name="description" content="Your project description" />
+    <title>Kanban</title>
+    <meta name="description" content="To do list app - kanban" />
     <!-- Title -->
-    <meta property="og:title" content="" />
+    <meta property="og:title" content="Kanban" />
     <!-- OPTIONAL description. 2-4 sentences. -->
-    <meta property="og:description" content="" />
+    <meta property="og:description" content="To do list app - kanban" />
     <!-- full url with http(s) ie. https://maciejkorsan.github.io/my-repo/ -->
-    <meta property="og:url" content="" />
+    <meta property="og:url" content="https://tomasz-klos.github.io/kanban/" />
     <!-- full url to the image with http(s) ie. https://maciejkorsan.github.io/my-repo/assets/img/fb.png. Facebook suggests at least 1200 x 630. -->
     <meta
       property="og:image"
@@ -145,9 +145,24 @@
     />
   </head>
   <body>
-    <div class="hello">
-      <img class="hello__logo" src="../assets/img/logo.svg" alt="WTF " />
-      <span class="hello__circles"></span>
-    </div>
+    <header class="header">
+      <div class="header__opacityDiv"></div>
+      <h1 class="header__title">Kanban</h1>
+      <form class="header__form">
+        <input type="text" class="header__input todo-input" placeholder="add a task" />
+        <button class="header__buttonAdd todo-button">
+          <img src="../assets/img/buttonAdd.svg" />
+        </button>
+      </form>
+      <nav class="header__nav">
+        <button class="header__button">To do</button>
+        <button class="header__button">Doing</button>
+        <button class="header__button">Done</button>
+      </nav>
+    </header>
+    <section class="todo-section">
+      <ul class="todo-section__list todo-list">
+      </ul>
+    </section>
   </body>
 </html>
