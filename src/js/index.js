@@ -29,7 +29,7 @@ function addTask(event) {
     ////////// Completed button
 
     const completedButton = document.createElement('button');
-    completedButton.innerHTML = '<img src="https://raw.githubusercontent.com/tomasz-klos/kanban/d1dc6f3b939beba0441e0fd42ebde29dfb933890/src/assets/img/button-unchecked.svg">';
+    completedButton.innerHTML = '<img src="https://raw.githubusercontent.com/tomasz-klos/kanban/master/src/assets/img/Checkmark.png">';
     completedButton.classList.add("completeButton");
     taskDiv.appendChild(completedButton);
 
