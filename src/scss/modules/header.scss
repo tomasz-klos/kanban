@@ -12,11 +12,10 @@
     font-weight: normal;
   }
   &__input {
-    width: 85%;
+    width: 100%;
     height: 42px;
     border-radius: 4px;
     border: 1px #a1a4b1 solid;
-    margin-bottom: 14px;
     padding: 0 10px;
     font-size: 14px;
     z-index: 230;
@@ -43,18 +42,16 @@
     z-index: 220;
   }
   &__buttonAdd {
-    position: absolute;
-    right: 6%;
-    top: 11.1%;
     z-index: 240;
     border: none;
     background: none;
     padding: 0;
   }
   &__form {
-    width: 100%;
+    width: 90%;
     display: flex;
     justify-content: center;
+    margin-bottom: 14px;
     z-index: 230;
   }
 }
