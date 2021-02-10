@@ -154,11 +154,16 @@
           <img src="../assets/img/buttonAdd.svg" />
         </button>
       </form>
-      <nav class="header__nav">
-        <button class="header__button">To do</button>
-        <button class="header__button">Doing</button>
-        <button class="header__button">Done</button>
+      <nav name="tasks" class="header__nav filter--task">
+        <button class="header__button" value="todo">To do</button>
+        <button class="header__button" value="doing">Doing</button>
+        <button class="header__button" value="done">Done</button>
       </nav>
+      <!-- <select name="tasks" class="header__nav filter--task">
+        <option value="todo">Todo</option>
+        <option value="doing">Doing</option>
+        <option value="done">Done</option>
+      </select> -->
     </header>
     <section class="taskSection">
       <ul class="taskSection__list taskList">
