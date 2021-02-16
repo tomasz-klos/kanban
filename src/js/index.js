@@ -15,6 +15,7 @@ const taskFilter = document.querySelector(".filter--task");
 ///////////// Event Listeners
 
 document.addEventListener("DOMContentLoaded", getTask);
+document.addEventListener("DOMContentLoaded", filterTask);
 taskButton.addEventListener("click", addTask);
 taskList.addEventListener("click", deleteTask);
 taskList.addEventListener("click", completeTask);
@@ -99,9 +100,10 @@ function completeTask(e) {
 
 function filterTask(e) {
   const tasks = taskList.childNodes;
+  console.log(tasks);
   for (let i = 1; i < tasks.length; i++) {
     const task = tasks[i];
-    function asd() {
+    function filterByValue() {
       switch (e.target.value) {
         case "todo":
           if (task.classList.contains("completed")) {
@@ -119,7 +121,7 @@ function filterTask(e) {
           break;
       }
     }
-    asd();
+    filterByValue();
   }
 }
 

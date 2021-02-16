@@ -4,15 +4,36 @@
 @import "modules/hello.scss";
 @import "modules/header.scss";
 @import "modules/task.scss";
+@import "hamburgers/hamburgers.scss";
 
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
 
 body {
-  background: #ffffff;
+  background: $lightBlue;
   color: #fff;
   display: flex;
   align-items: center;
   flex-direction: column;
   min-height: 100vh;
-  font-family: "Open Sans";
+  font-family: "Poppins";
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  &__title {
+    padding: 0 20px;
+  }
+}
+
+.category {
+  width: 100%;
+  &__headline {
+    padding: 0 20px;
+    color: $headline;
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
 }

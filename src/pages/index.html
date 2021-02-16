@@ -20,6 +20,7 @@
     <!-- uncomment the line below to enable PWA  -->
     <!-- <link rel="manifest" href="manifest.json" /> -->
 
+
     <link
       rel="apple-touch-icon"
       sizes="180x180"
@@ -145,7 +146,7 @@
     />
   </head>
   <body>
-    <header class="header">
+    <!-- <header class="header">
       <div class="header__opacityDiv"></div>
       <h1 class="header__title">Kanban</h1>
       <form class="header__form">
@@ -159,15 +160,25 @@
         <button class="header__button" value="doing">Doing</button>
         <button class="header__button" value="done">Done</button>
       </nav>
-      <!-- <select name="tasks" class="header__nav filter--task">
-        <option value="todo">Todo</option>
-        <option value="doing">Doing</option>
-        <option value="done">Done</option>
-      </select> -->
+    </header> -->
+    <header class="header">
+      <nav class="nav">
+      <button class="hamburger hamburger--squeeze" type="button">
+        <span class="hamburger-box">
+          <span class="hamburger-inner"></span>
+        </span>
+      </button>
+      </nav>
     </header>
+    <main class="main">
+      <h1 class="main__title">Good <span>morning</span>,<br> User</h1>
+      <section class="category">
+        <h2 class="category__headline">CATEGORY</h2>
+      </section>
     <section class="taskSection">
       <ul class="taskSection__list taskList">
       </ul>
     </section>
+    </main>
   </body>
 </html>
