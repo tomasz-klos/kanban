@@ -35,5 +35,56 @@ body {
     font-size: 1rem;
     font-weight: 400;
   }
-
+  &__button {
+    border: none;
+    background: none;
+    width: 39px;
+    height: 34px;
+    padding: 0;
+  }
+  &__image {
+    pointer-events: none;
+  }
+  &__work {
+    background: $darkRed;
+  }
+  &__title {
+    margin-bottom: 50px;
+  }
+  &__swiperDiv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+  }
+  &__paragraph {
+    font-size: 12px;
+  }
+  &__personal {
+    background: $vivitBlue;
+  }
+  &__learning {
+    background: $green;
+  }
 }
+
+.swiper-container {
+  width: 700px;
+  height: 150px;
+}
+
+.swiper-wrapper {
+  display: flex;
+}
+
+.swiper-slide {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 20px;
+  width: 180px;
+  height: 120px;
+  border-radius: 20px;
+  padding: 16px;
+}
+

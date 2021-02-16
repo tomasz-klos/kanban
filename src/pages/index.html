@@ -20,7 +20,6 @@
     <!-- uncomment the line below to enable PWA  -->
     <!-- <link rel="manifest" href="manifest.json" /> -->
 
-
     <link
       rel="apple-touch-icon"
       sizes="180x180"
@@ -163,22 +162,68 @@
     </header> -->
     <header class="header">
       <nav class="nav">
-      <button class="hamburger hamburger--squeeze" type="button">
-        <span class="hamburger-box">
-          <span class="hamburger-inner"></span>
-        </span>
-      </button>
+        <button class="hamburger hamburger--squeeze" type="button">
+          <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+          </span>
+        </button>
       </nav>
     </header>
     <main class="main">
-      <h1 class="main__title">Good <span>morning</span>,<br> User</h1>
+      <h1 class="main__title">
+        Good <span>morning</span>,<br />
+        User
+      </h1>
       <section class="category">
         <h2 class="category__headline">CATEGORY</h2>
+        <div class="swiper-container">
+          <!-- Additional required wrapper -->
+          <div class="swiper-wrapper">
+            <!-- Slides -->
+            <div class="swiper-slide category__work">
+              <p class="category__title">WORK</p>
+              <div class="category__swiperDiv">
+                <p class="category__paragraph">3/5 tasks</p>
+                <button class="category__button">
+                  <img
+                    class="category__image"
+                    src="../assets/img/buttonArrow.svg"
+                  />
+                </button>
+              </div>
+            </div>
+            <div class="swiper-slide category__personal"> <p class="category__title">PERSONAL</p>
+              <div class="category__swiperDiv">
+                <p class="category__paragraph">3/5 tasks</p>
+                <button class="category__button">
+                  <img
+                    class="category__image"
+                    src="../assets/img/buttonArrow.svg"
+                  />
+                </button>
+              </div></div>
+            <div class="swiper-slide category__learning"> <p class="category__title">LEARNING</p>
+              <div class="category__swiperDiv">
+                <p class="category__paragraph">3/5 tasks</p>
+                <button class="category__button">
+                  <img
+                    class="category__image"
+                    src="../assets/img/buttonArrow.svg"
+                  />
+                </button>
+              </div></div>
+          </div>
+          <!-- If we need pagination -->
+          <div class="swiper-pagination"></div>
+
+          <!-- If we need scrollbar -->
+          <!-- <div class="swiper-scrollbar"></div> -->
+        </div>
       </section>
-    <section class="taskSection">
-      <ul class="taskSection__list taskList">
-      </ul>
-    </section>
+      <section class="taskSection">
+        <h2 class="taskSection__headline">PRIORITY TASKS</h2>
+        <ul class="taskSection__list taskList"></ul>
+      </section>
     </main>
   </body>
 </html>

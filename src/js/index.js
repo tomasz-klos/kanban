@@ -1,5 +1,13 @@
 import "../scss/main.scss";
 
+//////////////// Import SWIPERJS
+
+import Swiper from "swiper/bundle";
+
+// init Swiper:
+
+////
+
 // uncomment the lines below to enable PWA
 // import {registerSW} from './pwa.js';
 // registerSW();
@@ -16,10 +24,10 @@ const taskFilter = document.querySelector(".filter--task");
 
 document.addEventListener("DOMContentLoaded", getTask);
 document.addEventListener("DOMContentLoaded", filterTask);
-taskButton.addEventListener("click", addTask);
+// taskButton.addEventListener("click", addTask);
 taskList.addEventListener("click", deleteTask);
 taskList.addEventListener("click", completeTask);
-taskFilter.addEventListener("click", filterTask);
+// taskFilter.addEventListener("click", filterTask);
 
 ///////////// Functions
 
@@ -27,11 +35,6 @@ function addTask(event) {
   event.preventDefault();
   const taskDiv = document.createElement("div");
   taskDiv.classList.add("taskSection__div");
-  const newTask = document.createElement("li");
-  newTask.innerText = taskInput.value;
-  newTask.classList.add("taskItem");
-  taskDiv.appendChild(newTask);
-
   ////////// Completed button
   const completedButton = document.createElement("button");
   completedButton.innerHTML =
@@ -39,12 +42,17 @@ function addTask(event) {
   completedButton.classList.add("completeButton");
   taskDiv.appendChild(completedButton);
 
+  const newTask = document.createElement("li");
+  newTask.innerText = taskInput.value;
+  newTask.classList.add("taskItem");
+  taskDiv.appendChild(newTask);
+
   ////////// Delete button
-  const deleteButton = document.createElement("button");
-  deleteButton.innerHTML =
-    '<img class="trash" src="https://raw.githubusercontent.com/tomasz-klos/kanban/d1dc6f3b939beba0441e0fd42ebde29dfb933890/src/assets/img/trash.svg">';
-  deleteButton.classList.add("deleteButton");
-  taskDiv.appendChild(deleteButton);
+  // const deleteButton = document.createElement("button");
+  // deleteButton.innerHTML =
+  //   '<img class="trash" src="https://raw.githubusercontent.com/tomasz-klos/kanban/d1dc6f3b939beba0441e0fd42ebde29dfb933890/src/assets/img/trash.svg">';
+  // deleteButton.classList.add("deleteButton");
+  // taskDiv.appendChild(deleteButton);
 
   ////////// Add div to list
   taskList.appendChild(taskDiv);
@@ -134,7 +142,7 @@ function saveTasksInLocalStorage(task) {
   }
   tasks.push(task);
   localStorage.setItem("tasks", JSON.stringify(tasks));
-};
+}
 
 function getTask() {
   let tasks;
@@ -146,31 +154,31 @@ function getTask() {
   tasks.forEach(function (task) {
     const taskDiv = document.createElement("div");
     taskDiv.classList.add("taskSection__div");
-    const newTask = document.createElement("li");
-    newTask.innerText = task;
-    newTask.classList.add("taskItem");
-    taskDiv.appendChild(newTask);
-
     ////////// Completed button
     const completedButton = document.createElement("button");
     completedButton.innerHTML =
       '<img class="checkmark" src="https://raw.githubusercontent.com/tomasz-klos/kanban/b422b9c55237de332b0bd145aa63e29bac444d9e/src/assets/img/Checkmark.svg">';
     completedButton.classList.add("completeButton");
     taskDiv.appendChild(completedButton);
+    ///////// Create & add list to div
+    const newTask = document.createElement("li");
+    newTask.innerText = task;
+    newTask.classList.add("taskItem");
+    taskDiv.appendChild(newTask);
 
     ////////// Delete button
-    const deleteButton = document.createElement("button");
-    deleteButton.innerHTML =
-      '<img class="trash" src="https://raw.githubusercontent.com/tomasz-klos/kanban/d1dc6f3b939beba0441e0fd42ebde29dfb933890/src/assets/img/trash.svg">';
-    deleteButton.classList.add("deleteButton");
-    taskDiv.appendChild(deleteButton);
+    // const deleteButton = document.createElement("button");
+    // deleteButton.innerHTML =
+    //   '<img class="trash" src="https://raw.githubusercontent.com/tomasz-klos/kanban/d1dc6f3b939beba0441e0fd42ebde29dfb933890/src/assets/img/trash.svg">';
+    // deleteButton.classList.add("deleteButton");
+    // taskDiv.appendChild(deleteButton);
 
     ////////// Add div to list
     taskList.appendChild(taskDiv);
   });
-};
+}
 
-function removeTasksFromLocalStorage(task){
+function removeTasksFromLocalStorage(task) {
   let tasks;
   if (localStorage.getItem("tasks") === null) {
     tasks = [];
@@ -180,4 +188,18 @@ function removeTasksFromLocalStorage(task){
   const taskIndex = task.children[0].innerText;
   tasks.splice(tasks.indexOf(taskIndex), 1);
   localStorage.setItem("tasks", JSON.stringify(tasks));
-};
+}
+
+//// Init SwiperJS
+
+const swiper = new Swiper(".swiper-container", {
+  // Optional parameters
+  direction: "horizontal",
+  centeredSlides: true,
+  slidesPerView: "auto",
+  loop: false,
+  pagination: {
+    el: ".swiper-pagination",
+    clickable: true,
+  },
+});
