@@ -1,0 +1,49 @@
+.addTaskSection {
+  width: 100%;
+  min-height: 100vh;
+  display: none;
+  flex-direction: column;
+  background: $lightBlue;
+  z-index: 220;
+  &__title {
+    font-size: 2rem;
+    padding: 0 20px;
+  }
+  &__typeTask {
+    padding: 0 20px;
+    color: $headline;
+    font-size: 1rem;
+    font-weight: 400;
+  }
+  &__category {
+    padding: 0 20px;
+    color: $headline;
+    font-size: 1rem;
+    font-weight: 400;
+  }
+  &__buttonBack {
+    border: none;
+    background: none;
+    display: flex;
+    padding: 35px 20px 0 20px;
+  }
+  &__createButton {
+      border-radius: 10px;
+      border: none;
+      background: $headline;
+      color: $lightBlue;
+      font-size: 1.5rem;
+      padding: 10px 0;
+      margin: 0 20px;
+
+  }
+}
+
+.buttonDiv {
+  padding: 0 20px;
+}
+
+.categoryDiv {
+  padding: 0 20px;
+  margin-bottom: 50px;
+}

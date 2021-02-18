@@ -4,6 +4,7 @@
 @import "modules/hello.scss";
 @import "modules/header.scss";
 @import "modules/task.scss";
+@import "modules/addTaskSection.scss";
 @import "hamburgers/hamburgers.scss";
 
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
@@ -23,8 +24,14 @@ body {
   flex-direction: column;
   width: 100%;
   overflow: hidden;
+  z-index: 200;
   &__title {
     padding: 0 20px;
+  }
+  &__button {
+    height: 50px;
+    border: none;
+    color: $lightBlue;
   }
 }
 
@@ -35,6 +42,7 @@ body {
     color: $headline;
     font-size: 1rem;
     font-weight: 400;
+    margin: 20px 0;
   }
   &__button {
     border: none;
@@ -89,4 +97,8 @@ body {
   padding: 16px;
 }
 
+.open-section {
+  display: flex;
+  position: absolute;
+}
 

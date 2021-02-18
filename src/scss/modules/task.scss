@@ -1,4 +1,4 @@
-.taskSection {
+.priorityTask {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -21,6 +21,7 @@
     color: $headline;
     font-size: 1rem;
     font-weight: 400;
+    margin: 20px 0;
   }
 }
 

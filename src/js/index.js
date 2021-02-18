@@ -20,26 +20,32 @@ const taskButton = document.querySelector(".taskButton");
 const taskList = document.querySelector(".taskList");
 const taskFilter = document.querySelector(".filter--task");
 const spanWord = document.querySelector(".change--word");
+const buttonAddTask = document.querySelector(".addTask--js");
+const addTaskSection = document.querySelector(".addTaskSection");
+const buttonBack = document.querySelector(".buttonBack--js");
+const mainSection = document.querySelector(".main--js");
 
 const time = new Date().toLocaleTimeString().slice(0, 2);
 
-console.log(time);
+
+changeWord();
 
 ///////////// Event Listeners
 
 document.addEventListener("DOMContentLoaded", getTask);
-document.addEventListener("DOMContentLoaded", changeWord);
-// taskButton.addEventListener("click", addTask);
+taskButton.addEventListener("click", addTask);
 taskList.addEventListener("click", deleteTask);
 taskList.addEventListener("click", completeTask);
 // taskFilter.addEventListener("click", filterTask);
+buttonAddTask.addEventListener("click", openSectionCreateTask);
+buttonBack.addEventListener("click", closeSectionCreateTask);
 
 ///////////// Functions
 
 function addTask(event) {
   event.preventDefault();
   const taskDiv = document.createElement("div");
-  taskDiv.classList.add("taskSection__div");
+  taskDiv.classList.add("priorityTask__div");
   ////////// Completed button
   const completedButton = document.createElement("button");
   completedButton.innerHTML =
@@ -158,7 +164,7 @@ function getTask() {
   }
   tasks.forEach(function (task) {
     const taskDiv = document.createElement("div");
-    taskDiv.classList.add("taskSection__div");
+    taskDiv.classList.add("priorityTask__div");
     ////////// Completed button
     const completedButton = document.createElement("button");
     completedButton.innerHTML =
@@ -196,16 +202,28 @@ function removeTasksFromLocalStorage(task) {
 }
 
 function changeWord(){
-  if (time >= 6 && time <= 12){
+  if (time >= 6 && time < 12){
     spanWord.innerHTML = 'morning';
-  } else if (time >= 12 && time <= 18){
+  } else if (time >= 12 && time < 18){
     spanWord.innerHTML = 'afternoon';
-  } else if (time >= 18 && time <= 24){
+  } else if (time >= 18 && time < 24){
     spanWord.innerHTML = 'evening';
-  } else {
+  } else if (time >= 0 && time < 6) {
     spanWord.innerHTML = 'night';
   }
 };
+
+
+function openSectionCreateTask(){
+  addTaskSection.classList.add("open-section");
+  mainSection.style.display = 'none';
+};
+
+function closeSectionCreateTask(){
+  addTaskSection.classList.remove("open-section");
+  mainSection.style.display = 'flex';
+};
+
 
 //// Init SwiperJS
 
