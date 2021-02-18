@@ -19,11 +19,16 @@ const taskInput = document.querySelector(".taskInput");
 const taskButton = document.querySelector(".taskButton");
 const taskList = document.querySelector(".taskList");
 const taskFilter = document.querySelector(".filter--task");
+const spanWord = document.querySelector(".change--word");
+
+const time = new Date().toLocaleTimeString().slice(0, 2);
+
+console.log(time);
 
 ///////////// Event Listeners
 
 document.addEventListener("DOMContentLoaded", getTask);
-document.addEventListener("DOMContentLoaded", filterTask);
+document.addEventListener("DOMContentLoaded", changeWord);
 // taskButton.addEventListener("click", addTask);
 taskList.addEventListener("click", deleteTask);
 taskList.addEventListener("click", completeTask);
@@ -190,16 +195,26 @@ function removeTasksFromLocalStorage(task) {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
+function changeWord(){
+  if (time >= 6 && time <= 12){
+    spanWord.innerHTML = 'morning';
+  } else if (time >= 12 && time <= 18){
+    spanWord.innerHTML = 'afternoon';
+  } else if (time >= 18 && time <= 24){
+    spanWord.innerHTML = 'evening';
+  } else {
+    spanWord.innerHTML = 'night';
+  }
+};
+
 //// Init SwiperJS
 
 const swiper = new Swiper(".swiper-container", {
   // Optional parameters
   direction: "horizontal",
-  centeredSlides: true,
-  slidesPerView: "auto",
-  loop: false,
+  slidesPerView: 1.8,
   pagination: {
-    el: ".swiper-pagination",
+    el: '.swiper-pagination',
     clickable: true,
   },
 });
