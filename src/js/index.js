@@ -21,14 +21,22 @@ const taskList = document.querySelector(".taskList");
 const taskFilter = document.querySelector(".filter--task");
 const spanWord = document.querySelector(".change--word");
 const buttonAddTask = document.querySelector(".addTask--js");
-const addTaskSection = document.querySelector(".addTaskSection");
+const addTaskSection = document.querySelector(".addTaskSection--js");
+const workCategorySection = document.querySelector(".workCategorySection--js");
+const personalCategorySection = document.querySelector(".personalCategorySection--js");
+const learningCategorySection = document.querySelector(".learningCategorySection--js");
 const buttonBack = document.querySelector(".buttonBack--js");
+const buttonBackWork = document.querySelector(".buttonBackWork--js");
+const buttonBackPersonal = document.querySelector(".buttonBackPersonal--js");
+const buttonBackLearning = document.querySelector(".buttonBackLearning--js");
 const mainSection = document.querySelector(".main--js");
+const workButton = document.querySelector(".categoryWork--js");
+const personalButton = document.querySelector(".categoryPersonal--js");
+const learningButton = document.querySelector(".categoryLearning--js");
+
 
 const time = new Date().toLocaleTimeString().slice(0, 2);
 
-
-changeWord();
 
 ///////////// Event Listeners
 
@@ -39,6 +47,15 @@ taskList.addEventListener("click", completeTask);
 // taskFilter.addEventListener("click", filterTask);
 buttonAddTask.addEventListener("click", openSectionCreateTask);
 buttonBack.addEventListener("click", closeSectionCreateTask);
+workButton.addEventListener("click", openSectionWorkCategory);
+buttonBackWork.addEventListener("click", closeSectionWorkCategory);
+buttonBackPersonal.addEventListener("click", closeSectionPersonalCategory);
+buttonBackLearning.addEventListener("click", closeSectionLearningCategory);
+personalButton.addEventListener("click", openSectionPersonalCategory);
+learningButton.addEventListener("click", openSectionLearningCategory);
+
+
+changeWord();
 
 ///////////// Functions
 
@@ -58,12 +75,12 @@ function addTask(event) {
   newTask.classList.add("taskItem");
   taskDiv.appendChild(newTask);
 
-  ////////// Delete button
-  // const deleteButton = document.createElement("button");
-  // deleteButton.innerHTML =
-  //   '<img class="trash" src="https://raw.githubusercontent.com/tomasz-klos/kanban/d1dc6f3b939beba0441e0fd42ebde29dfb933890/src/assets/img/trash.svg">';
-  // deleteButton.classList.add("deleteButton");
-  // taskDiv.appendChild(deleteButton);
+  //////// Delete button
+  const deleteButton = document.createElement("button");
+  deleteButton.innerHTML =
+    '<img class="trash" src="https://raw.githubusercontent.com/tomasz-klos/kanban/d1dc6f3b939beba0441e0fd42ebde29dfb933890/src/assets/img/trash.svg">';
+  deleteButton.classList.add("deleteButton");
+  taskDiv.appendChild(deleteButton);
 
   ////////// Add div to list
   taskList.appendChild(taskDiv);
@@ -73,6 +90,8 @@ function addTask(event) {
 
   ///////// Clear input
   taskInput.value = "";
+
+  closeSectionCreateTask();
 }
 
 function deleteTask(e) {
@@ -177,12 +196,12 @@ function getTask() {
     newTask.classList.add("taskItem");
     taskDiv.appendChild(newTask);
 
-    ////////// Delete button
-    // const deleteButton = document.createElement("button");
-    // deleteButton.innerHTML =
-    //   '<img class="trash" src="https://raw.githubusercontent.com/tomasz-klos/kanban/d1dc6f3b939beba0441e0fd42ebde29dfb933890/src/assets/img/trash.svg">';
-    // deleteButton.classList.add("deleteButton");
-    // taskDiv.appendChild(deleteButton);
+    //////// Delete button
+    const deleteButton = document.createElement("button");
+    deleteButton.innerHTML =
+      '<img class="trash" src="https://raw.githubusercontent.com/tomasz-klos/kanban/d1dc6f3b939beba0441e0fd42ebde29dfb933890/src/assets/img/trash.svg">';
+    deleteButton.classList.add("deleteButton");
+    taskDiv.appendChild(deleteButton);
 
     ////////// Add div to list
     taskList.appendChild(taskDiv);
@@ -221,6 +240,36 @@ function openSectionCreateTask(){
 
 function closeSectionCreateTask(){
   addTaskSection.classList.remove("open-section");
+  mainSection.style.display = 'flex';
+};
+
+function openSectionWorkCategory(){
+  workCategorySection.classList.add("open-section");
+  mainSection.style.display = 'none';
+};
+
+function closeSectionWorkCategory(){
+  workCategorySection.classList.remove("open-section");
+  mainSection.style.display = 'flex';
+};
+
+function openSectionPersonalCategory(){
+  personalCategorySection.classList.add("open-section");
+  mainSection.style.display = 'none';
+};
+
+function closeSectionPersonalCategory(){
+  personalCategorySection.classList.remove("open-section");
+  mainSection.style.display = 'flex';
+};
+
+function openSectionLearningCategory(){
+  learningCategorySection.classList.add("open-section");
+  mainSection.style.display = 'none';
+};
+
+function closeSectionLearningCategory(){
+  learningCategorySection.classList.remove("open-section");
   mainSection.style.display = 'flex';
 };
 
