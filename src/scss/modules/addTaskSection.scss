@@ -41,9 +41,45 @@
 
 .buttonDiv {
   padding: 0 20px;
+  &__priority {
+    background: #d63b3b;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+  }
+  &__normal {
+    background: #408e54;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+  }
 }
 
 .categoryDiv {
   padding: 0 20px;
   margin-bottom: 50px;
+  &__work {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: #8d1c1c;
+    font-weight: 100;
+  }
+  &__personal {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: #0030ba;
+    color: white;
+    font-weight: 200;
+  }
+  &__learning {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: #219653;
+    color: white;
+  }
 }

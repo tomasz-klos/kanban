@@ -33,6 +33,7 @@ const mainSection = document.querySelector(".main--js");
 const workButton = document.querySelector(".categoryWork--js");
 const personalButton = document.querySelector(".categoryPersonal--js");
 const learningButton = document.querySelector(".categoryLearning--js");
+const categoryDiv = document.querySelector(".categoryDiv--js");
 
 
 const time = new Date().toLocaleTimeString().slice(0, 2);
@@ -112,7 +113,7 @@ function completeTask(e) {
 }
 
 // function filterTask(e){
-//     const tasks = taskList.childNodes;
+//     const tasks = categoryDiv.childNodes;
 //     console.log(tasks);
 //     tasks.forEach(function(task){
 //         console.log(typeof task);
