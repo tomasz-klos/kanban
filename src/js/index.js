@@ -9,7 +9,7 @@ import Swiper from "swiper/bundle";
 ////
 
 // uncomment the lines below to enable PWA
-import {registerSW} from './pwa.js';
+import { registerSW } from "./pwa.js";
 registerSW();
 
 /* place your code below */
@@ -23,8 +23,12 @@ const spanWord = document.querySelector(".change--word");
 const buttonAddTask = document.querySelector(".addTask--js");
 const addTaskSection = document.querySelector(".addTaskSection--js");
 const workCategorySection = document.querySelector(".workCategorySection--js");
-const personalCategorySection = document.querySelector(".personalCategorySection--js");
-const learningCategorySection = document.querySelector(".learningCategorySection--js");
+const personalCategorySection = document.querySelector(
+  ".personalCategorySection--js"
+);
+const learningCategorySection = document.querySelector(
+  ".learningCategorySection--js"
+);
 const buttonBack = document.querySelector(".buttonBack--js");
 const buttonBackWork = document.querySelector(".buttonBackWork--js");
 const buttonBackPersonal = document.querySelector(".buttonBackPersonal--js");
@@ -35,9 +39,7 @@ const personalButton = document.querySelector(".categoryPersonal--js");
 const learningButton = document.querySelector(".categoryLearning--js");
 const categoryDiv = document.querySelector(".categoryDiv--js");
 
-
 const time = new Date().toLocaleTimeString().slice(0, 2);
-
 
 ///////////// Event Listeners
 
@@ -55,36 +57,87 @@ buttonBackLearning.addEventListener("click", closeSectionLearningCategory);
 personalButton.addEventListener("click", openSectionPersonalCategory);
 learningButton.addEventListener("click", openSectionLearningCategory);
 
-
 changeWord();
 
 ///////////// Functions
 
 function addTask(event) {
   event.preventDefault();
-  const taskDiv = document.createElement("div");
-  taskDiv.classList.add("priorityTask__div");
-  ////////// Completed button
-  const completedButton = document.createElement("button");
-  completedButton.innerHTML =
-    '<img class="checkmark" src="https://raw.githubusercontent.com/tomasz-klos/kanban/b422b9c55237de332b0bd145aa63e29bac444d9e/src/assets/img/Checkmark.svg">';
-  completedButton.classList.add("completeButton");
-  taskDiv.appendChild(completedButton);
+  const tasks = categoryDiv.childNodes;
+  console.log(tasks);
+  tasks.forEach(function (task) {
+    console.log(typeof task);
+    const taskDiv = document.createElement("div");
+    const completedButton = document.createElement("button");
+    const newTask = document.createElement("li");
+    const deleteButton = document.createElement("button");
+    console.log(event.target.value);
+    switch (event.target.value) {
+      case "work":
+        taskDiv.classList.add("priorityTask__div");
+        ////////// Completed button
+        completedButton.innerHTML =
+          '<img class="checkmark" src="https://raw.githubusercontent.com/tomasz-klos/kanban/b422b9c55237de332b0bd145aa63e29bac444d9e/src/assets/img/Checkmark.svg">';
+        completedButton.classList.add("completeButton");
+        taskDiv.appendChild(completedButton);
 
-  const newTask = document.createElement("li");
-  newTask.innerText = taskInput.value;
-  newTask.classList.add("taskItem");
-  taskDiv.appendChild(newTask);
+        newTask.innerText = taskInput.value;
+        newTask.classList.add("taskItem");
+        taskDiv.appendChild(newTask);
 
-  //////// Delete button
-  const deleteButton = document.createElement("button");
-  deleteButton.innerHTML =
-    '<img class="trash" src="https://raw.githubusercontent.com/tomasz-klos/kanban/d1dc6f3b939beba0441e0fd42ebde29dfb933890/src/assets/img/trash.svg">';
-  deleteButton.classList.add("deleteButton");
-  taskDiv.appendChild(deleteButton);
+        //////// Delete button
+        deleteButton.innerHTML =
+          '<img class="trash" src="https://raw.githubusercontent.com/tomasz-klos/kanban/d1dc6f3b939beba0441e0fd42ebde29dfb933890/src/assets/img/trash.svg">';
+        deleteButton.classList.add("deleteButton");
+        taskDiv.appendChild(deleteButton);
 
-  ////////// Add div to list
-  taskList.appendChild(taskDiv);
+        ////////// Add div to list
+        taskList.appendChild(taskDiv);
+        break;
+      case "personal":
+        taskDiv.classList.add("priorityTask__div");
+        ////////// Completed button
+        completedButton.innerHTML =
+          '<img class="checkmark" src="https://raw.githubusercontent.com/tomasz-klos/kanban/b422b9c55237de332b0bd145aa63e29bac444d9e/src/assets/img/Checkmark.svg">';
+        completedButton.classList.add("completeButton");
+        taskDiv.appendChild(completedButton);
+
+        newTask.innerText = taskInput.value;
+        newTask.classList.add("taskItem");
+        taskDiv.appendChild(newTask);
+
+        //////// Delete button
+        deleteButton.innerHTML =
+          '<img class="trash" src="https://raw.githubusercontent.com/tomasz-klos/kanban/d1dc6f3b939beba0441e0fd42ebde29dfb933890/src/assets/img/trash.svg">';
+        deleteButton.classList.add("deleteButton");
+        taskDiv.appendChild(deleteButton);
+
+        ////////// Add div to list
+        taskList.appendChild(taskDiv);
+        break;
+      case "learning":
+        taskDiv.classList.add("priorityTask__div");
+        ////////// Completed button
+        completedButton.innerHTML =
+          '<img class="checkmark" src="https://raw.githubusercontent.com/tomasz-klos/kanban/b422b9c55237de332b0bd145aa63e29bac444d9e/src/assets/img/Checkmark.svg">';
+        completedButton.classList.add("completeButton");
+        taskDiv.appendChild(completedButton);
+
+        newTask.innerText = taskInput.value;
+        newTask.classList.add("taskItem");
+        taskDiv.appendChild(newTask);
+
+        //////// Delete button
+        deleteButton.innerHTML =
+          '<img class="trash" src="https://raw.githubusercontent.com/tomasz-klos/kanban/d1dc6f3b939beba0441e0fd42ebde29dfb933890/src/assets/img/trash.svg">';
+        deleteButton.classList.add("deleteButton");
+        taskDiv.appendChild(deleteButton);
+
+        ////////// Add div to list
+        taskList.appendChild(taskDiv);
+        break;
+    }
+  });
 
   ////////// Add tasks to Local Storage
   saveTasksInLocalStorage(taskInput.value);
@@ -221,59 +274,57 @@ function removeTasksFromLocalStorage(task) {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
-function changeWord(){
-  if (time >= 6 && time < 12){
-    spanWord.innerHTML = 'morning';
-  } else if (time >= 12 && time < 18){
-    spanWord.innerHTML = 'afternoon';
-  } else if (time >= 18 && time < 24){
-    spanWord.innerHTML = 'evening';
+function changeWord() {
+  if (time >= 6 && time < 12) {
+    spanWord.innerHTML = "morning";
+  } else if (time >= 12 && time < 18) {
+    spanWord.innerHTML = "afternoon";
+  } else if (time >= 18 && time < 24) {
+    spanWord.innerHTML = "evening";
   } else if (time >= 0 && time < 6) {
-    spanWord.innerHTML = 'night';
+    spanWord.innerHTML = "night";
   }
-};
+}
 
-
-function openSectionCreateTask(){
+function openSectionCreateTask() {
   addTaskSection.classList.add("open-section");
-  mainSection.style.display = 'none';
-};
+  mainSection.style.display = "none";
+}
 
-function closeSectionCreateTask(){
+function closeSectionCreateTask() {
   addTaskSection.classList.remove("open-section");
-  mainSection.style.display = 'flex';
-};
+  mainSection.style.display = "flex";
+}
 
-function openSectionWorkCategory(){
+function openSectionWorkCategory() {
   workCategorySection.classList.add("open-section");
-  mainSection.style.display = 'none';
-};
+  mainSection.style.display = "none";
+}
 
-function closeSectionWorkCategory(){
+function closeSectionWorkCategory() {
   workCategorySection.classList.remove("open-section");
-  mainSection.style.display = 'flex';
-};
+  mainSection.style.display = "flex";
+}
 
-function openSectionPersonalCategory(){
+function openSectionPersonalCategory() {
   personalCategorySection.classList.add("open-section");
-  mainSection.style.display = 'none';
-};
+  mainSection.style.display = "none";
+}
 
-function closeSectionPersonalCategory(){
+function closeSectionPersonalCategory() {
   personalCategorySection.classList.remove("open-section");
-  mainSection.style.display = 'flex';
-};
+  mainSection.style.display = "flex";
+}
 
-function openSectionLearningCategory(){
+function openSectionLearningCategory() {
   learningCategorySection.classList.add("open-section");
-  mainSection.style.display = 'none';
-};
+  mainSection.style.display = "none";
+}
 
-function closeSectionLearningCategory(){
+function closeSectionLearningCategory() {
   learningCategorySection.classList.remove("open-section");
-  mainSection.style.display = 'flex';
-};
-
+  mainSection.style.display = "flex";
+}
 
 //// Init SwiperJS
 
@@ -282,7 +333,7 @@ const swiper = new Swiper(".swiper-container", {
   direction: "horizontal",
   slidesPerView: 1.8,
   pagination: {
-    el: '.swiper-pagination',
+    el: ".swiper-pagination",
     clickable: true,
   },
 });
