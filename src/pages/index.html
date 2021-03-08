@@ -1,96 +1,233 @@
-<!DOCTYPE html><html lang="en"><head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kanban</title>
-    <meta name="description" content="To do list app - kanban">
+    <meta name="description" content="To do list app - kanban" />
     <!-- Title -->
-    <meta property="og:title" content="Kanban">
+    <meta property="og:title" content="Kanban" />
     <!-- OPTIONAL description. 2-4 sentences. -->
-    <meta property="og:description" content="To do list app - kanban">
+    <meta property="og:description" content="To do list app - kanban" />
     <!-- full url with http(s) ie. https://maciejkorsan.github.io/my-repo/ -->
-    <meta property="og:url" content="https://tomasz-klos.github.io/kanban/">
+    <meta property="og:url" content="https://tomasz-klos.github.io/kanban/" />
     <!-- full url to the image with http(s) ie. https://maciejkorsan.github.io/my-repo/assets/img/fb.png. Facebook suggests at least 1200 x 630. -->
-    <meta property="og:image" content="https://maciejkorsan.com/wtf-gulp-starter/assets/img/cover.png">
+    <meta
+      property="og:image"
+      content="https://maciejkorsan.com/wtf-gulp-starter/assets/img/cover.png"
+    />
 
     <!-- uncomment the line below to enable PWA  -->
     <link rel="manifest" href="manifest.json" />
 
-  <link rel="apple-touch-icon" href="pwa/apple-icon-180.png">
+    <link rel="apple-touch-icon" href="pwa/apple-icon-180.png" />
 
-<meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
 
-<link rel="apple-touch-startup-image" href="pwa/apple-splash-2048-2732.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
-<link rel="apple-touch-startup-image" href="pwa/apple-splash-2732-2048.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
-<link rel="apple-touch-startup-image" href="pwa/apple-splash-1668-2388.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
-<link rel="apple-touch-startup-image" href="pwa/apple-splash-2388-1668.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
-<link rel="apple-touch-startup-image" href="pwa/apple-splash-1536-2048.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
-<link rel="apple-touch-startup-image" href="pwa/apple-splash-2048-1536.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
-<link rel="apple-touch-startup-image" href="pwa/apple-splash-1668-2224.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
-<link rel="apple-touch-startup-image" href="pwa/apple-splash-2224-1668.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
-<link rel="apple-touch-startup-image" href="pwa/apple-splash-1620-2160.png" media="(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
-<link rel="apple-touch-startup-image" href="pwa/apple-splash-2160-1620.png" media="(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
-<link rel="apple-touch-startup-image" href="pwa/apple-splash-1284-2778.png" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
-<link rel="apple-touch-startup-image" href="pwa/apple-splash-2778-1284.png" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)">
-<link rel="apple-touch-startup-image" href="pwa/apple-splash-1170-2532.png" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
-<link rel="apple-touch-startup-image" href="pwa/apple-splash-2532-1170.png" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)">
-<link rel="apple-touch-startup-image" href="pwa/apple-splash-1125-2436.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
-<link rel="apple-touch-startup-image" href="pwa/apple-splash-2436-1125.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)">
-<link rel="apple-touch-startup-image" href="pwa/apple-splash-1242-2688.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
-<link rel="apple-touch-startup-image" href="pwa/apple-splash-2688-1242.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)">
-<link rel="apple-touch-startup-image" href="pwa/apple-splash-828-1792.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
-<link rel="apple-touch-startup-image" href="pwa/apple-splash-1792-828.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
-<link rel="apple-touch-startup-image" href="pwa/apple-splash-1242-2208.png" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
-<link rel="apple-touch-startup-image" href="pwa/apple-splash-2208-1242.png" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)">
-<link rel="apple-touch-startup-image" href="pwa/apple-splash-750-1334.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
-<link rel="apple-touch-startup-image" href="pwa/apple-splash-1334-750.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
-<link rel="apple-touch-startup-image" href="pwa/apple-splash-640-1136.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
-<link rel="apple-touch-startup-image" href="pwa/apple-splash-1136-640.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
-
-</head>
+    <link
+      rel="apple-touch-startup-image"
+      href="pwa/apple-splash-2048-2732.png"
+      media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="pwa/apple-splash-2732-2048.png"
+      media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="pwa/apple-splash-1668-2388.png"
+      media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="pwa/apple-splash-2388-1668.png"
+      media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="pwa/apple-splash-1536-2048.png"
+      media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="pwa/apple-splash-2048-1536.png"
+      media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="pwa/apple-splash-1668-2224.png"
+      media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="pwa/apple-splash-2224-1668.png"
+      media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="pwa/apple-splash-1620-2160.png"
+      media="(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="pwa/apple-splash-2160-1620.png"
+      media="(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="pwa/apple-splash-1284-2778.png"
+      media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="pwa/apple-splash-2778-1284.png"
+      media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="pwa/apple-splash-1170-2532.png"
+      media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="pwa/apple-splash-2532-1170.png"
+      media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="pwa/apple-splash-1125-2436.png"
+      media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="pwa/apple-splash-2436-1125.png"
+      media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="pwa/apple-splash-1242-2688.png"
+      media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="pwa/apple-splash-2688-1242.png"
+      media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="pwa/apple-splash-828-1792.png"
+      media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="pwa/apple-splash-1792-828.png"
+      media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="pwa/apple-splash-1242-2208.png"
+      media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="pwa/apple-splash-2208-1242.png"
+      media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="pwa/apple-splash-750-1334.png"
+      media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="pwa/apple-splash-1334-750.png"
+      media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="pwa/apple-splash-640-1136.png"
+      media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="pwa/apple-splash-1136-640.png"
+      media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+    />
+  </head>
   <body>
     <div class="addTaskSection addTaskSection--js">
       <button class="addTaskSection__buttonBack buttonBack--js">
-        <img src="../assets/img/buttonBack.svg" alt="">
+        <img src="../assets/img/buttonBack.svg" alt="" />
       </button>
       <p class="addTaskSection__title">Create new task</p>
       <form class="header__form">
-        <input type="text" class="header__input taskInput" placeholder="task title">
+        <input
+          type="text"
+          class="header__input taskInput"
+          placeholder="task title"
+        />
         <button class="header__buttonAdd"></button>
       </form>
-      <p class="addTaskSection__typeTask">TYPE TASK</p>
-      <div class="buttonDiv">
+      <label class="addTaskSection__typeTask">TYPE TASK</label>
+      <select class="typeTaskSelect--js" name="typeTask" id="typeTask">
+        <option value="priority">PRIORITY</option>
+        <option value="normal">NORMAL</option>
+      </select>
+      <!-- To remove -->
+      <!-- <div class="buttonDiv">
         <button class="buttonDiv__priority">PRIORITY</button>
         <button class="buttonDiv__normal">NORMAL</button>
-      </div>
-      <p class="addTaskSection__category">CATEGORY</p>
-      <div class="categoryDiv categoryDiv--js">
+      </div> -->
+
+      <label class="addTaskSection__category">CATEGORY</label>
+      <select class="categoryTask--js" name="categoryTask" id="categoryTask">
+        <option value="work">WORK</option>
+        <option value="personal">PERSONAL</option>
+        <option value="learning">LEARNING</option>
+      </select>
+      <!-- <div class="categoryDiv categoryDiv--js">
         <button class="categoryDiv__work work--js" value="work">WORK</button>
-        <button class="categoryDiv__personal personal--js" value="personal">PERSONAL</button>
-        <button class="categoryDiv__learning learning--js" value="learning">LEARNING</button>
-      </div>
-      <button class="addTaskSection__createButton taskButton">Create Task</button>
+        <button class="categoryDiv__personal personal--js" value="personal">
+          PERSONAL
+        </button>
+        <button class="categoryDiv__learning learning--js" value="learning">
+          LEARNING
+        </button>
+      </div> -->
+      <button class="addTaskSection__createButton taskButton">
+        Create Task
+      </button>
     </div>
-    
     <div class="workCategorySection workCategorySection--js">
       <button class="workCategorySection__buttonBack buttonBackWork--js">
-        <img src="../assets/img/buttonBack.svg" alt="">
+        <img src="../assets/img/buttonBack.svg" alt="" />
       </button>
       <p class="workCategorySection__title">Work</p>
       <p class="addTaskSection__typeTask">TASK</p>
+      <div class="workCategorySection__listDiv">
+        <ul class="workCategorySection__ul workTask--js"></ul>
+      </div>
     </div>
     <div class="personalCategorySection personalCategorySection--js">
       <button class="workCategorySection__buttonBack buttonBackPersonal--js">
-        <img src="../assets/img/buttonBack.svg" alt="">
+        <img src="../assets/img/buttonBack.svg" alt="" />
       </button>
       <p class="workCategorySection__title">Personal</p>
       <p class="addTaskSection__typeTask">TASK</p>
+      <div class="workCategorySection__listDiv">
+        <ul class="workCategorySection__ul personalTask--js"></ul>
+      </div>
     </div>
     <div class="learningCategorySection learningCategorySection--js">
       <button class="workCategorySection__buttonBack buttonBackLearning--js">
-        <img src="../assets/img/buttonBack.svg" alt="">
+        <img src="../assets/img/buttonBack.svg" alt="" />
       </button>
       <p class="workCategorySection__title">Learning</p>
       <p class="addTaskSection__typeTask">TASK</p>
+      <div class="workCategorySection__listDiv">
+        <ul class="workCategorySection__ul learningTask--js"></ul>
+      </div>
     </div>
     <header class="header">
       <nav class="nav">
@@ -103,7 +240,7 @@
     </header>
     <main class="main main--js">
       <h1 class="main__title">
-        Good <span class="change--word"></span>,<br>
+        Good <span class="change--word"></span>,<br />
         User
       </h1>
       <button class="main__button addTask--js">Add Task</button>
@@ -118,7 +255,10 @@
               <div class="category__swiperDiv">
                 <p class="category__paragraph">3/5 tasks</p>
                 <button class="category__button categoryWork--js">
-                  <img class="category__image" src="../assets/img/buttonArrow.svg">
+                  <img
+                    class="category__image"
+                    src="../assets/img/buttonArrow.svg"
+                  />
                 </button>
               </div>
             </div>
@@ -127,7 +267,10 @@
               <div class="category__swiperDiv">
                 <p class="category__paragraph">3/5 tasks</p>
                 <button class="category__button categoryPersonal--js">
-                  <img class="category__image" src="../assets/img/buttonArrow.svg">
+                  <img
+                    class="category__image"
+                    src="../assets/img/buttonArrow.svg"
+                  />
                 </button>
               </div>
             </div>
@@ -136,7 +279,10 @@
               <div class="category__swiperDiv">
                 <p class="category__paragraph">3/5 tasks</p>
                 <button class="category__button categoryLearning--js">
-                  <img class="category__image" src="../assets/img/buttonArrow.svg">
+                  <img
+                    class="category__image"
+                    src="../assets/img/buttonArrow.svg"
+                  />
                 </button>
               </div>
             </div>
@@ -153,6 +299,5 @@
         <ul class="priorityTask__list taskList"></ul>
       </section>
     </main>
-  
-
-</body></html>
+  </body>
+</html>

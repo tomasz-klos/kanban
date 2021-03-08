@@ -39,11 +39,17 @@ const personalButton = document.querySelector(".categoryPersonal--js");
 const learningButton = document.querySelector(".categoryLearning--js");
 const categoryDiv = document.querySelector(".categoryDiv--js");
 
+const workList = document.querySelector(".workTask--js");
+  const personalList = document.querySelector(".personalTask--js");
+  const learningList = document.querySelector(".learningTask--js");
+
 const time = new Date().toLocaleTimeString().slice(0, 2);
 
 ///////////// Event Listeners
 
-document.addEventListener("DOMContentLoaded", getTask);
+document.addEventListener("DOMContentLoaded", getWorkTask);
+document.addEventListener("DOMContentLoaded", getPersonalTask);
+document.addEventListener("DOMContentLoaded", getLearningTask);
 taskButton.addEventListener("click", addTask);
 taskList.addEventListener("click", deleteTask);
 taskList.addEventListener("click", completeTask);
@@ -63,90 +69,197 @@ changeWord();
 
 function addTask(event) {
   event.preventDefault();
-  const tasks = categoryDiv.childNodes;
-  console.log(tasks);
-  tasks.forEach(function (task) {
-    console.log(typeof task);
-    const taskDiv = document.createElement("div");
-    const completedButton = document.createElement("button");
-    const newTask = document.createElement("li");
-    const deleteButton = document.createElement("button");
-    console.log(event.target.value);
-    switch (event.target.value) {
-      case "work":
-        taskDiv.classList.add("priorityTask__div");
-        ////////// Completed button
-        completedButton.innerHTML =
-          '<img class="checkmark" src="https://raw.githubusercontent.com/tomasz-klos/kanban/b422b9c55237de332b0bd145aa63e29bac444d9e/src/assets/img/Checkmark.svg">';
-        completedButton.classList.add("completeButton");
-        taskDiv.appendChild(completedButton);
+  const typeTaskInput = document.querySelector(".typeTaskSelect--js");
+  const categorySelect = document.querySelector(".categoryTask--js");
+  console.log(typeTaskInput.value);
+  const taskDiv = document.createElement("div");
+  const completedButton = document.createElement("button");
+  const newTask = document.createElement("li");
+  const deleteButton = document.createElement("button");
+  switch (categorySelect.value) {
+    case "work":
+      taskDiv.classList.add("priorityTask__div");
+      ////////// Completed button
+      completedButton.innerHTML =
+        '<img class="checkmark" src="https://raw.githubusercontent.com/tomasz-klos/kanban/b422b9c55237de332b0bd145aa63e29bac444d9e/src/assets/img/Checkmark.svg">';
+      completedButton.classList.add("completeButton");
+      taskDiv.appendChild(completedButton);
 
-        newTask.innerText = taskInput.value;
-        newTask.classList.add("taskItem");
-        taskDiv.appendChild(newTask);
+      newTask.innerText = taskInput.value;
+      newTask.classList.add("taskItem");
+      taskDiv.appendChild(newTask);
 
-        //////// Delete button
-        deleteButton.innerHTML =
-          '<img class="trash" src="https://raw.githubusercontent.com/tomasz-klos/kanban/d1dc6f3b939beba0441e0fd42ebde29dfb933890/src/assets/img/trash.svg">';
-        deleteButton.classList.add("deleteButton");
-        taskDiv.appendChild(deleteButton);
+      //////// Delete button
+      deleteButton.innerHTML =
+        '<img class="trash" src="https://raw.githubusercontent.com/tomasz-klos/kanban/d1dc6f3b939beba0441e0fd42ebde29dfb933890/src/assets/img/trash.svg">';
+      deleteButton.classList.add("deleteButton");
+      taskDiv.appendChild(deleteButton);
 
-        ////////// Add div to list
-        taskList.appendChild(taskDiv);
-        break;
-      case "personal":
-        taskDiv.classList.add("priorityTask__div");
-        ////////// Completed button
-        completedButton.innerHTML =
-          '<img class="checkmark" src="https://raw.githubusercontent.com/tomasz-klos/kanban/b422b9c55237de332b0bd145aa63e29bac444d9e/src/assets/img/Checkmark.svg">';
-        completedButton.classList.add("completeButton");
-        taskDiv.appendChild(completedButton);
+      ////////// Add div to list
+      workList.appendChild(taskDiv);
 
-        newTask.innerText = taskInput.value;
-        newTask.classList.add("taskItem");
-        taskDiv.appendChild(newTask);
+      saveWorkInLocalStorage(taskInput.value);
 
-        //////// Delete button
-        deleteButton.innerHTML =
-          '<img class="trash" src="https://raw.githubusercontent.com/tomasz-klos/kanban/d1dc6f3b939beba0441e0fd42ebde29dfb933890/src/assets/img/trash.svg">';
-        deleteButton.classList.add("deleteButton");
-        taskDiv.appendChild(deleteButton);
+      break;
+    case "personal":
+      taskDiv.classList.add("priorityTask__div");
+      ////////// Completed button
+      completedButton.innerHTML =
+        '<img class="checkmark" src="https://raw.githubusercontent.com/tomasz-klos/kanban/b422b9c55237de332b0bd145aa63e29bac444d9e/src/assets/img/Checkmark.svg">';
+      completedButton.classList.add("completeButton");
+      taskDiv.appendChild(completedButton);
 
-        ////////// Add div to list
-        taskList.appendChild(taskDiv);
-        break;
-      case "learning":
-        taskDiv.classList.add("priorityTask__div");
-        ////////// Completed button
-        completedButton.innerHTML =
-          '<img class="checkmark" src="https://raw.githubusercontent.com/tomasz-klos/kanban/b422b9c55237de332b0bd145aa63e29bac444d9e/src/assets/img/Checkmark.svg">';
-        completedButton.classList.add("completeButton");
-        taskDiv.appendChild(completedButton);
+      newTask.innerText = taskInput.value;
+      newTask.classList.add("taskItem");
+      taskDiv.appendChild(newTask);
 
-        newTask.innerText = taskInput.value;
-        newTask.classList.add("taskItem");
-        taskDiv.appendChild(newTask);
+      //////// Delete button
+      deleteButton.innerHTML =
+        '<img class="trash" src="https://raw.githubusercontent.com/tomasz-klos/kanban/d1dc6f3b939beba0441e0fd42ebde29dfb933890/src/assets/img/trash.svg">';
+      deleteButton.classList.add("deleteButton");
+      taskDiv.appendChild(deleteButton);
 
-        //////// Delete button
-        deleteButton.innerHTML =
-          '<img class="trash" src="https://raw.githubusercontent.com/tomasz-klos/kanban/d1dc6f3b939beba0441e0fd42ebde29dfb933890/src/assets/img/trash.svg">';
-        deleteButton.classList.add("deleteButton");
-        taskDiv.appendChild(deleteButton);
+      ////////// Add div to list
+      personalList.appendChild(taskDiv);
 
-        ////////// Add div to list
-        taskList.appendChild(taskDiv);
-        break;
-    }
-  });
+      savePersonalInLocalStorage(taskInput.value);
+      break;
+    case "learning":
+      taskDiv.classList.add("priorityTask__div");
+      ////////// Completed button
+      completedButton.innerHTML =
+        '<img class="checkmark" src="https://raw.githubusercontent.com/tomasz-klos/kanban/b422b9c55237de332b0bd145aa63e29bac444d9e/src/assets/img/Checkmark.svg">';
+      completedButton.classList.add("completeButton");
+      taskDiv.appendChild(completedButton);
 
-  ////////// Add tasks to Local Storage
-  saveTasksInLocalStorage(taskInput.value);
+      newTask.innerText = taskInput.value;
+      newTask.classList.add("taskItem");
+      taskDiv.appendChild(newTask);
 
-  ///////// Clear input
-  taskInput.value = "";
+      //////// Delete button
+      deleteButton.innerHTML =
+        '<img class="trash" src="https://raw.githubusercontent.com/tomasz-klos/kanban/d1dc6f3b939beba0441e0fd42ebde29dfb933890/src/assets/img/trash.svg">';
+      deleteButton.classList.add("deleteButton");
+      taskDiv.appendChild(deleteButton);
 
-  closeSectionCreateTask();
+      ////////// Add div to list
+      learningList.appendChild(taskDiv);
+
+      saveLearningInLocalStorage(taskInput.value);
+      break;
+  }
 }
+
+// const tasks = taskList.childNodes;
+// console.log(tasks);
+// for (let i = 1; i < tasks.length; i++) {
+//   const task = tasks[i];
+//   function filterByValue() {
+//     switch (e.target.value) {
+//       case "todo":
+//         if (task.classList.contains("completed")) {
+//           task.style.display = "none";
+//         } else {
+//           task.style.display = "flex";
+//         }
+//         break;
+//       case "done":
+//         if (task.classList.contains("completed")) {
+//           task.style.display = "flex";
+//         } else {
+//           task.style.display = "none";
+//         }
+//         break;
+//     }
+//   }
+// }
+
+// function addTask(event) {
+//   event.preventDefault();
+//   const tasks = categoryDiv.childNodes;
+//   console.log(tasks);
+//   tasks.forEach(function (task) {
+//     console.log(typeof task);
+//     const taskDiv = document.createElement("div");
+//     const completedButton = document.createElement("button");
+//     const newTask = document.createElement("li");
+//     const deleteButton = document.createElement("button");
+//     console.log(event.target.value);
+//   switch (event.target.value) {
+//     case "work":
+//       taskDiv.classList.add("priorityTask__div");
+//       ////////// Completed button
+//       completedButton.innerHTML =
+//         '<img class="checkmark" src="https://raw.githubusercontent.com/tomasz-klos/kanban/b422b9c55237de332b0bd145aa63e29bac444d9e/src/assets/img/Checkmark.svg">';
+//       completedButton.classList.add("completeButton");
+//       taskDiv.appendChild(completedButton);
+
+//       newTask.innerText = taskInput.value;
+//       newTask.classList.add("taskItem");
+//       taskDiv.appendChild(newTask);
+
+//       //////// Delete button
+//       deleteButton.innerHTML =
+//         '<img class="trash" src="https://raw.githubusercontent.com/tomasz-klos/kanban/d1dc6f3b939beba0441e0fd42ebde29dfb933890/src/assets/img/trash.svg">';
+//       deleteButton.classList.add("deleteButton");
+//       taskDiv.appendChild(deleteButton);
+
+//       ////////// Add div to list
+//       taskList.appendChild(taskDiv);
+//       break;
+//     case "personal":
+//       taskDiv.classList.add("priorityTask__div");
+//       ////////// Completed button
+//       completedButton.innerHTML =
+//         '<img class="checkmark" src="https://raw.githubusercontent.com/tomasz-klos/kanban/b422b9c55237de332b0bd145aa63e29bac444d9e/src/assets/img/Checkmark.svg">';
+//       completedButton.classList.add("completeButton");
+//       taskDiv.appendChild(completedButton);
+
+//       newTask.innerText = taskInput.value;
+//       newTask.classList.add("taskItem");
+//       taskDiv.appendChild(newTask);
+
+//       //////// Delete button
+//       deleteButton.innerHTML =
+//         '<img class="trash" src="https://raw.githubusercontent.com/tomasz-klos/kanban/d1dc6f3b939beba0441e0fd42ebde29dfb933890/src/assets/img/trash.svg">';
+//       deleteButton.classList.add("deleteButton");
+//       taskDiv.appendChild(deleteButton);
+
+//       ////////// Add div to list
+//       taskList.appendChild(taskDiv);
+//       break;
+//     case "learning":
+//       taskDiv.classList.add("priorityTask__div");
+//       ////////// Completed button
+//       completedButton.innerHTML =
+//         '<img class="checkmark" src="https://raw.githubusercontent.com/tomasz-klos/kanban/b422b9c55237de332b0bd145aa63e29bac444d9e/src/assets/img/Checkmark.svg">';
+//       completedButton.classList.add("completeButton");
+//       taskDiv.appendChild(completedButton);
+
+//       newTask.innerText = taskInput.value;
+//       newTask.classList.add("taskItem");
+//       taskDiv.appendChild(newTask);
+
+//       //////// Delete button
+//       deleteButton.innerHTML =
+//         '<img class="trash" src="https://raw.githubusercontent.com/tomasz-klos/kanban/d1dc6f3b939beba0441e0fd42ebde29dfb933890/src/assets/img/trash.svg">';
+//       deleteButton.classList.add("deleteButton");
+//       taskDiv.appendChild(deleteButton);
+
+//       ////////// Add div to list
+//       taskList.appendChild(taskDiv);
+//       break;
+//   }
+// });
+
+//   ////////// Add tasks to Local Storage
+//   saveTasksInLocalStorage(taskInput.value);
+
+//   ///////// Clear input
+//   taskInput.value = "";
+
+//   closeSectionCreateTask();
+// }
 
 function deleteTask(e) {
   const item = e.target;
@@ -228,12 +341,47 @@ function saveTasksInLocalStorage(task) {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
-function getTask() {
+function saveWorkInLocalStorage(task) {
   let tasks;
-  if (localStorage.getItem("tasks") === null) {
+  if (localStorage.getItem("work") === null) {
     tasks = [];
   } else {
-    tasks = JSON.parse(localStorage.getItem("tasks"));
+    tasks = JSON.parse(localStorage.getItem("work"));
+  }
+  tasks.push(task);
+  localStorage.setItem("work", JSON.stringify(tasks));
+}
+
+
+function savePersonalInLocalStorage(task) {
+  let tasks;
+  if (localStorage.getItem("personal") === null) {
+    tasks = [];
+  } else {
+    tasks = JSON.parse(localStorage.getItem("personal"));
+  }
+  tasks.push(task);
+  localStorage.setItem("personal", JSON.stringify(tasks));
+}
+
+function saveLearningInLocalStorage(task) {
+  let tasks;
+  if (localStorage.getItem("learning") === null) {
+    tasks = [];
+  } else {
+    tasks = JSON.parse(localStorage.getItem("learning"));
+  }
+  tasks.push(task);
+  localStorage.setItem("learning", JSON.stringify(tasks));
+}
+
+
+function getWorkTask() {
+  let tasks;
+  if (localStorage.getItem("work") === null) {
+    tasks = [];
+  } else {
+    tasks = JSON.parse(localStorage.getItem("work"));
   }
   tasks.forEach(function (task) {
     const taskDiv = document.createElement("div");
@@ -258,7 +406,76 @@ function getTask() {
     taskDiv.appendChild(deleteButton);
 
     ////////// Add div to list
-    taskList.appendChild(taskDiv);
+    workList.appendChild(taskDiv);
+  });
+}
+
+
+function getPersonalTask() {
+  let tasks;
+  if (localStorage.getItem("personal") === null) {
+    tasks = [];
+  } else {
+    tasks = JSON.parse(localStorage.getItem("personal"));
+  }
+  tasks.forEach(function (task) {
+    const taskDiv = document.createElement("div");
+    taskDiv.classList.add("priorityTask__div");
+    ////////// Completed button
+    const completedButton = document.createElement("button");
+    completedButton.innerHTML =
+      '<img class="checkmark" src="https://raw.githubusercontent.com/tomasz-klos/kanban/b422b9c55237de332b0bd145aa63e29bac444d9e/src/assets/img/Checkmark.svg">';
+    completedButton.classList.add("completeButton");
+    taskDiv.appendChild(completedButton);
+    ///////// Create & add list to div
+    const newTask = document.createElement("li");
+    newTask.innerText = task;
+    newTask.classList.add("taskItem");
+    taskDiv.appendChild(newTask);
+
+    //////// Delete button
+    const deleteButton = document.createElement("button");
+    deleteButton.innerHTML =
+      '<img class="trash" src="https://raw.githubusercontent.com/tomasz-klos/kanban/d1dc6f3b939beba0441e0fd42ebde29dfb933890/src/assets/img/trash.svg">';
+    deleteButton.classList.add("deleteButton");
+    taskDiv.appendChild(deleteButton);
+
+    ////////// Add div to list
+    personalList.appendChild(taskDiv);
+  });
+}
+
+function getLearningTask() {
+  let tasks;
+  if (localStorage.getItem("learning") === null) {
+    tasks = [];
+  } else {
+    tasks = JSON.parse(localStorage.getItem("learning"));
+  }
+  tasks.forEach(function (task) {
+    const taskDiv = document.createElement("div");
+    taskDiv.classList.add("priorityTask__div");
+    ////////// Completed button
+    const completedButton = document.createElement("button");
+    completedButton.innerHTML =
+      '<img class="checkmark" src="https://raw.githubusercontent.com/tomasz-klos/kanban/b422b9c55237de332b0bd145aa63e29bac444d9e/src/assets/img/Checkmark.svg">';
+    completedButton.classList.add("completeButton");
+    taskDiv.appendChild(completedButton);
+    ///////// Create & add list to div
+    const newTask = document.createElement("li");
+    newTask.innerText = task;
+    newTask.classList.add("taskItem");
+    taskDiv.appendChild(newTask);
+
+    //////// Delete button
+    const deleteButton = document.createElement("button");
+    deleteButton.innerHTML =
+      '<img class="trash" src="https://raw.githubusercontent.com/tomasz-klos/kanban/d1dc6f3b939beba0441e0fd42ebde29dfb933890/src/assets/img/trash.svg">';
+    deleteButton.classList.add("deleteButton");
+    taskDiv.appendChild(deleteButton);
+
+    ////////// Add div to list
+    learningList.appendChild(taskDiv);
   });
 }
 
