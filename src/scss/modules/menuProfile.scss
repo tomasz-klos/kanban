@@ -1,0 +1,19 @@
+.menuProfile {
+    background: $headline;
+    width: 70%;
+    height: 100vh;
+    display: none;
+    justify-content: end;
+    right: 0;
+    z-index: 230;
+}
+
+.opacityDiv {
+    background: black;
+    opacity: 0.5;
+    top: 0;
+    width: 100%;
+    display: none;
+    height: 100%;
+    z-index: 220;
+};

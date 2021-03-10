@@ -5,4 +5,11 @@
   flex-direction: column;
   background: $lightBlue;
   z-index: 220;
+  &__backgroundTitle {
+    display: flex;
+    justify-content: center;
+    background: $vivitBlue;
+    margin: 0 20px;
+    border-radius: 10px;
+  }
 }

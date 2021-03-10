@@ -12,10 +12,24 @@
     width: 27px;
     height: 27px;
     padding: 0;
-    margin: 40px 0 0 20px;
+    margin: 36px 0 30px 20px;
   }
   &__title {
-      font-size: 2rem;
-      align-self: center;
+    font-size: 2rem;
+    margin: 0;
+    padding: 20px 0;
+  }
+  &__listDiv {
+    padding: 0 20px;
+  }
+  &__ul {
+    padding: 0;
+  }
+  &__backgroundTitle {
+    display: flex;
+    justify-content: center;
+    background: $darkRed;
+    margin: 0 20px;
+    border-radius: 10px;
   }
 }

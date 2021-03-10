@@ -8,6 +8,8 @@
 @import "modules/workCategorySection.scss";
 @import "modules/personalCategorySection.scss";
 @import "modules/learningCategorySection.scss";
+@import "modules/menuProfile.scss";
+@import "modules/welcomeSection.scss";
 @import "hamburgers/hamburgers.scss";
 
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
@@ -103,5 +105,17 @@ body {
 .open-section {
   display: flex;
   position: absolute;
+}
+
+.workPriority {
+  background: $darkRed;
+}
+
+.personalPriority {
+  background: $vivitBlue;
+}
+
+.learningPriority {
+  background: $green;
 }
 

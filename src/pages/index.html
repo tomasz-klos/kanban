@@ -170,18 +170,12 @@
         <button class="header__buttonAdd"></button>
       </form>
       <label class="addTaskSection__typeTask">TYPE TASK</label>
-      <select class="typeTaskSelect--js" name="typeTask" id="typeTask">
+      <select class="addTaskSection__typeSelect typeTaskSelect--js" name="typeTask" id="typeTask">
         <option value="priority">PRIORITY</option>
         <option value="normal" selected="selected">NORMAL</option>
       </select>
-      <!-- To remove -->
-      <!-- <div class="buttonDiv">
-        <button class="buttonDiv__priority">PRIORITY</button>
-        <button class="buttonDiv__normal">NORMAL</button>
-      </div> -->
-
       <label class="addTaskSection__category">CATEGORY</label>
-      <select class="categoryTask--js" name="categoryTask" id="categoryTask">
+      <select class="addTaskSection__categorySelect categoryTask--js" name="categoryTask" id="categoryTask">
         <option value="work">WORK</option>
         <option value="personal">PERSONAL</option>
         <option value="learning">LEARNING</option>
@@ -203,7 +197,9 @@
       <button class="workCategorySection__buttonBack buttonBackWork--js">
         <img src="../assets/img/buttonBack.svg" alt="" />
       </button>
-      <p class="workCategorySection__title">Work</p>
+      <div class="workCategorySection__backgroundTitle">
+      <p class="workCategorySection__title">WORK</p>
+    </div>
       <p class="addTaskSection__typeTask">TASK</p>
       <div class="workCategorySection__listDiv">
         <ul class="workCategorySection__ul workTask--js"></ul>
@@ -213,7 +209,9 @@
       <button class="workCategorySection__buttonBack buttonBackPersonal--js">
         <img src="../assets/img/buttonBack.svg" alt="" />
       </button>
-      <p class="workCategorySection__title">Personal</p>
+      <div class="personalCategorySection__backgroundTitle">
+      <p class="workCategorySection__title">PERSONAL</p>
+      </div>
       <p class="addTaskSection__typeTask">TASK</p>
       <div class="workCategorySection__listDiv">
         <ul class="workCategorySection__ul personalTask--js"></ul>
@@ -223,15 +221,25 @@
       <button class="workCategorySection__buttonBack buttonBackLearning--js">
         <img src="../assets/img/buttonBack.svg" alt="" />
       </button>
-      <p class="workCategorySection__title">Learning</p>
+      <div class="learningCategorySection__backgroundTitle">
+      <p class="workCategorySection__title">LEARNING</p>
+      </div>
       <p class="addTaskSection__typeTask">TASK</p>
       <div class="workCategorySection__listDiv">
         <ul class="workCategorySection__ul learningTask--js"></ul>
       </div>
     </div>
+    <div class="menuProfile menuProfile--js">
+
+    </div>
+    <div class="opacityDiv opacityDiv--js"></div>
+    <div class="welcomeSection welcomeSection--js">
+      <p>WELCOME</p>
+      <button class="welcomeButton--js">Next</button>
+    </div>
     <header class="header">
       <nav class="nav">
-        <button class="hamburger hamburger--squeeze" type="button">
+        <button class="hamburger hamburger--squeeze hamburger--js" type="button">
           <span class="hamburger-box">
             <span class="hamburger-inner"></span>
           </span>

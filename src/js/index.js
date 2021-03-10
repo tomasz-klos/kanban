@@ -25,8 +25,12 @@ const buttonAddTask = document.querySelector(".addTask--js");
 const addTaskSection = document.querySelector(".addTaskSection--js");
 //
 const workCategorySection = document.querySelector(".workCategorySection--js");
-const personalCategorySection = document.querySelector(".personalCategorySection--js");
-const learningCategorySection = document.querySelector(".learningCategorySection--js");
+const personalCategorySection = document.querySelector(
+  ".personalCategorySection--js"
+);
+const learningCategorySection = document.querySelector(
+  ".learningCategorySection--js"
+);
 //
 const buttonBack = document.querySelector(".buttonBack--js");
 const buttonBackWork = document.querySelector(".buttonBackWork--js");
@@ -53,22 +57,46 @@ const numberTasksWork = document.querySelector(".numberOfTaskWork--js");
 const numberTasksPersonal = document.querySelector(".numberOfTaskPersonal--js");
 const numberTasksLearning = document.querySelector(".numberOfTaskLearning--js");
 
+const typeTaskInput = document.querySelector(".typeTaskSelect--js");
+const categorySelect = document.querySelector(".categoryTask--js");
+
+const hamburgerButton = document.querySelector(".hamburger--js");
+const menuProfile = document.querySelector(".menuProfile--js");
+const opacityDiv = document.querySelector(".opacityDiv--js");
+
+const welcomeSection = document.querySelector(".welcomeSection--js");
+const welcomeSectionButton = document.querySelector(".welcomeButton--js");
+
 /////////////////////////////////////////////////////// Event Listeners  ////////////////////////////////////////////////////////////////////////////////////////////
 
 document.addEventListener("DOMContentLoaded", getWorkTask);
 document.addEventListener("DOMContentLoaded", getPersonalTask);
 document.addEventListener("DOMContentLoaded", getLearningTask);
 document.addEventListener("DOMContentLoaded", getPriorityTask);
-document.addEventListener("DOMContentLoaded", changeWord);
-document.addEventListener("DOMContentLoaded", numberOfTask.bind(event, workList, numberTasksWork));
-document.addEventListener("DOMContentLoaded", numberOfTask.bind(event, personalList, numberTasksPersonal));
-document.addEventListener("DOMContentLoaded", numberOfTask.bind(event, learningList, numberTasksLearning));
+document.addEventListener("DOMContentLoaded", getLocalStorageWelcome);
 
+document.addEventListener("DOMContentLoaded", changeWord);
+document.addEventListener("DOMContentLoaded", welcome);
+
+document.addEventListener(
+  "DOMContentLoaded",
+  numberOfTask.bind(event, workList, numberTasksWork)
+);
+document.addEventListener(
+  "DOMContentLoaded",
+  numberOfTask.bind(event, personalList, numberTasksPersonal)
+);
+document.addEventListener(
+  "DOMContentLoaded",
+  numberOfTask.bind(event, learningList, numberTasksLearning)
+);
+
+welcomeSectionButton.addEventListener("click", saveLocalStorageWelcome);
 
 taskButton.addEventListener("click", addTask);
-taskList.addEventListener("click", deleteTask.bind(event, priority, work));
-taskList.addEventListener("click", deleteTask.bind(event, priority, personal));
-taskList.addEventListener("click", deleteTask.bind(event, priority, learning));
+// taskList.addEventListener("click", deleteTask.bind(event, priority, work));
+// taskList.addEventListener("click", deleteTask.bind(event, priority, personal));
+// taskList.addEventListener("click", deleteTask.bind(event, priority, learning));
 taskList.addEventListener("click", completeTask);
 
 workList.addEventListener("click", deleteTask.bind(event, work));
@@ -78,6 +106,8 @@ learningList.addEventListener("click", deleteTask.bind(event, learning));
 workList.addEventListener("click", completeTask);
 personalList.addEventListener("click", completeTask);
 learningList.addEventListener("click", completeTask);
+
+hamburgerButton.addEventListener("click", openMenuProfile);
 
 /// Button open and close section ///
 
@@ -116,20 +146,23 @@ buttonBackLearning.addEventListener(
 
 ///////////////////////////////////////////////////////// Functions //////////////////////////////////////////////////////////////////////////////////////////////////////
 
+function openMenuProfile() {
+  menuProfile.classList.toggle("open-section");
+  hamburgerButton.classList.toggle("is-active");
+  opacityDiv.classList.toggle("open-section");
+}
 
 function numberOfTask(categoryList, categoryName) {
   let tasksCategory = categoryList.childNodes;
   let numberOfTask = tasksCategory.length;
   categoryName.innerHTML = numberOfTask;
-};
+}
 
 function addTask(event) {
   event.preventDefault();
   const workList = document.querySelector(".workTask--js");
   const personalList = document.querySelector(".personalTask--js");
   const learningList = document.querySelector(".learningTask--js");
-  const typeTaskInput = document.querySelector(".typeTaskSelect--js");
-  const categorySelect = document.querySelector(".categoryTask--js");
   console.log(typeTaskInput.value);
   switch (typeTaskInput.value) {
     case "priority":
@@ -140,6 +173,7 @@ function addTask(event) {
           saveTasksInLocalStorage(taskInput.value, work);
           saveTasksInLocalStorage(taskInput.value, priority);
           closeSection(addTaskSection);
+
           break;
         case "personal":
           createTask(taskList, taskInput.value);
@@ -180,11 +214,11 @@ function addTask(event) {
       }
       break;
   }
-  taskInput.value = '';
+  taskInput.value = "";
   numberOfTask(workList, numberTasksWork);
   numberOfTask(personalList, numberTasksPersonal);
   numberOfTask(learningList, numberTasksLearning);
-};
+}
 
 function deleteTask(name, category, e) {
   const item = e.target;
@@ -192,16 +226,16 @@ function deleteTask(name, category, e) {
     const task = item.parentElement;
     removeTasksFromLocalStorage(task, name);
     task.remove();
-    if (name === "priority"){
+    if (name === "priority") {
       removeTasksFromLocalStorage(task, category);
     } else {
-
+      console.log("AUUUUUUUUUUU");
     }
     numberOfTask(workList, numberTasksWork);
-  numberOfTask(personalList, numberTasksPersonal);
-  numberOfTask(learningList, numberTasksLearning);
-  };
-};
+    numberOfTask(personalList, numberTasksPersonal);
+    numberOfTask(learningList, numberTasksLearning);
+  }
+}
 
 function completeTask(e) {
   const item = e.target;
@@ -209,7 +243,7 @@ function completeTask(e) {
     const task = item.parentElement;
     task.classList.toggle("completed");
   }
-};
+}
 
 // function filterTask(e) {
 //   const tasks = taskList.childNodes;
@@ -248,18 +282,17 @@ function changeWord() {
   } else if (time >= 0 && time < 6) {
     spanWord.innerHTML = "night";
   }
-};
-
+}
 
 function openSection(section) {
   section.classList.add("open-section");
   mainSection.style.display = "none";
-};
+}
 
 function closeSection(section) {
   section.classList.remove("open-section");
   mainSection.style.display = "flex";
-};
+}
 
 function createTask(list, value) {
   const taskDiv = document.createElement("div");
@@ -285,9 +318,43 @@ function createTask(list, value) {
 
   ////////// Add div to list
   list.appendChild(taskDiv);
-};
+
+  // if (typeTaskInput.value === "priority" && categorySelect.value === "work"){
+  //   taskDiv.classList.add("workPriority");
+  // } else if (typeTaskInput.value === "priority" && categorySelect.value === "personal"){
+  //   taskDiv.classList.add("personalPriority");
+  // } else if (typeTaskInput.value === "priority" && categorySelect.value === "learning"){
+  //   taskDiv.classList.add("learningPriority");
+  // };
+}
+
+function welcome() {
+  const key =  localStorage.getItem('welcome');
+  if (key == 1){
+    console.log("Welcome is false");
+    welcomeSection.classList.add("open-section");
+    mainSection.style.display = "none";
+  } else {
+    console.log("Welcome is true");
+  }
+}
 
 //////////////////////////////////////////////////// LOCAL STORAGE FUNCTION ///////////////////////////////////////////////////////////////////////////////
+
+function saveLocalStorageWelcome() {
+  getLocalStorageWelcome();
+  localStorage.setItem("welcome", 2);
+  welcomeSection.classList.remove("open-section");
+  mainSection.style.display = "flex";
+}
+
+function getLocalStorageWelcome() {
+  let tasks;
+  if (localStorage.getItem("welcome") === null) {
+    localStorage.setItem("welcome", 1);
+  } else {
+  }
+}
 
 function saveTasksInLocalStorage(task, name) {
   let tasks;
@@ -298,7 +365,7 @@ function saveTasksInLocalStorage(task, name) {
   }
   tasks.push(task);
   localStorage.setItem(name, JSON.stringify(tasks));
-};
+}
 
 function getWorkTask() {
   let tasks;
@@ -310,7 +377,7 @@ function getWorkTask() {
   tasks.forEach(function (task) {
     createTask(workList, task);
   });
-};
+}
 
 function getPersonalTask() {
   let tasks;
@@ -322,7 +389,7 @@ function getPersonalTask() {
   tasks.forEach(function (task) {
     createTask(personalList, task);
   });
-};
+}
 
 function getLearningTask() {
   let tasks;
@@ -334,7 +401,7 @@ function getLearningTask() {
   tasks.forEach(function (task) {
     createTask(learningList, task);
   });
-};
+}
 
 function getPriorityTask() {
   let tasks;
@@ -346,7 +413,7 @@ function getPriorityTask() {
   tasks.forEach(function (task) {
     createTask(taskList, task);
   });
-};
+}
 
 function removeTasksFromLocalStorage(task, name) {
   let tasks;
@@ -358,7 +425,7 @@ function removeTasksFromLocalStorage(task, name) {
   const taskIndex = task.children[0].innerText;
   tasks.splice(tasks.indexOf(taskIndex), 1);
   localStorage.setItem(name, JSON.stringify(tasks));
-};
+}
 
 //// Init SwiperJS
 
