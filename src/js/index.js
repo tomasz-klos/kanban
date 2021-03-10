@@ -65,7 +65,40 @@ const menuProfile = document.querySelector(".menuProfile--js");
 const opacityDiv = document.querySelector(".opacityDiv--js");
 
 const welcomeSection = document.querySelector(".welcomeSection--js");
-const welcomeSectionButton = document.querySelector(".welcomeButton--js");
+
+//////////////////////////////////////// WELCOME SECTION /////////////////////////////////////////////////////////////////////
+
+const firstPage = document.querySelector(".firstPage--js");
+const secondPage = document.querySelector(".secondPage--js");
+const thirdPage = document.querySelector(".thirdPage--js");
+const fourthPage = document.querySelector(".fourthPage--js");
+
+const firstNextButton = document.querySelector(".firstNext--js");
+
+const secondBackButton = document.querySelector(".secondBack--js");
+const secondNextButton = document.querySelector(".secondNext--js");
+
+const thirdBackButton = document.querySelector(".thirdBack--js");
+const thirdNextButton = document.querySelector(".thirdNext--js");
+
+const fourthBackButton = document.querySelector(".fourthBack--js");
+const fourthNextButton = document.querySelector(".fourthNext--js");
+
+function openWelcomePage(section, current) {
+  section.classList.add("open-section");
+  current.classList.remove("open-section");
+}
+
+firstNextButton.addEventListener("click", openWelcomePage.bind(event, secondPage, firstPage));
+
+secondBackButton.addEventListener("click", openWelcomePage.bind(event, firstPage, secondPage));
+secondNextButton.addEventListener("click", openWelcomePage.bind(event, thirdPage, secondPage));
+
+thirdBackButton.addEventListener("click", openWelcomePage.bind(event, secondPage, thirdPage));
+thirdNextButton.addEventListener("click", openWelcomePage.bind(event, fourthPage, thirdPage));
+
+fourthBackButton.addEventListener("click", openWelcomePage.bind(event, thirdPage, fourthPage));
+fourthNextButton.addEventListener("click", saveLocalStorageWelcome);
 
 /////////////////////////////////////////////////////// Event Listeners  ////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -91,7 +124,6 @@ document.addEventListener(
   numberOfTask.bind(event, learningList, numberTasksLearning)
 );
 
-welcomeSectionButton.addEventListener("click", saveLocalStorageWelcome);
 
 taskButton.addEventListener("click", addTask);
 // taskList.addEventListener("click", deleteTask.bind(event, priority, work));

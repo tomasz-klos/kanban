@@ -1,10 +1,97 @@
 .welcomeSection {
-    background: $terraCotta;
-    display: none;
-    flex-direction: column;
-    top: 0;
-    left: 0;
+  background: $terraCotta;
+  display: none;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 250;
+}
+
+.firstPage {
+  background: $lightBlue;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 250;
+  &__img {
+    padding: 0 40px;
+    margin-top: 50px;
+  }
+  &__text {
+    align-self: center;
+    padding: 0 20px;
+    text-align: center;
+    line-height: 20px;
+  }
+  &__button {
+    position: absolute;
+    bottom: 30px;
+    border: none;
     width: 100%;
-    height: 100%;
-    z-index: 250;
+    padding: 20px;
+    margin-top: 200px;
+    background: $darkBlue;
+    color: white;
+    border-radius: 5px;
+  }
+}
+
+.secondPage {
+  background: $lightBlue;
+  display: none;
+  flex-direction: column;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 250;
+  &__buttonDiv {
+    display: flex;
+    width: 100%;
+    position: absolute;
+    bottom: 30px;
+  }
+  &__buttonBack {
+    border: none;
+    width: 100%;
+    padding: 20px;
+    color: white;
+    background: $darkBlue;
+    border-radius: 5px;
+  }
+  &__buttonNext {
+    border: none;
+    width: 100%;
+    padding: 20px;
+    color: white;
+    background: $green;
+    border-radius: 5px;
+  }
+}
+
+.thirdPage {
+  background: $lightBlue;
+  display: none;
+  flex-direction: column;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 250;
+}
+
+.fourthPage {
+  background: $lightBlue;
+  display: none;
+  flex-direction: column;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 250;
 }

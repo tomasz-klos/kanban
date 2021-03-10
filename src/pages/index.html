@@ -170,12 +170,20 @@
         <button class="header__buttonAdd"></button>
       </form>
       <label class="addTaskSection__typeTask">TYPE TASK</label>
-      <select class="addTaskSection__typeSelect typeTaskSelect--js" name="typeTask" id="typeTask">
+      <select
+        class="addTaskSection__typeSelect typeTaskSelect--js"
+        name="typeTask"
+        id="typeTask"
+      >
         <option value="priority">PRIORITY</option>
         <option value="normal" selected="selected">NORMAL</option>
       </select>
       <label class="addTaskSection__category">CATEGORY</label>
-      <select class="addTaskSection__categorySelect categoryTask--js" name="categoryTask" id="categoryTask">
+      <select
+        class="addTaskSection__categorySelect categoryTask--js"
+        name="categoryTask"
+        id="categoryTask"
+      >
         <option value="work">WORK</option>
         <option value="personal">PERSONAL</option>
         <option value="learning">LEARNING</option>
@@ -198,8 +206,8 @@
         <img src="../assets/img/buttonBack.svg" alt="" />
       </button>
       <div class="workCategorySection__backgroundTitle">
-      <p class="workCategorySection__title">WORK</p>
-    </div>
+        <p class="workCategorySection__title">WORK</p>
+      </div>
       <p class="addTaskSection__typeTask">TASK</p>
       <div class="workCategorySection__listDiv">
         <ul class="workCategorySection__ul workTask--js"></ul>
@@ -210,7 +218,7 @@
         <img src="../assets/img/buttonBack.svg" alt="" />
       </button>
       <div class="personalCategorySection__backgroundTitle">
-      <p class="workCategorySection__title">PERSONAL</p>
+        <p class="workCategorySection__title">PERSONAL</p>
       </div>
       <p class="addTaskSection__typeTask">TASK</p>
       <div class="workCategorySection__listDiv">
@@ -222,24 +230,68 @@
         <img src="../assets/img/buttonBack.svg" alt="" />
       </button>
       <div class="learningCategorySection__backgroundTitle">
-      <p class="workCategorySection__title">LEARNING</p>
+        <p class="workCategorySection__title">LEARNING</p>
       </div>
       <p class="addTaskSection__typeTask">TASK</p>
       <div class="workCategorySection__listDiv">
         <ul class="workCategorySection__ul learningTask--js"></ul>
       </div>
     </div>
-    <div class="menuProfile menuProfile--js">
-
-    </div>
+    <div class="menuProfile menuProfile--js"></div>
     <div class="opacityDiv opacityDiv--js"></div>
     <div class="welcomeSection welcomeSection--js">
-      <p>WELCOME</p>
-      <button class="welcomeButton--js">Next</button>
+      <div class="firstPage firstPage--js">
+        <img
+          class="firstPage__img"
+          src="https://raw.githubusercontent.com/tomasz-klos/kanban/bca0196720db241e9d88f8675f0b2d75fd66c2e4/src/assets/img/welcome.svg"
+          alt=""
+        />
+        <p class="firstPage__text">Welcome to my app</p>
+        <button class="firstPage__button firstNext--js">Next</button>
+      </div>
+      <div class="secondPage secondPage--js">
+        <img
+          class="firstPage__img"
+          src="https://raw.githubusercontent.com/tomasz-klos/kanban/bca0196720db241e9d88f8675f0b2d75fd66c2e4/src/assets/img/createTask.svg"
+          alt=""
+        />
+        <p class="firstPage__text">Create tasks by tapping the ADD NEW TASK button</p>
+        <div class="secondPage__buttonDiv">
+          <button class="secondPage__buttonBack secondBack--js">Back</button>
+          <button class="secondPage__buttonNext secondNext--js">Next</button>
+        </div>
+      </div>
+      <div class="thirdPage thirdPage--js">
+        <img
+          class="firstPage__img"
+          src="https://raw.githubusercontent.com/tomasz-klos/kanban/bca0196720db241e9d88f8675f0b2d75fd66c2e4/src/assets/img/categoryTask.svg"
+          alt=""
+        />
+        <p class="firstPage__text">Welcome to my app</p>
+        <div class="secondPage__buttonDiv">
+          <button class="secondPage__buttonBack thirdBack--js">Back</button>
+          <button class="secondPage__buttonNext thirdNext--js">Next</button>
+        </div>
+      </div>
+      <div class="fourthPage fourthPage--js">
+        <img
+          class="firstPage__img"
+          src="https://raw.githubusercontent.com/tomasz-klos/kanban/bca0196720db241e9d88f8675f0b2d75fd66c2e4/src/assets/img/settings.svg"
+          alt=""
+        />
+        <p class="firstPage__text">Welcome to my app</p>
+        <div class="secondPage__buttonDiv">
+          <button class="secondPage__buttonBack fourthBack--js">Back</button>
+          <button class="secondPage__buttonNext fourthNext--js">End</button>
+        </div>
+      </div>
     </div>
     <header class="header">
       <nav class="nav">
-        <button class="hamburger hamburger--squeeze hamburger--js" type="button">
+        <button
+          class="hamburger hamburger--squeeze hamburger--js"
+          type="button"
+        >
           <span class="hamburger-box">
             <span class="hamburger-inner"></span>
           </span>
@@ -261,8 +313,9 @@
             <div class="swiper-slide category__work">
               <p class="category__title">WORK</p>
               <div class="category__swiperDiv">
-                <p class="category__paragraph"><span class="numberOfTaskWork--js"></span>
-                tasks</p>
+                <p class="category__paragraph">
+                  <span class="numberOfTaskWork--js"></span> tasks
+                </p>
                 <button class="category__button categoryWork--js">
                   <img
                     class="category__image"
@@ -274,8 +327,9 @@
             <div class="swiper-slide category__personal">
               <p class="category__title">PERSONAL</p>
               <div class="category__swiperDiv">
-                <p class="category__paragraph"><span class="numberOfTaskPersonal--js"></span>
-                  tasks</p>
+                <p class="category__paragraph">
+                  <span class="numberOfTaskPersonal--js"></span> tasks
+                </p>
                 <button class="category__button categoryPersonal--js">
                   <img
                     class="category__image"
@@ -287,8 +341,9 @@
             <div class="swiper-slide category__learning">
               <p class="category__title">LEARNING</p>
               <div class="category__swiperDiv">
-                <p class="category__paragraph"><span class="numberOfTaskLearning--js"></span>
-                  tasks</p>
+                <p class="category__paragraph">
+                  <span class="numberOfTaskLearning--js"></span> tasks
+                </p>
                 <button class="category__button categoryLearning--js">
                   <img
                     class="category__image"
