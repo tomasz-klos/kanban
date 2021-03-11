@@ -237,52 +237,82 @@
         <ul class="workCategorySection__ul learningTask--js"></ul>
       </div>
     </div>
-    <div class="menuProfile menuProfile--js"></div>
+    <div class="menuProfile menuProfile--js">
+      <div class="menuProfile__divImg">
+        <img
+          class="menuProfile__img menProfile--js"
+          src="../assets/img/menProfile.svg"
+          alt=""
+        />
+        <img
+        class="menuProfile__img womenProfile--js"
+        src="../assets/img/womenProfile.svg"
+        alt=""
+      />
+      </div>
+    </div>
     <div class="opacityDiv opacityDiv--js"></div>
     <div class="welcomeSection welcomeSection--js">
       <div class="firstPage firstPage--js">
-        <img
-          class="firstPage__img"
-          src="https://raw.githubusercontent.com/tomasz-klos/kanban/c71cf3c92e5884f03a96df01797d0d891fb61e99/src/assets/img/welcome.svg"
-          alt=""
-        />
+        <img class="firstPage__img" src="../assets/img/welcome.svg" alt="" />
         <p class="firstPage__text">Welcome to my app</p>
-        <button class="firstPage__button firstNext--js">Next</button>
+        <button class="firstPage__button firstNext--js">
+          Next<img class="firstPage__imgNext" src="..//assets/img/next.png" />
+        </button>
       </div>
       <div class="secondPage secondPage--js">
-        <img
-          class="firstPage__img"
-          src="https://raw.githubusercontent.com/tomasz-klos/kanban/bca0196720db241e9d88f8675f0b2d75fd66c2e4/src/assets/img/createTask.svg"
-          alt=""
-        />
-        <p class="firstPage__text">Create tasks by tapping the ADD NEW TASK button</p>
+        <img class="firstPage__img" src="../assets/img/addTask.svg" alt="" />
+        <p class="firstPage__text">
+          Create tasks by tapping the ADD NEW TASK button
+        </p>
         <div class="secondPage__buttonDiv">
-          <button class="secondPage__buttonBack secondBack--js">Back</button>
-          <button class="secondPage__buttonNext secondNext--js">Next</button>
+          <button class="secondPage__buttonBack secondBack--js">
+            <img class="firstPage__imgBack" src="..//assets/img/back.png" />Back
+          </button>
+          <button class="secondPage__buttonNext secondNext--js">
+            Next<img class="firstPage__imgNext" src="..//assets/img/next.png" />
+          </button>
         </div>
       </div>
       <div class="thirdPage thirdPage--js">
-        <img
-          class="firstPage__img"
-          src="https://raw.githubusercontent.com/tomasz-klos/kanban/bca0196720db241e9d88f8675f0b2d75fd66c2e4/src/assets/img/categoryTask.svg"
-          alt=""
-        />
-        <p class="firstPage__text">Welcome to my app</p>
+        <img class="firstPage__img" src="../assets/img/category.svg" alt="" />
+        <p class="firstPage__text">Category</p>
         <div class="secondPage__buttonDiv">
-          <button class="secondPage__buttonBack thirdBack--js">Back</button>
-          <button class="secondPage__buttonNext thirdNext--js">Next</button>
+          <button class="secondPage__buttonBack thirdBack--js">
+            <img class="firstPage__imgBack" src="..//assets/img/back.png" />Back
+          </button>
+          <button class="secondPage__buttonNext thirdNext--js">
+            Next<img class="firstPage__imgNext" src="..//assets/img/next.png" />
+          </button>
         </div>
       </div>
       <div class="fourthPage fourthPage--js">
-        <img
-          class="firstPage__img"
-          src="https://raw.githubusercontent.com/tomasz-klos/kanban/c71cf3c92e5884f03a96df01797d0d891fb61e99/src/assets/img/settings.svg"
-          alt=""
-        />
-        <p class="firstPage__text">Welcome to my app</p>
+        <img class="firstPage__img" src="../assets/img/settings.svg" alt="" />
+        <p class="firstPage__text">Settings</p>
+        <form class="fourthPage__form">
+          <input
+            type="text"
+            class="fourthPage__input nickInput"
+            placeholder="your nick"
+          />
+          <div class="fourthPage__genderDiv" id="gender">
+            <div class="fourthPage__maleDiv">
+              <label for="male">Male</label>
+              <input class="fourthPage__inputGender" id="male" type="radio" name="gender" value="male" />
+            </div>
+            <div class="fourthPage__femaleDiv">
+              <label for="female">Female</label>
+              <input class="fourthPage__inputGender" id="female" type="radio" name="gender" value="female" />
+            </div>
+          </div>
+        </form>
         <div class="secondPage__buttonDiv">
-          <button class="secondPage__buttonBack fourthBack--js">Back</button>
-          <button class="secondPage__buttonNext fourthNext--js">End</button>
+          <button class="secondPage__buttonBack fourthBack--js">
+            <img class="firstPage__imgBack" src="..//assets/img/back.png" />Back
+          </button>
+          <button class="secondPage__buttonNext fourthNext--js">
+            End<img class="firstPage__imgNext" src="..//assets/img/next.png" />
+          </button>
         </div>
       </div>
     </div>
@@ -301,7 +331,7 @@
     <main class="main main--js">
       <h1 class="main__title">
         Good <span class="change--word"></span>,<br />
-        User
+        <span class="type--nick"></span>
       </h1>
       <button class="main__button addTask--js">Add Task</button>
       <section class="category">

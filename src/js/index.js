@@ -66,6 +66,14 @@ const opacityDiv = document.querySelector(".opacityDiv--js");
 
 const welcomeSection = document.querySelector(".welcomeSection--js");
 
+const spanNick = document.querySelector(".type--nick");
+
+const genders = document.getElementsByName("gender");
+let selectedGender;
+
+const menProfile = document.querySelector(".menProfile--js");
+const womenProfile = document.querySelector(".womenProfile--js");
+
 //////////////////////////////////////// WELCOME SECTION /////////////////////////////////////////////////////////////////////
 
 const firstPage = document.querySelector(".firstPage--js");
@@ -89,24 +97,38 @@ function openWelcomePage(section, current) {
   current.classList.remove("open-section");
 }
 
-firstNextButton.addEventListener("click", openWelcomePage.bind(event, secondPage, firstPage));
+firstNextButton.addEventListener(
+  "click",
+  openWelcomePage.bind(event, secondPage, firstPage)
+);
 
-secondBackButton.addEventListener("click", openWelcomePage.bind(event, firstPage, secondPage));
-secondNextButton.addEventListener("click", openWelcomePage.bind(event, thirdPage, secondPage));
+secondBackButton.addEventListener(
+  "click",
+  openWelcomePage.bind(event, firstPage, secondPage)
+);
+secondNextButton.addEventListener(
+  "click",
+  openWelcomePage.bind(event, thirdPage, secondPage)
+);
 
-thirdBackButton.addEventListener("click", openWelcomePage.bind(event, secondPage, thirdPage));
-thirdNextButton.addEventListener("click", openWelcomePage.bind(event, fourthPage, thirdPage));
+thirdBackButton.addEventListener(
+  "click",
+  openWelcomePage.bind(event, secondPage, thirdPage)
+);
+thirdNextButton.addEventListener(
+  "click",
+  openWelcomePage.bind(event, fourthPage, thirdPage)
+);
 
-fourthBackButton.addEventListener("click", openWelcomePage.bind(event, thirdPage, fourthPage));
+fourthBackButton.addEventListener(
+  "click",
+  openWelcomePage.bind(event, thirdPage, fourthPage)
+);
 fourthNextButton.addEventListener("click", saveLocalStorageWelcome);
 
 /////////////////////////////////////////////////////// Event Listeners  ////////////////////////////////////////////////////////////////////////////////////////////
 
-document.addEventListener("DOMContentLoaded", getWorkTask);
-document.addEventListener("DOMContentLoaded", getPersonalTask);
-document.addEventListener("DOMContentLoaded", getLearningTask);
-document.addEventListener("DOMContentLoaded", getPriorityTask);
-document.addEventListener("DOMContentLoaded", getLocalStorageWelcome);
+document.addEventListener("DOMContentLoaded", getLocalStorage);
 
 document.addEventListener("DOMContentLoaded", changeWord);
 document.addEventListener("DOMContentLoaded", welcome);
@@ -123,7 +145,6 @@ document.addEventListener(
   "DOMContentLoaded",
   numberOfTask.bind(event, learningList, numberTasksLearning)
 );
-
 
 taskButton.addEventListener("click", addTask);
 // taskList.addEventListener("click", deleteTask.bind(event, priority, work));
@@ -195,7 +216,6 @@ function addTask(event) {
   const workList = document.querySelector(".workTask--js");
   const personalList = document.querySelector(".personalTask--js");
   const learningList = document.querySelector(".learningTask--js");
-  console.log(typeTaskInput.value);
   switch (typeTaskInput.value) {
     case "priority":
       switch (categorySelect.value) {
@@ -361,27 +381,85 @@ function createTask(list, value) {
 }
 
 function welcome() {
-  const key =  localStorage.getItem('welcome');
-  if (key == 1){
-    console.log("Welcome is false");
+  const key = localStorage.getItem("welcome");
+  if (key == 1) {
     welcomeSection.classList.add("open-section");
     mainSection.style.display = "none";
   } else {
-    console.log("Welcome is true");
+  }
+}
+
+function welcomeSettings() {
+  const nickInput = document.querySelector(".nickInput");
+  const valueNickInput = nickInput.value;
+  localStorage.setItem("nick", valueNickInput);
+  spanNick.innerHTML = valueNickInput;
+  for (let i = 0; i < genders.length; i++) {
+    if (genders[i].checked) {
+      selectedGender = genders[i].value;
+    }
+  }
+  switch (selectedGender) {
+    case "male":
+      localStorage.setItem("gender", "male");
+      menProfile.style.display = "flex";
+      break;
+    case "female":
+      localStorage.setItem("gender", "female");
+      womenProfile.style.display = "flex";
+      break;
   }
 }
 
 //////////////////////////////////////////////////// LOCAL STORAGE FUNCTION ///////////////////////////////////////////////////////////////////////////////
+
+function getLocalStorage() {
+  getNick();
+  getGender();
+  getWorkTask();
+  getPersonalTask();
+  getLearningTask();
+  getPriorityTask();
+  getLocalStorageWelcome();
+}
+
+function getNick() {
+  let nick;
+  if (localStorage.getItem("nick") === null) {
+    localStorage.setItem("nick", null);
+  } else {
+    nick = localStorage.getItem("nick");
+    localStorage.setItem("nick", nick);
+    spanNick.innerHTML = nick;
+  }
+}
+
+function getGender() {
+  let gender;
+  if (localStorage.getItem("gender") === null) {
+    localStorage.setItem("gender", null);
+  } else {
+    gender = localStorage.getItem("gender");
+    localStorage.setItem("gender", gender);
+  }
+  switch (localStorage.getItem("gender")) {
+    case "male":
+      menProfile.style.display = "flex";
+      break;
+    case "female":
+      womenProfile.style.display = "flex";
+  }
+}
 
 function saveLocalStorageWelcome() {
   getLocalStorageWelcome();
   localStorage.setItem("welcome", 2);
   welcomeSection.classList.remove("open-section");
   mainSection.style.display = "flex";
+  welcomeSettings();
 }
 
 function getLocalStorageWelcome() {
-  let tasks;
   if (localStorage.getItem("welcome") === null) {
     localStorage.setItem("welcome", 1);
   } else {
