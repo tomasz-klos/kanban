@@ -169,7 +169,63 @@
         />
         <button class="header__buttonAdd"></button>
       </form>
-      <label class="addTaskSection__typeTask">TYPE TASK</label>
+      <p class="addTaskSection__typeTask">TYPE TASK</p>
+      <div class="addTaskSection__typeTaskDiv">
+        <div class="addTaskSection__priorityDiv priority--color margin--right">
+          <label for="priority">Priority</label>
+          <input
+            class="addTaskSection__typeTaskInput"
+            type="radio"
+            id="priority"
+            name="typeTask"
+            value="priority"
+          />
+        </div>
+        <div class="addTaskSection__priorityDiv normal--color margin--left">
+          <label for="normal">Normal</label>
+          <input
+            class="addTaskSection__typeTaskInput"
+            type="radio"
+            id="normal"
+            name="typeTask"
+            value="normal"
+          />
+        </div>
+      </div>
+      <p class="addTaskSection__category">CATEGORY</p>
+      <div class="addTaskSection__typeTaskDiv">
+        <div class="addTaskSection__priorityDiv work--color">
+          <label for="work">WORK</label>
+          <input
+            class="addTaskSection__typeTaskInput"
+            type="radio"
+            id="work"
+            name="categoryTask"
+            value="work"
+          />
+        </div>
+        <div class="addTaskSection__priorityDiv personal--color margin--left margin--right">
+          <label for="personal">PERSONAL</label>
+          <input
+            class="addTaskSection__typeTaskInput"
+            type="radio"
+            id="personal"
+            name="categoryTask"
+            value="personal"
+          />
+        </div>
+        <div class="addTaskSection__priorityDiv learning--color">
+          <label for="learning">LEARNING</label>
+          <input
+            class="addTaskSection__typeTaskInput"
+            type="radio"
+            id="learning"
+            name="categoryTask"
+            value="learning"
+          />
+        </div>
+      </div>
+      <!-- <label class="addTaskSection__typeTask">TYPE TASK</label>
       <select
         class="addTaskSection__typeSelect typeTaskSelect--js"
         name="typeTask"
@@ -187,16 +243,7 @@
         <option value="work">WORK</option>
         <option value="personal">PERSONAL</option>
         <option value="learning">LEARNING</option>
-      </select>
-      <!-- <div class="categoryDiv categoryDiv--js">
-        <button class="categoryDiv__work work--js" value="work">WORK</button>
-        <button class="categoryDiv__personal personal--js" value="personal">
-          PERSONAL
-        </button>
-        <button class="categoryDiv__learning learning--js" value="learning">
-          LEARNING
-        </button>
-      </div> -->
+      </select> -->
       <button class="addTaskSection__createButton taskButton">
         Create Task
       </button>
@@ -210,7 +257,7 @@
       </div>
       <p class="addTaskSection__typeTask">TASK</p>
       <div class="workCategorySection__listDiv">
-        <ul class="workCategorySection__ul workTask--js"></ul>
+        <ul class="workCategorySection__ul workList workTask--js"></ul>
       </div>
     </div>
     <div class="personalCategorySection personalCategorySection--js">
@@ -222,7 +269,7 @@
       </div>
       <p class="addTaskSection__typeTask">TASK</p>
       <div class="workCategorySection__listDiv">
-        <ul class="workCategorySection__ul personalTask--js"></ul>
+        <ul class="workCategorySection__ul personalList personalTask--js"></ul>
       </div>
     </div>
     <div class="learningCategorySection learningCategorySection--js">
@@ -234,7 +281,7 @@
       </div>
       <p class="addTaskSection__typeTask">TASK</p>
       <div class="workCategorySection__listDiv">
-        <ul class="workCategorySection__ul learningTask--js"></ul>
+        <ul class="workCategorySection__ul learningList learningTask--js"></ul>
       </div>
     </div>
     <div class="menuProfile menuProfile--js">
@@ -245,10 +292,10 @@
           alt=""
         />
         <img
-        class="menuProfile__img womenProfile--js"
-        src="../assets/img/womenProfile.svg"
-        alt=""
-      />
+          class="menuProfile__img womenProfile--js"
+          src="../assets/img/womenProfile.svg"
+          alt=""
+        />
       </div>
     </div>
     <div class="opacityDiv opacityDiv--js"></div>
@@ -296,17 +343,29 @@
             placeholder="your nick"
           />
           <div class="fourthPage__genderDiv" id="gender">
-            <div class="fourthPage__maleDiv">
+            <div class="fourthPage__inputDiv margin--right">
               <label for="male">Male</label>
-              <input class="fourthPage__inputGender" id="male" type="radio" name="gender" value="male" />
+              <input
+                class="fourthPage__inputGender"
+                id="male"
+                type="radio"
+                name="gender"
+                value="male"
+              />
             </div>
-            <div class="fourthPage__femaleDiv">
+            <div class="fourthPage__inputDiv margin--left">
               <label for="female">Female</label>
-              <input class="fourthPage__inputGender" id="female" type="radio" name="gender" value="female" />
+              <input
+                class="fourthPage__inputGender"
+                id="female"
+                type="radio"
+                name="gender"
+                value="female"
+              />
             </div>
           </div>
         </form>
-        <div class="secondPage__buttonDiv">
+        <div class="fourthPage__buttonDiv">
           <button class="secondPage__buttonBack fourthBack--js">
             <img class="firstPage__imgBack" src="..//assets/img/back.png" />Back
           </button>
@@ -340,13 +399,13 @@
           <!-- Additional required wrapper -->
           <div class="swiper-wrapper">
             <!-- Slides -->
-            <div class="swiper-slide category__work">
+            <div class="swiper-slide category__work categoryWork--js">
               <p class="category__title">WORK</p>
               <div class="category__swiperDiv">
                 <p class="category__paragraph">
                   <span class="numberOfTaskWork--js"></span> tasks
                 </p>
-                <button class="category__button categoryWork--js">
+                <button class="category__button">
                   <img
                     class="category__image"
                     src="../assets/img/buttonArrow.svg"
@@ -354,13 +413,13 @@
                 </button>
               </div>
             </div>
-            <div class="swiper-slide category__personal">
+            <div class="swiper-slide category__personal categoryPersonal--js">
               <p class="category__title">PERSONAL</p>
               <div class="category__swiperDiv">
                 <p class="category__paragraph">
                   <span class="numberOfTaskPersonal--js"></span> tasks
                 </p>
-                <button class="category__button categoryPersonal--js">
+                <button class="category__button ">
                   <img
                     class="category__image"
                     src="../assets/img/buttonArrow.svg"
@@ -368,13 +427,13 @@
                 </button>
               </div>
             </div>
-            <div class="swiper-slide category__learning">
+            <div class="swiper-slide category__learning categoryLearning--js">
               <p class="category__title">LEARNING</p>
               <div class="category__swiperDiv">
                 <p class="category__paragraph">
                   <span class="numberOfTaskLearning--js"></span> tasks
                 </p>
-                <button class="category__button categoryLearning--js">
+                <button class="category__button">
                   <img
                     class="category__image"
                     src="../assets/img/buttonArrow.svg"
