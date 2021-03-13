@@ -84,6 +84,11 @@ let selectedGender;
 const menProfile = document.querySelector(".menProfile--js");
 const womenProfile = document.querySelector(".womenProfile--js");
 
+const lsPriority = localStorage.getItem("priority");
+const lsWork = localStorage.getItem("work");
+const lsPersonal = localStorage.getItem("personal");
+const lsLearning = localStorage.getItem("learning");
+
 //////////////////////////////////////// WELCOME SECTION /////////////////////////////////////////////////////////////////////
 
 const firstPage = document.querySelector(".firstPage--js");
@@ -157,7 +162,7 @@ document.addEventListener(
 );
 
 taskButton.addEventListener("click", addTask);
-taskList.addEventListener("click", deleteTask);
+taskList.addEventListener("click", deletePriorityTask);
 taskList.addEventListener("click", completeTask);
 
 workList.addEventListener("click", deleteTask);
@@ -297,6 +302,104 @@ function addTask(event) {
   });
 }
 
+function deletePriorityTask(e) {
+  const item = e.target;
+  const task = item.parentElement;
+  const categoryList = task.parentElement;
+  if (item.classList[0] === "deleteButton") {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        let childTask = task.firstChild;
+        let nameTask1 = childTask.textContent;
+        console.log(nameTask1);
+        let childrenWorkList = workList.childNodes;
+        let childrenPersonalList = personalList.childNodes;
+        let childrenLearningList = learningList.childNodes;
+
+        for (let i = 0; i < childrenWorkList.length; i++) {
+          let nameTask = childrenWorkList[i].firstChild.textContent;
+          const element = childrenWorkList[i];
+          if (nameTask == nameTask1) {
+            if (childrenWorkList[i].classList[1] === "priority") {
+              console.log(element);
+              element.remove();
+            } else {
+              console.log("Something wrong");
+            }
+          }
+        }
+
+        for (let i = 0; i < childrenPersonalList.length; i++) {
+          let nameTask = childrenPersonalList[i].firstChild.textContent;
+          const element = childrenPersonalList[i];
+          if (nameTask == nameTask1) {
+            if (childrenPersonalList[i].classList[1] === "priority") {
+              console.log(element);
+              element.remove();
+            } else {
+              console.log("Something wrong");
+            }
+          }
+        }
+
+
+        for (let i = 0; i < childrenLearningList.length; i++) {
+          let nameTask = childrenLearningList[i].firstChild.textContent;
+          const element = childrenLearningList[i];
+          if (nameTask == nameTask1) {
+            if (childrenLearningList[i].classList[1] === "priority") {
+              console.log(element);
+              element.remove();
+            } else {
+              console.log("Something wrong");
+            }
+          }
+        }
+
+
+
+        if (
+          lsPriority.includes(nameTask1) === true &&
+          lsWork.includes(nameTask1) === true
+        ) {
+          console.log("działamyyyy");
+          removePriorityFromLocalStorage(nameTask1, priority);
+          removeTasksFromLocalStorage(nameTask1, work);
+        } else if (
+          lsPriority.includes(nameTask1) === true &&
+          lsPersonal.includes(nameTask1) === true
+        ) {
+          removePriorityFromLocalStorage(nameTask1, priority);
+          removeTasksFromLocalStorage(nameTask1, personal);
+        } else if (
+          lsPriority.includes(nameTask1) === true &&
+          lsLearning.includes(nameTask1) === true
+        ) {
+          removePriorityFromLocalStorage(nameTask1, priority);
+          removeTasksFromLocalStorage(nameTask1, learning);
+        }
+
+        console.log(task);
+
+        task.remove();
+
+        Swal.fire("Deleted!", "Your task has been deleted.", "success");
+      }
+      numberOfTask(workList, numberTasksWork);
+      numberOfTask(personalList, numberTasksPersonal);
+      numberOfTask(learningList, numberTasksLearning);
+    });
+  }
+}
+
 function deleteTask(e) {
   const item = e.target;
   const task = item.parentElement;
@@ -312,69 +415,60 @@ function deleteTask(e) {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        const childrenTaskList = taskList.childNodes;
+        let childTask = task.firstChild;
+        let nameTask1 = childTask.textContent;
+        console.log(nameTask1);
+        console.log(task);
+        let childrenTaskList = taskList.childNodes;
 
         for (let i = 0; i < childrenTaskList.length; i++) {
           let nameTask = childrenTaskList[i].firstChild.textContent;
-          let taskChild = task.firstChild.textContent;
-          console.log(taskChild);
-          if (nameTask == taskChild){
-            console.log(childrenTaskList[i]);
-            console.log(childrenTaskList[i].classList[1]);
-            if (childrenTaskList[i].classList[1] === "workPriority"){
-              removePriorityFromLocalStorage(childrenTaskList[i], priority);
-              removeTasksFromLocalStorage(childrenTaskList[i], work);
-            } else if (childrenTaskList[i].classList[1] === "personalPriority"){
-              removePriorityFromLocalStorage(childrenTaskList[i], priority);
-              removeTasksFromLocalStorage(childrenTaskList[i], personal);
-            } else if (childrenTaskList[i].classList[1] === "learningPriority"){
-              removePriorityFromLocalStorage(childrenTaskList[i], priority);
-              removeTasksFromLocalStorage(childrenTaskList[i], learning);
+          const element = childrenTaskList[i];
+          if (nameTask == nameTask1) {
+            if (childrenTaskList[i].classList[1] === "workPriority") {
+              console.log(element);
+              element.remove();
+            } else if (
+              childrenTaskList[i].classList[1] === "personalPriority"
+            ) {
+              element.remove();
+            } else if (
+              childrenTaskList[i].classList[1] === "learningPriority"
+            ) {
+              element.remove();
             } else {
               console.log("Something wrong");
             }
-            childrenTaskList[i].remove();
-          } else {
-            console.log("not work");
           }
-          // if (nameTask.textContent) {
-          //   typeTaskInputValue = typeTaskInput[i].value;
-          // }
         }
+
+        if (task.classList[1] === "priority") {
+          if (categoryList.classList[1] === "workList") {
+            removeTasksFromLocalStorage(nameTask1, work);
+            removePriorityFromLocalStorage(nameTask1, priority);
+          } else if (categoryList.classList[1] === "personalList") {
+            removeTasksFromLocalStorage(nameTask1, personal);
+            removePriorityFromLocalStorage(nameTask1, priority);
+          } else if (categoryList.classList[1] === "learningList") {
+            removeTasksFromLocalStorage(nameTask1, learning);
+            removePriorityFromLocalStorage(nameTask1, priority);
+          } else {
+          }
+        } else if (task.classList[1] === "normal") {
+          if (categoryList.classList[1] === "workList") {
+            removeTasksFromLocalStorage(nameTask1, work);
+          } else if (categoryList.classList[1] === "personalList") {
+            removeTasksFromLocalStorage(nameTask1, personal);
+          } else if (categoryList.classList[1] === "learningList") {
+            removeTasksFromLocalStorage(nameTask1, learning);
+          } else {
+          }
+        }
+
         console.log(task);
 
         task.remove();
 
-        // if (worklistArr.includes(task) === true) {
-        //   console.log(workList);
-        //   console.log("Great success");
-        // } else {
-        //   console.log("Very bad");
-        // }
-
-
-        if (task.classList[1] === "priority") {
-          if (categoryList.classList[1] === "workList") {
-            removeTasksFromLocalStorage(task, work);
-            removeTasksFromLocalStorage(task, priority);
-          } else if (categoryList.classList[1] === "personalList") {
-            removeTasksFromLocalStorage(task, personal);
-            removeTasksFromLocalStorage(task, priority);
-          } else if (categoryList.classList[1] === "learningList") {
-            removeTasksFromLocalStorage(task, learning);
-            removeTasksFromLocalStorage(task, priority);
-          } else {
-          }
-        } else {
-          if (categoryList.classList[1] === "workList") {
-            removeTasksFromLocalStorage(task, work);
-          } else if (categoryList.classList[1] === "personalList") {
-            removeTasksFromLocalStorage(task, personal);
-          } else if (categoryList.classList[1] === "learningList") {
-            removeTasksFromLocalStorage(task, learning);
-          } else {
-          }
-        }
         Swal.fire("Deleted!", "Your task has been deleted.", "success");
       }
       numberOfTask(workList, numberTasksWork);
@@ -383,6 +477,113 @@ function deleteTask(e) {
     });
   }
 }
+
+// function deleteTask(e) {
+//   const item = e.target;
+//   const task = item.parentElement;
+//   const categoryList = task.parentElement;
+//   if (item.classList[0] === "deleteButton") {
+//     Swal.fire({
+//       title: "Are you sure?",
+//       text: "You won't be able to revert this!",
+//       icon: "warning",
+//       showCancelButton: true,
+//       confirmButtonColor: "#3085d6",
+//       cancelButtonColor: "#d33",
+//       confirmButtonText: "Yes, delete it!",
+//     }).then((result) => {
+//       if (result.isConfirmed) {
+//         const childrenTaskList = taskList.childNodes;
+//         const childrenWorkList = workList.childNodes;
+//         let taskChild = task.firstChild.textContent;
+//         let workArray;
+//         console.log(task.parentElement);
+//         console.log(childrenWorkList);
+
+//         for (let i = 0; i < childrenWorkList.length; i++) {
+//           let nameTask = childrenWorkList[i].firstChild.textContent;
+//           workArray = [];
+//           workArray.push(nameTask);
+//           console.log(workArray);
+//           const indexOfTask = workArray.indexOf(taskChild);
+//           console.log(taskChild);
+//           console.log(indexOfTask);
+//           if (indexOfTask === 0){
+//             childrenWorkList[i].remove();
+//           }
+//         }
+
+//         for (let i = 0; i < childrenTaskList.length; i++) {
+//           let nameTask = childrenTaskList[i].firstChild.textContent;
+//           console.log(taskChild);
+//           if (nameTask == taskChild) {
+//             console.log(childrenTaskList[i]);
+//             console.log(childrenTaskList[i].classList[1]);
+//             if (childrenTaskList[i].classList[1] === "workPriority") {
+//               removePriorityFromLocalStorage(childrenTaskList[i], priority);
+//               removeTasksFromLocalStorage(childrenTaskList[i], work);
+//             } else if (
+//               childrenTaskList[i].classList[1] === "personalPriority"
+//             ) {
+//               removePriorityFromLocalStorage(childrenTaskList[i], priority);
+//               removeTasksFromLocalStorage(childrenTaskList[i], personal);
+//             } else if (
+//               childrenTaskList[i].classList[1] === "learningPriority"
+//             ) {
+//               removePriorityFromLocalStorage(childrenTaskList[i], priority);
+//               removeTasksFromLocalStorage(childrenTaskList[i], learning);
+//             } else if (childrenTaskList[i].classList[1] === "priority") {
+//             } else {
+//               console.log("Something wrong");
+//             }
+
+//             childrenTaskList[i].remove();
+
+//             if (task.classList[1] === "priority") {
+//               if (categoryList.classList[1] === "workList") {
+//                 removeTasksFromLocalStorage(task, work);
+//               } else if (categoryList.classList[1] === "personalList") {
+//                 removeTasksFromLocalStorage(task, personal);
+//               } else if (categoryList.classList[1] === "learningList") {
+//                 removeTasksFromLocalStorage(task, learning);
+//               } else {
+//               }
+//             } else {
+//               if (categoryList.classList[1] === "workList") {
+//                 removeTasksFromLocalStorage(task, work);
+//               } else if (categoryList.classList[1] === "personalList") {
+//                 removeTasksFromLocalStorage(task, personal);
+//               } else if (categoryList.classList[1] === "learningList") {
+//                 removeTasksFromLocalStorage(task, learning);
+//               } else {
+//               }
+//             }
+//           } else {
+//             console.log("not work");
+//           }
+//           // if (nameTask.textContent) {
+//           //   typeTaskInputValue = typeTaskInput[i].value;
+//           // }
+//         }
+//         console.log(task);
+
+//         task.remove();
+
+//         // if (worklistArr.includes(task) === true) {
+//         //   console.log(workList);
+//         //   console.log("Great success");
+//         // } else {
+//         //   console.log("Very bad");
+//         // }
+
+//         Swal.fire("Deleted!", "Your task has been deleted.", "success");
+//       }
+//       numberOfTask(workList, numberTasksWork);
+//       numberOfTask(personalList, numberTasksPersonal);
+//       numberOfTask(learningList, numberTasksLearning);
+//     });
+//   }
+// }
 
 // function deleteTask(e) {
 //   Swal.fire({
@@ -696,17 +897,19 @@ function getPriorityTask() {
     tasks = JSON.parse(localStorage.getItem("priority"));
   }
   tasks.forEach(function (task) {
-    const lsPriority = localStorage.getItem("priority");
-    const lsWork = localStorage.getItem("work");
-    const lsPersonal = localStorage.getItem("personal");
-    const lsLearning = localStorage.getItem("learning");
-    if (lsPriority.includes(task) === true && lsWork.includes(task) === true){
+    if (lsPriority.includes(task) === true && lsWork.includes(task) === true) {
       createTask(taskList, task, workPriority);
-    } else if (lsPriority.includes(task) === true && lsPersonal.includes(task) === true){
+    } else if (
+      lsPriority.includes(task) === true &&
+      lsPersonal.includes(task) === true
+    ) {
       createTask(taskList, task, personalPriority);
-    } else if (lsPriority.includes(task) === true && lsLearning.includes(task) === true){
+    } else if (
+      lsPriority.includes(task) === true &&
+      lsLearning.includes(task) === true
+    ) {
       createTask(taskList, task, learningPriority);
-    };
+    }
   });
 }
 
@@ -717,9 +920,9 @@ function removeTasksFromLocalStorage(task, name) {
   } else {
     tasks = JSON.parse(localStorage.getItem(name));
   }
-  const taskIndex = task.children[1].innerText;
-  console.log(taskIndex);
-  tasks.splice(tasks.indexOf(taskIndex), 1);
+  console.log(tasks);
+  tasks.splice(tasks.indexOf(task), 1);
+  console.log(tasks);
   localStorage.setItem(name, JSON.stringify(tasks));
 }
 
@@ -732,10 +935,9 @@ function removePriorityFromLocalStorage(task, name) {
   }
   console.log(task);
   console.log(tasks);
-  const nameTask = task.firstChild.textContent;
-  const taskIndex = task.children[1].innerText;
-  console.log(taskIndex);
-  tasks.splice(tasks.indexOf(nameTask), 1);
+  // const taskIndex = task.children[1].innerText;
+  // console.log(taskIndex);
+  tasks.splice(tasks.indexOf(task), 1);
   console.log(tasks);
   localStorage.setItem(name, JSON.stringify(tasks));
 }
