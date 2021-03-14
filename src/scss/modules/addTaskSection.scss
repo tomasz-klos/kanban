@@ -120,5 +120,20 @@
 }
 
 .normal--color {
-  background: white;
+  background: rgb(231, 221, 81);
 }
+
+input[type="radio"]{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.checked {
+  opacity: 0.5;
+}
+
+// label {
+//   pointer-events: none;
+// }

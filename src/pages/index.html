@@ -170,80 +170,54 @@
         <button class="header__buttonAdd"></button>
       </form>
       <p class="addTaskSection__typeTask">TYPE TASK</p>
-      <div class="addTaskSection__typeTaskDiv">
-        <div class="addTaskSection__priorityDiv priority--color margin--right">
-          <label for="priority">Priority</label>
+
+      <div class="addTaskSection__typeTaskDiv asd--js">
+        <label class="addTaskSection__priorityDiv priority--color margin--right priorityLabel" for="priority">Priority</label>
           <input
-            class="addTaskSection__typeTaskInput"
+            class="addTaskSection__typeTaskInput priorityInput"
             type="radio"
             id="priority"
             name="typeTask"
             value="priority"
           />
-        </div>
-        <div class="addTaskSection__priorityDiv normal--color margin--left">
-          <label for="normal">Normal</label>
+        <label class="addTaskSection__priorityDiv normal--color margin--left normalLabel checked" for="normal">Normal</label>
           <input
-            class="addTaskSection__typeTaskInput"
+            class="addTaskSection__typeTaskInput normalInput checked"
             type="radio"
             id="normal"
             name="typeTask"
             value="normal"
+            checked="checked"
           />
-        </div>
       </div>
       <p class="addTaskSection__category">CATEGORY</p>
       <div class="addTaskSection__typeTaskDiv">
-        <div class="addTaskSection__priorityDiv work--color">
-          <label for="work">WORK</label>
+        <label class="addTaskSection__priorityDiv work--color workLabel" for="work">WORK</label>
           <input
-            class="addTaskSection__typeTaskInput"
+            class="addTaskSection__typeTaskInput workInput checked"
             type="radio"
             id="work"
             name="categoryTask"
             value="work"
+            checked="checked"
           />
-        </div>
-        <div class="addTaskSection__priorityDiv personal--color margin--left margin--right">
-          <label for="personal">PERSONAL</label>
+        <label class="addTaskSection__priorityDiv personal--color margin--left margin--right personalLabel" for="personal">PERSONAL</label>
           <input
-            class="addTaskSection__typeTaskInput"
+            class="addTaskSection__typeTaskInput personalInput"
             type="radio"
             id="personal"
             name="categoryTask"
             value="personal"
           />
-        </div>
-        <div class="addTaskSection__priorityDiv learning--color">
-          <label for="learning">LEARNING</label>
+        <label class="addTaskSection__priorityDiv learning--color learningLabel" for="learning">LEARNING</label>
           <input
-            class="addTaskSection__typeTaskInput"
+            class="addTaskSection__typeTaskInput learningInput"
             type="radio"
             id="learning"
             name="categoryTask"
             value="learning"
           />
-        </div>
       </div>
-      <!-- <label class="addTaskSection__typeTask">TYPE TASK</label>
-      <select
-        class="addTaskSection__typeSelect typeTaskSelect--js"
-        name="typeTask"
-        id="typeTask"
-      >
-        <option value="priority">PRIORITY</option>
-        <option value="normal" selected="selected">NORMAL</option>
-      </select>
-      <label class="addTaskSection__category">CATEGORY</label>
-      <select
-        class="addTaskSection__categorySelect categoryTask--js"
-        name="categoryTask"
-        id="categoryTask"
-      >
-        <option value="work">WORK</option>
-        <option value="personal">PERSONAL</option>
-        <option value="learning">LEARNING</option>
-      </select> -->
       <button class="addTaskSection__createButton taskButton">
         Create Task
       </button>
@@ -343,26 +317,23 @@
             placeholder="your nick"
           />
           <div class="fourthPage__genderDiv" id="gender">
-            <div class="fourthPage__inputDiv margin--right">
-              <label for="male">Male</label>
+            <label class="fourthPage__inputDiv margin--right maleLabel checked" for="male">Male</label>
               <input
-                class="fourthPage__inputGender"
+                class="fourthPage__inputGender maleInput checked"
                 id="male"
                 type="radio"
                 name="gender"
                 value="male"
+                checked="checked"
               />
-            </div>
-            <div class="fourthPage__inputDiv margin--left">
-              <label for="female">Female</label>
+            <label class="fourthPage__inputDiv margin--left femaleLabel" for="female">Female</label>
               <input
-                class="fourthPage__inputGender"
+                class="fourthPage__inputGender femaleInput checked"
                 id="female"
                 type="radio"
                 name="gender"
                 value="female"
               />
-            </div>
           </div>
         </form>
         <div class="fourthPage__buttonDiv">

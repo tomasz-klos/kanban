@@ -16,7 +16,7 @@ import { registerSW } from "./pwa.js";
 registerSW();
 
 /* place your code below */
-Swal.fire("Hello world!");
+
 ////////////////////////////////////////////////////////// Selectors ////////////////////////////////////////////////////////////////
 
 const taskInput = document.querySelector(".taskInput");
@@ -147,6 +147,7 @@ document.addEventListener("DOMContentLoaded", getLocalStorage);
 
 document.addEventListener("DOMContentLoaded", changeWord);
 document.addEventListener("DOMContentLoaded", welcome);
+document.addEventListener("DOMContentLoaded", welcomeAlert);
 
 document.addEventListener(
   "DOMContentLoaded",
@@ -211,6 +212,115 @@ buttonBackLearning.addEventListener(
 );
 
 ///////////////////////////////////////////////////////// Functions //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+const normalLabel = document.querySelector(".normalLabel");
+const priorityLabel = document.querySelector(".priorityLabel");
+
+const workLabel = document.querySelector(".workLabel");
+const personalLabel = document.querySelector(".personalLabel");
+const learningLabel = document.querySelector(".learningLabel");
+
+normalLabel.addEventListener("click", changeOpacityTypeTaskLabel);
+priorityLabel.addEventListener("click", changeOpacityTypeTaskLabel);
+
+workLabel.addEventListener("click", changeOpacityCategoryLabel);
+personalLabel.addEventListener("click", changeOpacityCategoryLabel);
+learningLabel.addEventListener("click", changeOpacityCategoryLabel);
+
+const maleLabel = document.querySelector(".maleLabel");
+const femaleLabel = document.querySelector(".femaleLabel");
+
+const maleInput = document.querySelector(".maleInput");
+const femaleInput = document.querySelector(".femaleInput");
+
+maleLabel.addEventListener("click", changeOpacityGenderLabel);
+femaleLabel.addEventListener("click", changeOpacityGenderLabel);
+
+function welcomeAlert() {
+  if (localStorage.getItem("welcome" === 2)) {
+    let timerInterval;
+    Swal.fire({
+      title: "Hello !",
+      timer: 1500,
+      didOpen: () => {
+        Swal.showLoading();
+        timerInterval = setInterval(() => {
+          const content = Swal.getContent();
+          if (content) {
+            const b = content.querySelector("b");
+            if (b) {
+              b.textContent = Swal.getTimerLeft();
+            }
+          }
+        }, 100);
+      },
+      willClose: () => {
+        clearInterval(timerInterval);
+      },
+    }).then((result) => {
+      /* Read more about handling dismissals below */
+      if (result.dismiss === Swal.DismissReason.timer) {
+        console.log("I was closed by the timer");
+      }
+    });
+  } else {
+    console.log("hello");
+  }
+}
+
+function changeOpacityGenderLabel(e) {
+  const item = e.target;
+  if (item.classList.contains("checked") === true) {
+  } else {
+    if (maleInput.checked === true) {
+      item.classList.add("checked");
+      maleLabel.classList.remove("checked");
+    } else if (femaleInput.checked === true) {
+      item.classList.add("checked");
+      femaleLabel.classList.remove("checked");
+    }
+  }
+}
+
+function changeOpacityTypeTaskLabel(e) {
+  const item = e.target;
+  const priorityInput = document.querySelector(".priorityInput");
+  const normalInput = document.querySelector(".normalInput");
+  const priorityLabel = document.querySelector(".priorityLabel");
+  const normalLabel = document.querySelector(".normalLabel");
+  if (item.classList.contains("checked") === true) {
+  } else {
+    if (priorityInput.checked === true) {
+      item.classList.add("checked");
+      priorityLabel.classList.remove("checked");
+    } else if (normalInput.checked === true) {
+      item.classList.add("checked");
+      normalLabel.classList.remove("checked");
+    }
+  }
+}
+
+function changeOpacityCategoryLabel(e) {
+  const item = e.target;
+  const workInput = document.querySelector(".workInput");
+  const personalInput = document.querySelector(".personalInput");
+  const learningInput = document.querySelector(".learningInput");
+
+  if (item.classList.contains("checked") === true) {
+    console.log("tego nie można, to nie dobra jest");
+  } else {
+    if (workInput.checked === true) {
+      item.classList.add("checked");
+      workLabel.classList.remove("checked");
+    } else if (personalInput.checked === true) {
+      item.classList.add("checked");
+      personalLabel.classList.remove("checked");
+    } else if (learningInput.checked === true) {
+      item.classList.add("checked");
+      learningLabel.classList.remove("checked");
+    }
+  }
+}
 
 function openMenuProfile() {
   menuProfile.classList.toggle("open-section");
@@ -305,7 +415,6 @@ function addTask(event) {
 function deletePriorityTask(e) {
   const item = e.target;
   const task = item.parentElement;
-  const categoryList = task.parentElement;
   if (item.classList[0] === "deleteButton") {
     Swal.fire({
       title: "Are you sure?",
@@ -350,7 +459,6 @@ function deletePriorityTask(e) {
           }
         }
 
-
         for (let i = 0; i < childrenLearningList.length; i++) {
           let nameTask = childrenLearningList[i].firstChild.textContent;
           const element = childrenLearningList[i];
@@ -364,24 +472,27 @@ function deletePriorityTask(e) {
           }
         }
 
-
+        const taskWork = localStorage.getItem("work");
+        const taskPersonal = localStorage.getItem("personal");
+        const taskLearning = localStorage.getItem("learning");
+        const taskPriority = localStorage.getItem("priority");
 
         if (
-          lsPriority.includes(nameTask1) === true &&
-          lsWork.includes(nameTask1) === true
+          taskPriority.includes(nameTask1) === true &&
+          taskWork.includes(nameTask1) === true
         ) {
           console.log("działamyyyy");
           removePriorityFromLocalStorage(nameTask1, priority);
           removeTasksFromLocalStorage(nameTask1, work);
         } else if (
-          lsPriority.includes(nameTask1) === true &&
-          lsPersonal.includes(nameTask1) === true
+          taskPriority.includes(nameTask1) === true &&
+          taskPersonal.includes(nameTask1) === true
         ) {
           removePriorityFromLocalStorage(nameTask1, priority);
           removeTasksFromLocalStorage(nameTask1, personal);
         } else if (
-          lsPriority.includes(nameTask1) === true &&
-          lsLearning.includes(nameTask1) === true
+          taskPriority.includes(nameTask1) === true &&
+          taskLearning.includes(nameTask1) === true
         ) {
           removePriorityFromLocalStorage(nameTask1, priority);
           removeTasksFromLocalStorage(nameTask1, learning);
@@ -477,168 +588,6 @@ function deleteTask(e) {
     });
   }
 }
-
-// function deleteTask(e) {
-//   const item = e.target;
-//   const task = item.parentElement;
-//   const categoryList = task.parentElement;
-//   if (item.classList[0] === "deleteButton") {
-//     Swal.fire({
-//       title: "Are you sure?",
-//       text: "You won't be able to revert this!",
-//       icon: "warning",
-//       showCancelButton: true,
-//       confirmButtonColor: "#3085d6",
-//       cancelButtonColor: "#d33",
-//       confirmButtonText: "Yes, delete it!",
-//     }).then((result) => {
-//       if (result.isConfirmed) {
-//         const childrenTaskList = taskList.childNodes;
-//         const childrenWorkList = workList.childNodes;
-//         let taskChild = task.firstChild.textContent;
-//         let workArray;
-//         console.log(task.parentElement);
-//         console.log(childrenWorkList);
-
-//         for (let i = 0; i < childrenWorkList.length; i++) {
-//           let nameTask = childrenWorkList[i].firstChild.textContent;
-//           workArray = [];
-//           workArray.push(nameTask);
-//           console.log(workArray);
-//           const indexOfTask = workArray.indexOf(taskChild);
-//           console.log(taskChild);
-//           console.log(indexOfTask);
-//           if (indexOfTask === 0){
-//             childrenWorkList[i].remove();
-//           }
-//         }
-
-//         for (let i = 0; i < childrenTaskList.length; i++) {
-//           let nameTask = childrenTaskList[i].firstChild.textContent;
-//           console.log(taskChild);
-//           if (nameTask == taskChild) {
-//             console.log(childrenTaskList[i]);
-//             console.log(childrenTaskList[i].classList[1]);
-//             if (childrenTaskList[i].classList[1] === "workPriority") {
-//               removePriorityFromLocalStorage(childrenTaskList[i], priority);
-//               removeTasksFromLocalStorage(childrenTaskList[i], work);
-//             } else if (
-//               childrenTaskList[i].classList[1] === "personalPriority"
-//             ) {
-//               removePriorityFromLocalStorage(childrenTaskList[i], priority);
-//               removeTasksFromLocalStorage(childrenTaskList[i], personal);
-//             } else if (
-//               childrenTaskList[i].classList[1] === "learningPriority"
-//             ) {
-//               removePriorityFromLocalStorage(childrenTaskList[i], priority);
-//               removeTasksFromLocalStorage(childrenTaskList[i], learning);
-//             } else if (childrenTaskList[i].classList[1] === "priority") {
-//             } else {
-//               console.log("Something wrong");
-//             }
-
-//             childrenTaskList[i].remove();
-
-//             if (task.classList[1] === "priority") {
-//               if (categoryList.classList[1] === "workList") {
-//                 removeTasksFromLocalStorage(task, work);
-//               } else if (categoryList.classList[1] === "personalList") {
-//                 removeTasksFromLocalStorage(task, personal);
-//               } else if (categoryList.classList[1] === "learningList") {
-//                 removeTasksFromLocalStorage(task, learning);
-//               } else {
-//               }
-//             } else {
-//               if (categoryList.classList[1] === "workList") {
-//                 removeTasksFromLocalStorage(task, work);
-//               } else if (categoryList.classList[1] === "personalList") {
-//                 removeTasksFromLocalStorage(task, personal);
-//               } else if (categoryList.classList[1] === "learningList") {
-//                 removeTasksFromLocalStorage(task, learning);
-//               } else {
-//               }
-//             }
-//           } else {
-//             console.log("not work");
-//           }
-//           // if (nameTask.textContent) {
-//           //   typeTaskInputValue = typeTaskInput[i].value;
-//           // }
-//         }
-//         console.log(task);
-
-//         task.remove();
-
-//         // if (worklistArr.includes(task) === true) {
-//         //   console.log(workList);
-//         //   console.log("Great success");
-//         // } else {
-//         //   console.log("Very bad");
-//         // }
-
-//         Swal.fire("Deleted!", "Your task has been deleted.", "success");
-//       }
-//       numberOfTask(workList, numberTasksWork);
-//       numberOfTask(personalList, numberTasksPersonal);
-//       numberOfTask(learningList, numberTasksLearning);
-//     });
-//   }
-// }
-
-// function deleteTask(e) {
-//   Swal.fire({
-//     title: "Are you sure?",
-//     text: "You won't be able to revert this!",
-//     icon: "warning",
-//     showCancelButton: true,
-//     confirmButtonColor: "#3085d6",
-//     cancelButtonColor: "#d33",
-//     confirmButtonText: "Yes, delete it!",
-//   }).then((result) => {
-//     if (result.isConfirmed) {
-//       const item = e.target;
-//       if (item.classList[0] === "deleteButton") {
-//         const task = item.parentElement;
-//         const categoryList = task.parentElement;
-//         task.remove();
-//         const worklistArr = [];
-//         worklistArr.push(workList.children);
-//         console.log(worklistArr);
-//         if (worklistArr.includes(task) === true) {
-//           console.log(workList);
-//           console.log("Great success");
-//         } else {
-//           console.log("Very bad");
-//         }
-//       }
-//       Swal.fire("Deleted!", "Your task has been deleted.", "success");
-//     }
-//   });
-//   // if (task.classList[1] === "priority") {
-//   //   if (categoryList.classList[1] === "workList") {
-//   //     removeTasksFromLocalStorage(task, work);
-//   //     removeTasksFromLocalStorage(task, priority);
-//   //   } else if (categoryList.classList[1] === "personalList") {
-//   //     removeTasksFromLocalStorage(task, personal);
-//   //     removeTasksFromLocalStorage(task, priority);
-//   //   } else {
-//   //     removeTasksFromLocalStorage(task, learning);
-//   //     removeTasksFromLocalStorage(task, priority);
-//   //   }
-//   // } else {
-//   //   if (categoryList.classList[1] === "workList") {
-//   //     removeTasksFromLocalStorage(task, work);
-//   //   } else if (categoryList.classList[1] === "personalList") {
-//   //     removeTasksFromLocalStorage(task, personal);
-//   //   } else {
-//   //     removeTasksFromLocalStorage(task, learning);
-//   //   }
-//   // }
-
-//   numberOfTask(workList, numberTasksWork);
-//   numberOfTask(personalList, numberTasksPersonal);
-//   numberOfTask(learningList, numberTasksLearning);
-// }
 
 function completeTask(e) {
   const item = e.target;
