@@ -676,7 +676,7 @@ function createTask(list, value, name) {
 
   ////////// Completed button
   completedButton.innerHTML =
-    '<img class="checkmark" src="https://raw.githubusercontent.com/tomasz-klos/kanban/b422b9c55237de332b0bd145aa63e29bac444d9e/src/assets/img/Checkmark.svg">';
+    '<img class="checkmark" src="https://raw.githubusercontent.com/tomasz-klos/kanban/99b8642c6e3e270a09963bf3bfa9a28bb778cc39/src/assets/img/Checkmark.svg">';
   completedButton.classList.add("completeButton");
   taskDiv.appendChild(completedButton);
 
