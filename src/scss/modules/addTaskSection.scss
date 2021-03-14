@@ -8,6 +8,7 @@
   &__title {
     font-size: 2rem;
     padding: 0 20px;
+    margin: 15px 0;
   }
   &__typeTask {
     padding: 0 20px;
@@ -31,14 +32,14 @@
     margin: 36px 0 30px 20px;
   }
   &__createButton {
-      border-radius: 10px;
-      border: none;
-      background: $darkBlue;
-      color: white;
-      font-size: 1.5rem;
-      padding: 10px 0;
-      margin: 50px 20px 0 20px;
-      box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+    border-radius: 10px;
+    border: none;
+    background: $darkBlue;
+    color: white;
+    font-size: 1.5rem;
+    padding: 10px 0;
+    margin: 50px 20px 0 20px;
+    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
   }
   &__typeSelect {
     margin: 20px 20px;
@@ -57,6 +58,13 @@
     padding: 10px;
     border-radius: 4px;
     box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+  }
+  &__inputDiv {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 14px;
+    padding: 0 20px;
+    z-index: 230;
   }
 }
 
@@ -105,27 +113,46 @@
   }
 }
 
+.welcome--inputDiv {
+    display: flex;
+    justify-content: center;
+    background: white;
+    border: 1px #a1a4b1 solid;
+    width: 50%;
+    padding: 10px;
+    text-align: center;
+    border-radius: 4px;
+    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+    opacity: 0.5;
+}
+
+
 .work--color {
   background: $darkRed;
+  opacity: 0.5;
 }
 
 .personal--color {
   background: $vivitBlue;
+  opacity: 0.5;
 }
 
 .learning--color {
   background: $green;
+  opacity: 0.5;
 }
 
 .priority--color {
   background: red;
+  opacity: 0.5;
 }
 
 .normal--color {
   background: rgb(231, 221, 81);
+  opacity: 0.5;
 }
 
-input[type="radio"]{
+input[type="radio"] {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -133,7 +160,7 @@ input[type="radio"]{
 }
 
 .checked {
-  opacity: 0.5;
+  opacity: 1;
 }
 
 // label {

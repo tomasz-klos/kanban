@@ -161,62 +161,94 @@
         <img src="../assets/img/buttonBack.svg" alt="" />
       </button>
       <p class="addTaskSection__title">Create new task</p>
-      <form class="header__form">
+      <p class="addTaskSection__typeTask">TASK TITLE</p>
+      <div class="addTaskSection__inputDiv">
         <input
           type="text"
           class="header__input taskInput"
+          minlength="3"
+          maxlength="12"
           placeholder="task title"
         />
         <button class="header__buttonAdd"></button>
-      </form>
+      </div>
+      <p class="addTaskSection__typeTask">DESCRIPTION TASK</p>
+      <div class="addTaskSection__inputDiv">
+        <input
+          type="text"
+          class="header__input taskDescriptionInput"
+          maxlength="30"
+          placeholder="description task"
+        />
+      </div>
       <p class="addTaskSection__typeTask">TYPE TASK</p>
 
       <div class="addTaskSection__typeTaskDiv asd--js">
-        <label class="addTaskSection__priorityDiv priority--color margin--right priorityLabel" for="priority">Priority</label>
-          <input
-            class="addTaskSection__typeTaskInput priorityInput"
-            type="radio"
-            id="priority"
-            name="typeTask"
-            value="priority"
-          />
-        <label class="addTaskSection__priorityDiv normal--color margin--left normalLabel checked" for="normal">Normal</label>
-          <input
-            class="addTaskSection__typeTaskInput normalInput checked"
-            type="radio"
-            id="normal"
-            name="typeTask"
-            value="normal"
-            checked="checked"
-          />
+        <label
+          class="addTaskSection__priorityDiv priority--color margin--right priorityLabel"
+          for="priority"
+          >Priority</label
+        >
+        <input
+          class="addTaskSection__typeTaskInput priorityInput"
+          type="radio"
+          id="priority"
+          name="typeTask"
+          value="priority"
+        />
+        <label
+          class="addTaskSection__priorityDiv normal--color margin--left normalLabel checked"
+          for="normal"
+          >Normal</label
+        >
+        <input
+          class="addTaskSection__typeTaskInput normalInput checked"
+          type="radio"
+          id="normal"
+          name="typeTask"
+          value="normal"
+          checked="checked"
+        />
       </div>
       <p class="addTaskSection__category">CATEGORY</p>
       <div class="addTaskSection__typeTaskDiv">
-        <label class="addTaskSection__priorityDiv work--color workLabel checked" for="work">WORK</label>
-          <input
-            class="addTaskSection__typeTaskInput workInput"
-            type="radio"
-            id="work"
-            name="categoryTask"
-            value="work"
-            checked="checked"
-          />
-        <label class="addTaskSection__priorityDiv personal--color margin--left margin--right personalLabel" for="personal">PERSONAL</label>
-          <input
-            class="addTaskSection__typeTaskInput personalInput"
-            type="radio"
-            id="personal"
-            name="categoryTask"
-            value="personal"
-          />
-        <label class="addTaskSection__priorityDiv learning--color learningLabel" for="learning">LEARNING</label>
-          <input
-            class="addTaskSection__typeTaskInput learningInput"
-            type="radio"
-            id="learning"
-            name="categoryTask"
-            value="learning"
-          />
+        <label
+          class="addTaskSection__priorityDiv work--color workLabel checked"
+          for="work"
+          >WORK</label
+        >
+        <input
+          class="addTaskSection__typeTaskInput workInput"
+          type="radio"
+          id="work"
+          name="categoryTask"
+          value="work"
+          checked="checked"
+        />
+        <label
+          class="addTaskSection__priorityDiv personal--color margin--left margin--right personalLabel"
+          for="personal"
+          >PERSONAL</label
+        >
+        <input
+          class="addTaskSection__typeTaskInput personalInput"
+          type="radio"
+          id="personal"
+          name="categoryTask"
+          value="personal"
+        />
+        <label
+          class="addTaskSection__priorityDiv learning--color learningLabel"
+          for="learning"
+          >LEARNING</label
+        >
+        <input
+          class="addTaskSection__typeTaskInput learningInput"
+          type="radio"
+          id="learning"
+          name="categoryTask"
+          value="learning"
+        />
       </div>
       <button class="addTaskSection__createButton taskButton">
         Create Task
@@ -317,23 +349,31 @@
             placeholder="your nick"
           />
           <div class="fourthPage__genderDiv" id="gender">
-            <label class="fourthPage__inputDiv margin--right maleLabel checked" for="male">Male</label>
-              <input
-                class="fourthPage__inputGender maleInput checked"
-                id="male"
-                type="radio"
-                name="gender"
-                value="male"
-                checked="checked"
-              />
-            <label class="fourthPage__inputDiv margin--left femaleLabel" for="female">Female</label>
-              <input
-                class="fourthPage__inputGender femaleInput checked"
-                id="female"
-                type="radio"
-                name="gender"
-                value="female"
-              />
+            <label
+              class="welcome--inputDiv margin--right maleLabel checked"
+              for="male"
+              >Male</label
+            >
+            <input
+              class="fourthPage__inputGender maleInput checked"
+              id="male"
+              type="radio"
+              name="gender"
+              value="male"
+              checked="checked"
+            />
+            <label
+              class="welcome--inputDiv margin--left femaleLabel"
+              for="female"
+              >Female</label
+            >
+            <input
+              class="fourthPage__inputGender femaleInput checked"
+              id="female"
+              type="radio"
+              name="gender"
+              value="female"
+            />
           </div>
         </form>
         <div class="fourthPage__buttonDiv">
@@ -390,7 +430,7 @@
                 <p class="category__paragraph">
                   <span class="numberOfTaskPersonal--js"></span> tasks
                 </p>
-                <button class="category__button ">
+                <button class="category__button">
                   <img
                     class="category__image"
                     src="../assets/img/buttonArrow.svg"

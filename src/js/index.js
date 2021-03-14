@@ -70,6 +70,9 @@ let typeTaskInputValue;
 const categoryInput = document.getElementsByName("categoryTask");
 let categoryInputValue;
 
+const descriptionTaskInput = document.querySelector(".taskDescriptionInput");
+let descriptionTaskInputValue;
+
 const hamburgerButton = document.querySelector(".hamburger--js");
 const menuProfile = document.querySelector(".menuProfile--js");
 const opacityDiv = document.querySelector(".opacityDiv--js");
@@ -349,67 +352,166 @@ function addTask(event) {
       categoryInputValue = categoryInput[i].value;
     }
   }
-  switch (typeTaskInputValue) {
-    case "priority":
-      switch (categoryInputValue) {
-        case "work":
-          createTask(taskList, taskInput.value, workPriority);
-          createTask(workList, taskInput.value, priority);
-          saveTasksInLocalStorage(taskInput.value, work);
-          saveTasksInLocalStorage(taskInput.value, priority);
-          closeSection(addTaskSection);
+  if (taskInput.value.length === 0) {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "task must have a title!",
+    });
+  } else {
+    switch (typeTaskInputValue) {
+      case "priority":
+        switch (categoryInputValue) {
+          case "work":
+            createTask(
+              taskList,
+              taskInput.value,
+              descriptionTaskInput.value,
+              workPriority
+            );
+            createTask(
+              workList,
+              taskInput.value,
+              descriptionTaskInput.value,
+              priority
+            );
+            saveTasksInLocalStorage(
+              taskInput.value,
+              descriptionTaskInput.value,
+              work,
+              work
+            );
+            saveTasksInLocalStorage(
+              taskInput.value,
+              descriptionTaskInput.value,
+              priority,
+              workPriority
+            );
+            closeSection(addTaskSection);
 
-          break;
-        case "personal":
-          createTask(taskList, taskInput.value, personalPriority);
-          createTask(personalList, taskInput.value, priority);
-          saveTasksInLocalStorage(taskInput.value, personal);
-          saveTasksInLocalStorage(taskInput.value, priority);
-          closeSection(addTaskSection);
-          break;
-        case "learning":
-          createTask(taskList, taskInput.value, learningPriority);
-          createTask(learningList, taskInput.value, priority);
-          saveTasksInLocalStorage(taskInput.value, learning);
-          saveTasksInLocalStorage(taskInput.value, priority);
-          closeSection(addTaskSection);
-          break;
-      }
-      break;
-    case "normal":
-      switch (categoryInputValue) {
-        case "work":
-          createTask(workList, taskInput.value, normal);
-          saveTasksInLocalStorage(taskInput.value, work);
-          closeSection(addTaskSection);
-          openSection(workCategorySection);
-          break;
-        case "personal":
-          createTask(personalList, taskInput.value, normal);
-          saveTasksInLocalStorage(taskInput.value, personal);
-          closeSection(addTaskSection);
-          openSection(personalCategorySection);
-          break;
-        case "learning":
-          createTask(learningList, taskInput.value, normal);
-          saveTasksInLocalStorage(taskInput.value, learning);
-          closeSection(addTaskSection);
-          openSection(learningCategorySection);
-          break;
-      }
-      break;
+            break;
+          case "personal":
+            createTask(
+              taskList,
+              taskInput.value,
+              descriptionTaskInput.value,
+              personalPriority
+            );
+            createTask(
+              personalList,
+              taskInput.value,
+              descriptionTaskInput.value,
+              priority
+            );
+            saveTasksInLocalStorage(
+              taskInput.value,
+              descriptionTaskInput.value,
+              personal,
+              personal
+            );
+            saveTasksInLocalStorage(
+              taskInput.value,
+              descriptionTaskInput.value,
+              priority,
+              personalPriority
+            );
+            closeSection(addTaskSection);
+            break;
+          case "learning":
+            createTask(
+              taskList,
+              taskInput.value,
+              descriptionTaskInput.value,
+              learningPriority
+            );
+            createTask(
+              learningList,
+              taskInput.value,
+              descriptionTaskInput.value,
+              priority
+            );
+            saveTasksInLocalStorage(
+              taskInput.value,
+              descriptionTaskInput.value,
+              learning,
+              learning
+            );
+            saveTasksInLocalStorage(
+              taskInput.value,
+              descriptionTaskInput.value,
+              priority,
+              learningPriority
+            );
+            closeSection(addTaskSection);
+            break;
+        }
+        break;
+      case "normal":
+        switch (categoryInputValue) {
+          case "work":
+            createTask(
+              workList,
+              taskInput.value,
+              descriptionTaskInput.value,
+              normal
+            );
+            saveTasksInLocalStorage(
+              taskInput.value,
+              descriptionTaskInput.value,
+              work,
+              work
+            );
+            closeSection(addTaskSection);
+            openSection(workCategorySection);
+            break;
+          case "personal":
+            createTask(
+              personalList,
+              taskInput.value,
+              descriptionTaskInput.value,
+              normal
+            );
+            saveTasksInLocalStorage(
+              taskInput.value,
+              descriptionTaskInput.value,
+              personal,
+              personal
+            );
+            closeSection(addTaskSection);
+            openSection(personalCategorySection);
+            break;
+          case "learning":
+            createTask(
+              learningList,
+              taskInput.value,
+              descriptionTaskInput.value,
+              normal
+            );
+            saveTasksInLocalStorage(
+              taskInput.value,
+              descriptionTaskInput.value,
+              learning,
+              learning
+            );
+            closeSection(addTaskSection);
+            openSection(learningCategorySection);
+            break;
+        }
+        break;
+    }
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: "Your task has been saved",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+    taskInput.value = "";
+    descriptionTaskInput.value = "";
   }
-  taskInput.value = "";
   numberOfTask(workList, numberTasksWork);
   numberOfTask(personalList, numberTasksPersonal);
   numberOfTask(learningList, numberTasksLearning);
-  Swal.fire({
-    position: "top-end",
-    icon: "success",
-    title: "Your task has been saved",
-    showConfirmButton: false,
-    timer: 1500,
-  });
 }
 
 function deletePriorityTask(e) {
@@ -482,19 +584,19 @@ function deletePriorityTask(e) {
           taskWork.includes(nameTask1) === true
         ) {
           console.log("działamyyyy");
-          removePriorityFromLocalStorage(nameTask1, priority);
+          removeTasksFromLocalStorage(nameTask1, priority);
           removeTasksFromLocalStorage(nameTask1, work);
         } else if (
           taskPriority.includes(nameTask1) === true &&
           taskPersonal.includes(nameTask1) === true
         ) {
-          removePriorityFromLocalStorage(nameTask1, priority);
+          removeTasksFromLocalStorage(nameTask1, priority);
           removeTasksFromLocalStorage(nameTask1, personal);
         } else if (
           taskPriority.includes(nameTask1) === true &&
           taskLearning.includes(nameTask1) === true
         ) {
-          removePriorityFromLocalStorage(nameTask1, priority);
+          removeTasksFromLocalStorage(nameTask1, priority);
           removeTasksFromLocalStorage(nameTask1, learning);
         }
 
@@ -556,13 +658,13 @@ function deleteTask(e) {
         if (task.classList[1] === "priority") {
           if (categoryList.classList[1] === "workList") {
             removeTasksFromLocalStorage(nameTask1, work);
-            removePriorityFromLocalStorage(nameTask1, priority);
+            removeTasksFromLocalStorage(nameTask1, priority);
           } else if (categoryList.classList[1] === "personalList") {
             removeTasksFromLocalStorage(nameTask1, personal);
-            removePriorityFromLocalStorage(nameTask1, priority);
+            removeTasksFromLocalStorage(nameTask1, priority);
           } else if (categoryList.classList[1] === "learningList") {
             removeTasksFromLocalStorage(nameTask1, learning);
-            removePriorityFromLocalStorage(nameTask1, priority);
+            TasksFromLocalStorage(nameTask1, priority);
           } else {
           }
         } else if (task.classList[1] === "normal") {
@@ -662,17 +764,25 @@ function closeSection(section) {
   mainSection.style.display = "flex";
 }
 
-function createTask(list, value, name) {
+function createTask(list, value, descriptionValue, name) {
   const taskDiv = document.createElement("div");
   const completedButton = document.createElement("button");
   const newTask = document.createElement("li");
   const deleteButton = document.createElement("button");
+  const newDiv = document.createElement("div");
+  taskDiv.classList.add("priorityTask__div");
+  taskDiv.classList.add(name);
+
   taskDiv.classList.add("priorityTask__div");
   taskDiv.classList.add(name);
 
   newTask.innerText = value;
   newTask.classList.add("taskItem");
   taskDiv.appendChild(newTask);
+  /////// Description div
+
+  newDiv.innerText = descriptionValue;
+  taskDiv.appendChild(newDiv);
 
   ////////// Completed button
   completedButton.innerHTML =
@@ -702,22 +812,34 @@ function welcome() {
 function welcomeSettings() {
   const nickInput = document.querySelector(".nickInput");
   const valueNickInput = nickInput.value;
-  localStorage.setItem("nick", valueNickInput);
-  spanNick.innerHTML = valueNickInput;
-  for (let i = 0; i < genders.length; i++) {
-    if (genders[i].checked) {
-      selectedGender = genders[i].value;
+  getLocalStorageWelcome();
+  if (nickInput.value.length === 0) {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "you must enter your nick",
+    });
+  } else {
+    localStorage.setItem("nick", valueNickInput);
+    spanNick.innerHTML = valueNickInput;
+    for (let i = 0; i < genders.length; i++) {
+      if (genders[i].checked) {
+        selectedGender = genders[i].value;
+      }
     }
-  }
-  switch (selectedGender) {
-    case "male":
-      localStorage.setItem("gender", "male");
-      menProfile.style.display = "flex";
-      break;
-    case "female":
-      localStorage.setItem("gender", "female");
-      womenProfile.style.display = "flex";
-      break;
+    switch (selectedGender) {
+      case "male":
+        localStorage.setItem("gender", "male");
+        menProfile.style.display = "flex";
+        break;
+      case "female":
+        localStorage.setItem("gender", "female");
+        womenProfile.style.display = "flex";
+        break;
+    }
+    localStorage.setItem("welcome", 2);
+    welcomeSection.classList.remove("open-section");
+    mainSection.style.display = "flex";
   }
 }
 
@@ -726,10 +848,10 @@ function welcomeSettings() {
 function getLocalStorage() {
   getNick();
   getGender();
-  getWorkTask();
-  getPersonalTask();
-  getLearningTask();
-  getPriorityTask();
+  getPriorityTasks();
+  getNormalTasks(workList, work);
+  getNormalTasks(personalList, personal);
+  getNormalTasks(learningList, learning);
   getLocalStorageWelcome();
 }
 
@@ -762,11 +884,8 @@ function getGender() {
 }
 
 function saveLocalStorageWelcome() {
-  getLocalStorageWelcome();
-  localStorage.setItem("welcome", 2);
-  welcomeSection.classList.remove("open-section");
-  mainSection.style.display = "flex";
   welcomeSettings();
+  getLocalStorageWelcome();
 }
 
 function getLocalStorageWelcome() {
@@ -776,90 +895,62 @@ function getLocalStorageWelcome() {
   }
 }
 
-function saveTasksInLocalStorage(task, name) {
-  let tasks;
+function saveTasksInLocalStorage(task, descriptionValue, name, category) {
+  let tasks = [];
   if (localStorage.getItem(name) === null) {
     tasks = [];
   } else {
     tasks = JSON.parse(localStorage.getItem(name));
   }
-  tasks.push(task);
+  let object = {
+    taskTitle: task,
+    description: descriptionValue,
+    category: category,
+  };
+  tasks.push(object);
+  console.log(JSON.stringify(object));
+
   localStorage.setItem(name, JSON.stringify(tasks));
 }
 
-function getWorkTask() {
-  let tasks;
-  if (localStorage.getItem("work") === null) {
-    tasks = [];
-  } else {
-    tasks = JSON.parse(localStorage.getItem("work"));
-  }
-  const arr = localStorage.getItem("priority");
-  tasks.forEach(function (task) {
-    if (arr.includes(task) === true) {
-      createTask(workList, task, priority);
-    } else {
-      createTask(workList, task, normal);
-    }
-  });
-}
-
-function getPersonalTask() {
-  let tasks;
-  if (localStorage.getItem("personal") === null) {
-    tasks = [];
-  } else {
-    tasks = JSON.parse(localStorage.getItem("personal"));
-  }
-  const arr = localStorage.getItem("priority");
-  tasks.forEach(function (task) {
-    if (arr.includes(task) === true) {
-      createTask(personalList, task, priority);
-    } else {
-      createTask(personalList, task, normal);
-    }
-  });
-}
-
-function getLearningTask() {
-  let tasks;
-  if (localStorage.getItem("learning") === null) {
-    tasks = [];
-  } else {
-    tasks = JSON.parse(localStorage.getItem("learning"));
-  }
-  const arr = localStorage.getItem("priority");
-  tasks.forEach(function (task) {
-    if (arr.includes(task) === true) {
-      createTask(learningList, task, priority);
-    } else {
-      createTask(learningList, task, normal);
-    }
-  });
-}
-
-function getPriorityTask() {
+function getPriorityTasks() {
   let tasks;
   if (localStorage.getItem("priority") === null) {
     tasks = [];
   } else {
     tasks = JSON.parse(localStorage.getItem("priority"));
   }
-  tasks.forEach(function (task) {
-    if (lsPriority.includes(task) === true && lsWork.includes(task) === true) {
-      createTask(taskList, task, workPriority);
-    } else if (
-      lsPriority.includes(task) === true &&
-      lsPersonal.includes(task) === true
-    ) {
-      createTask(taskList, task, personalPriority);
-    } else if (
-      lsPriority.includes(task) === true &&
-      lsLearning.includes(task) === true
-    ) {
-      createTask(taskList, task, learningPriority);
+  console.log(tasks);
+  for (let i = 0; i < tasks.length; i++) {
+    let task = tasks[i].taskTitle;
+    let description = tasks[i].description;
+    if (tasks[i].category === workPriority) {
+      createTask(taskList, task, description, workPriority);
+    } else if (tasks[i].category === personalPriority) {
+      createTask(taskList, task, description, personalPriority);
+    } else {
+      createTask(taskList, task, description, learningPriority);
     }
-  });
+  }
+}
+
+function getNormalTasks(list, category) {
+  let tasks;
+  if (localStorage.getItem(category) === null) {
+    tasks = [];
+  } else {
+    tasks = JSON.parse(localStorage.getItem(category));
+  }
+  console.log(tasks);
+  for (let i = 0; i < tasks.length; i++) {
+    let task = tasks[i].taskTitle;
+    let description = tasks[i].description;
+    if (tasks[i].category === category) {
+      createTask(list, task, description, work);
+    } else {
+      console.log("NOT WOOOOORK");
+    }
+  }
 }
 
 function removeTasksFromLocalStorage(task, name) {
@@ -870,22 +961,6 @@ function removeTasksFromLocalStorage(task, name) {
     tasks = JSON.parse(localStorage.getItem(name));
   }
   console.log(tasks);
-  tasks.splice(tasks.indexOf(task), 1);
-  console.log(tasks);
-  localStorage.setItem(name, JSON.stringify(tasks));
-}
-
-function removePriorityFromLocalStorage(task, name) {
-  let tasks;
-  if (localStorage.getItem(name) === null) {
-    tasks = [];
-  } else {
-    tasks = JSON.parse(localStorage.getItem(name));
-  }
-  console.log(task);
-  console.log(tasks);
-  // const taskIndex = task.children[1].innerText;
-  // console.log(taskIndex);
   tasks.splice(tasks.indexOf(task), 1);
   console.log(tasks);
   localStorage.setItem(name, JSON.stringify(tasks));
