@@ -682,7 +682,7 @@ function createTask(list, value, name) {
 
   //////// Delete button
   deleteButton.innerHTML =
-    '<img class="trash" src="https://raw.githubusercontent.com/tomasz-klos/kanban/d1dc6f3b939beba0441e0fd42ebde29dfb933890/src/assets/img/trash.svg">';
+    '<img class="trash" src="https://raw.githubusercontent.com/tomasz-klos/kanban/afc206a9071cf3b905db34c6dd045a6ed960beac/src/assets/img/trash.svg">';
   deleteButton.classList.add("deleteButton");
   taskDiv.appendChild(deleteButton);
 
