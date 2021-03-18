@@ -92,6 +92,14 @@ const lsWork = localStorage.getItem("work");
 const lsPersonal = localStorage.getItem("personal");
 const lsLearning = localStorage.getItem("learning");
 
+const taskContener = document.querySelector(".taskContener--js");
+const spanDescription = document.querySelector(".description--js");
+const spanNameTask = document.querySelector(".taskName--js");
+
+const buttonBackTaskSection = document.querySelector(".buttonBackTask--js");
+
+buttonBackTaskSection.addEventListener("click", closeSection.bind(event, taskContener));
+
 //////////////////////////////////////// WELCOME SECTION /////////////////////////////////////////////////////////////////////
 
 const firstPage = document.querySelector(".firstPage--js");
@@ -168,6 +176,10 @@ document.addEventListener(
 taskButton.addEventListener("click", addTask);
 taskList.addEventListener("click", deletePriorityTask);
 taskList.addEventListener("click", completeTask);
+taskList.addEventListener("click", openTask.bind(event, lsPriority));
+workList.addEventListener("click", openTask.bind(event, lsWork));
+personalList.addEventListener("click", openTask.bind(event, lsPersonal));
+learningList.addEventListener("click", openTask.bind(event, lsLearning));
 
 workList.addEventListener("click", deleteTask);
 personalList.addEventListener("click", deleteTask);
@@ -363,18 +375,8 @@ function addTask(event) {
       case "priority":
         switch (categoryInputValue) {
           case "work":
-            createTask(
-              taskList,
-              taskInput.value,
-              descriptionTaskInput.value,
-              workPriority
-            );
-            createTask(
-              workList,
-              taskInput.value,
-              descriptionTaskInput.value,
-              priority
-            );
+            createTask(taskList, taskInput.value, workPriority);
+            createTask(workList, taskInput.value, priority);
             saveTasksInLocalStorage(
               taskInput.value,
               descriptionTaskInput.value,
@@ -391,18 +393,8 @@ function addTask(event) {
 
             break;
           case "personal":
-            createTask(
-              taskList,
-              taskInput.value,
-              descriptionTaskInput.value,
-              personalPriority
-            );
-            createTask(
-              personalList,
-              taskInput.value,
-              descriptionTaskInput.value,
-              priority
-            );
+            createTask(taskList, taskInput.value, personalPriority);
+            createTask(personalList, taskInput.value, priority);
             saveTasksInLocalStorage(
               taskInput.value,
               descriptionTaskInput.value,
@@ -418,18 +410,8 @@ function addTask(event) {
             closeSection(addTaskSection);
             break;
           case "learning":
-            createTask(
-              taskList,
-              taskInput.value,
-              descriptionTaskInput.value,
-              learningPriority
-            );
-            createTask(
-              learningList,
-              taskInput.value,
-              descriptionTaskInput.value,
-              priority
-            );
+            createTask(taskList, taskInput.value, learningPriority);
+            createTask(learningList, taskInput.value, priority);
             saveTasksInLocalStorage(
               taskInput.value,
               descriptionTaskInput.value,
@@ -449,12 +431,7 @@ function addTask(event) {
       case "normal":
         switch (categoryInputValue) {
           case "work":
-            createTask(
-              workList,
-              taskInput.value,
-              descriptionTaskInput.value,
-              normal
-            );
+            createTask(workList, taskInput.value, normal);
             saveTasksInLocalStorage(
               taskInput.value,
               descriptionTaskInput.value,
@@ -465,12 +442,7 @@ function addTask(event) {
             openSection(workCategorySection);
             break;
           case "personal":
-            createTask(
-              personalList,
-              taskInput.value,
-              descriptionTaskInput.value,
-              normal
-            );
+            createTask(personalList, taskInput.value, normal);
             saveTasksInLocalStorage(
               taskInput.value,
               descriptionTaskInput.value,
@@ -481,12 +453,7 @@ function addTask(event) {
             openSection(personalCategorySection);
             break;
           case "learning":
-            createTask(
-              learningList,
-              taskInput.value,
-              descriptionTaskInput.value,
-              normal
-            );
+            createTask(learningList, taskInput.value, normal);
             saveTasksInLocalStorage(
               taskInput.value,
               descriptionTaskInput.value,
@@ -574,30 +541,27 @@ function deletePriorityTask(e) {
           }
         }
 
-        const taskWork = localStorage.getItem("work");
-        const taskPersonal = localStorage.getItem("personal");
-        const taskLearning = localStorage.getItem("learning");
         const taskPriority = localStorage.getItem("priority");
 
-        if (
-          taskPriority.includes(nameTask1) === true &&
-          taskWork.includes(nameTask1) === true
-        ) {
-          console.log("działamyyyy");
-          removeTasksFromLocalStorage(nameTask1, priority);
-          removeTasksFromLocalStorage(nameTask1, work);
-        } else if (
-          taskPriority.includes(nameTask1) === true &&
-          taskPersonal.includes(nameTask1) === true
-        ) {
-          removeTasksFromLocalStorage(nameTask1, priority);
-          removeTasksFromLocalStorage(nameTask1, personal);
-        } else if (
-          taskPriority.includes(nameTask1) === true &&
-          taskLearning.includes(nameTask1) === true
-        ) {
-          removeTasksFromLocalStorage(nameTask1, priority);
-          removeTasksFromLocalStorage(nameTask1, learning);
+        for (let i = 0; i < taskPriority.length; i++) {
+          // let taskTitle = taskPriority[i].taskTitle;
+          // console.log(taskTitle);
+          let description = taskPriority[i].description;
+          let category = taskPriority[i].category;
+          console.log(nameTask1);
+          if (task.classList[1] === "workPriority") {
+            console.log("MAM KLASE workPriority");
+            removeTasksFromLocalStorage(nameTask1, priority);
+            removeTasksFromLocalStorage(nameTask1, work);
+          } else if (task.classList[1] === "personalPriority") {
+            removeTasksFromLocalStorage(nameTask1, priority);
+            removeTasksFromLocalStorage(nameTask1, personal);
+          } else if (task.classList[1] === "learningPriority") {
+            removeTasksFromLocalStorage(nameTask1, priority);
+            removeTasksFromLocalStorage(nameTask1, learning);
+          } else {
+            console.log("coś nie działczy tutej");
+          }
         }
 
         console.log(task);
@@ -610,6 +574,8 @@ function deletePriorityTask(e) {
       numberOfTask(personalList, numberTasksPersonal);
       numberOfTask(learningList, numberTasksLearning);
     });
+  } else {
+    console.log("whaaaat");
   }
 }
 
@@ -655,28 +621,28 @@ function deleteTask(e) {
           }
         }
 
-        if (task.classList[1] === "priority") {
-          if (categoryList.classList[1] === "workList") {
-            removeTasksFromLocalStorage(nameTask1, work);
-            removeTasksFromLocalStorage(nameTask1, priority);
-          } else if (categoryList.classList[1] === "personalList") {
-            removeTasksFromLocalStorage(nameTask1, personal);
-            removeTasksFromLocalStorage(nameTask1, priority);
-          } else if (categoryList.classList[1] === "learningList") {
-            removeTasksFromLocalStorage(nameTask1, learning);
-            TasksFromLocalStorage(nameTask1, priority);
-          } else {
-          }
-        } else if (task.classList[1] === "normal") {
-          if (categoryList.classList[1] === "workList") {
-            removeTasksFromLocalStorage(nameTask1, work);
-          } else if (categoryList.classList[1] === "personalList") {
-            removeTasksFromLocalStorage(nameTask1, personal);
-          } else if (categoryList.classList[1] === "learningList") {
-            removeTasksFromLocalStorage(nameTask1, learning);
-          } else {
-          }
-        }
+        // if (task.classList[1] === "priority") {
+        //   if (categoryList.classList[1] === "workList") {
+        //     removeTasksFromLocalStorage(nameTask1, work);
+        //     removeTasksFromLocalStorage(nameTask1, priority);
+        //   } else if (categoryList.classList[1] === "personalList") {
+        //     removeTasksFromLocalStorage(nameTask1, personal);
+        //     removeTasksFromLocalStorage(nameTask1, priority);
+        //   } else if (categoryList.classList[1] === "learningList") {
+        //     removeTasksFromLocalStorage(nameTask1, learning);
+        //     TasksFromLocalStorage(nameTask1, priority);
+        //   } else {
+        //   }
+        // } else if (task.classList[1] === "normal") {
+        //   if (categoryList.classList[1] === "workList") {
+        //     removeTasksFromLocalStorage(nameTask1, work);
+        //   } else if (categoryList.classList[1] === "personalList") {
+        //     removeTasksFromLocalStorage(nameTask1, personal);
+        //   } else if (categoryList.classList[1] === "learningList") {
+        //     removeTasksFromLocalStorage(nameTask1, learning);
+        //   } else {
+        //   }
+        // }
 
         console.log(task);
 
@@ -712,6 +678,29 @@ function completeTask(e) {
       icon: "success",
       title: "Signed in successfully",
     });
+  }
+}
+
+function openTask(localStorage, e) {
+  const item = e.target;
+  const task = item.parentElement;
+  console.log(item);
+  const nameTask = item.firstChild.textContent;
+  let array = JSON.parse(localStorage);
+  console.log(array);
+  console.log(nameTask);
+  if (nameTask.length > 0) {
+    for (let i = 0; i < array.length; i++) {
+      if (array[i].taskTitle === nameTask) {
+        let descriptionTask = array[i].description;
+        spanDescription.innerText = descriptionTask;
+      }
+    }
+    spanNameTask.innerText = nameTask;
+    taskContener.classList.add("open-section");
+    mainSection.style.display = "none";
+  } else {
+    console.log("Klikasz obok");
   }
 }
 
@@ -764,12 +753,12 @@ function closeSection(section) {
   mainSection.style.display = "flex";
 }
 
-function createTask(list, value, descriptionValue, name) {
+function createTask(list, value, name) {
   const taskDiv = document.createElement("div");
   const completedButton = document.createElement("button");
   const newTask = document.createElement("li");
   const deleteButton = document.createElement("button");
-  const newDiv = document.createElement("div");
+  // const newDiv = document.createElement("div");
   taskDiv.classList.add("priorityTask__div");
   taskDiv.classList.add(name);
 
@@ -779,10 +768,10 @@ function createTask(list, value, descriptionValue, name) {
   newTask.innerText = value;
   newTask.classList.add("taskItem");
   taskDiv.appendChild(newTask);
-  /////// Description div
+  // /////// Description div
 
-  newDiv.innerText = descriptionValue;
-  taskDiv.appendChild(newDiv);
+  // newDiv.innerText = descriptionValue;
+  // taskDiv.appendChild(newDiv);
 
   ////////// Completed button
   completedButton.innerHTML =
@@ -925,11 +914,11 @@ function getPriorityTasks() {
     let task = tasks[i].taskTitle;
     let description = tasks[i].description;
     if (tasks[i].category === workPriority) {
-      createTask(taskList, task, description, workPriority);
+      createTask(taskList, task, workPriority);
     } else if (tasks[i].category === personalPriority) {
-      createTask(taskList, task, description, personalPriority);
+      createTask(taskList, task, personalPriority);
     } else {
-      createTask(taskList, task, description, learningPriority);
+      createTask(taskList, task, learningPriority);
     }
   }
 }
@@ -946,7 +935,7 @@ function getNormalTasks(list, category) {
     let task = tasks[i].taskTitle;
     let description = tasks[i].description;
     if (tasks[i].category === category) {
-      createTask(list, task, description, work);
+      createTask(list, task, work);
     } else {
       console.log("NOT WOOOOORK");
     }
@@ -954,16 +943,30 @@ function getNormalTasks(list, category) {
 }
 
 function removeTasksFromLocalStorage(task, name) {
-  let tasks;
+  let tasks = [];
   if (localStorage.getItem(name) === null) {
     tasks = [];
   } else {
     tasks = JSON.parse(localStorage.getItem(name));
   }
   console.log(tasks);
-  tasks.splice(tasks.indexOf(task), 1);
+  // for (let i = 0; i < tasks.length; i++) {
+  //   let taskTitle = tasks[i].taskTitle;
+  //   let description = tasks[i].description;
+  //   if (tasks[i].taskTitle === task) {
+
+  //     tasks.splice(tasks[i]);
+  //   } else {
+  //     console.log("NOT WOOOOORK");
+  //   }
+  // }
+
   console.log(tasks);
-  localStorage.setItem(name, JSON.stringify(tasks));
+  // const removeIndex = tasks.map(function(item) { return item.taskTitle; }).indexOf(task);
+  // console.log(removeIndex);
+  // tasks.splice(removeIndex, 1);
+  // console.log(tasks);
+  // localStorage.setItem(name, JSON.stringify(tasks));
 }
 
 //// Init SwiperJS

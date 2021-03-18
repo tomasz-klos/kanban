@@ -48,3 +48,23 @@
 .trash {
   pointer-events: none;
 }
+
+.taskContener {
+  display: none;
+  flex-direction: column;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: $lightBlue;
+  z-index: 230;
+  &__taskName {
+    padding: 20px 20px;
+    font-size: 2rem;
+    text-align: center;
+    margin: 20px 0;
+  }
+  &__description {
+    padding: 0 20px;
+    text-align: center;
+  }
+}

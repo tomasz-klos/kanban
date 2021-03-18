@@ -167,7 +167,7 @@
           type="text"
           class="header__input taskInput"
           minlength="3"
-          maxlength="12"
+          maxlength="30"
           placeholder="task title"
         />
         <button class="header__buttonAdd"></button>
@@ -308,40 +308,54 @@
     <div class="welcomeSection welcomeSection--js">
       <div class="firstPage firstPage--js">
         <img class="firstPage__img" src="../assets/img/welcome.svg" alt="" />
-        <p class="firstPage__text">Welcome to my app</p>
+        <p class="firstPage__welcome">Welcome</p>
         <button class="firstPage__button firstNext--js">
-          Next<img class="firstPage__imgNext" src="..//assets/img/next.png" />
+          NEXT<img class="firstPage__imgNext" src="..//assets/img/next.png" />
         </button>
       </div>
       <div class="secondPage secondPage--js">
         <img class="firstPage__img" src="../assets/img/addTask.svg" alt="" />
-        <p class="firstPage__text">
+        <p class="firstPage__title">
           Create tasks by tapping the ADD NEW TASK button
+        </p>
+        <p class="firstPage__text">
+          When adding a task, you can add a title, description, prioritise it
+          and assign it to a category.
         </p>
         <div class="secondPage__buttonDiv">
           <button class="secondPage__buttonBack secondBack--js">
-            <img class="firstPage__imgBack" src="..//assets/img/back.png" />Back
+            <img class="firstPage__imgBack" src="..//assets/img/back.png" />BACK
           </button>
           <button class="secondPage__buttonNext secondNext--js">
-            Next<img class="firstPage__imgNext" src="..//assets/img/next.png" />
+            NEXT<img class="firstPage__imgNext" src="..//assets/img/next.png" />
           </button>
         </div>
       </div>
       <div class="thirdPage thirdPage--js">
         <img class="firstPage__img" src="../assets/img/category.svg" alt="" />
-        <p class="firstPage__text">Category</p>
+        <p class="firstPage__title">
+          The tasks fall into 3 categories:
+          <span class="workCategory--color">WORK</span>,
+          <span class="personalCategory--color">PERSONAL</span> and
+          <span class="learningCategory--color">LEARNING</span>.
+        </p>
+        <p class="firstPage__text">
+          In each category there are assigned tasks. Priority tasks are located
+          on the main page and in their category.
+        </p>
         <div class="secondPage__buttonDiv">
           <button class="secondPage__buttonBack thirdBack--js">
-            <img class="firstPage__imgBack" src="..//assets/img/back.png" />Back
+            <img class="firstPage__imgBack" src="..//assets/img/back.png" />BACK
           </button>
           <button class="secondPage__buttonNext thirdNext--js">
-            Next<img class="firstPage__imgNext" src="..//assets/img/next.png" />
+            NEXT<img class="firstPage__imgNext" src="..//assets/img/next.png" />
           </button>
         </div>
       </div>
       <div class="fourthPage fourthPage--js">
         <img class="firstPage__img" src="../assets/img/settings.svg" alt="" />
-        <p class="firstPage__text">Settings</p>
+        <p class="firstPage__title">Settings</p>
+        <p class="firstPage__text">Set your nickname and select your gender</p>
         <form class="fourthPage__form">
           <input
             type="text"
@@ -378,10 +392,10 @@
         </form>
         <div class="fourthPage__buttonDiv">
           <button class="secondPage__buttonBack fourthBack--js">
-            <img class="firstPage__imgBack" src="..//assets/img/back.png" />Back
+            <img class="firstPage__imgBack" src="..//assets/img/back.png" />BACK
           </button>
           <button class="secondPage__buttonNext fourthNext--js">
-            End<img class="firstPage__imgNext" src="..//assets/img/next.png" />
+            END<img class="firstPage__imgNext" src="..//assets/img/next.png" />
           </button>
         </div>
       </div>
@@ -398,12 +412,19 @@
         </button>
       </nav>
     </header>
+    <div class="taskContener taskContener--js">
+      <button class="addTaskSection__buttonBack buttonBackTask--js">
+        <img  src="../assets/img/buttonBack.svg" alt="" />
+      </button>
+      <p class="taskContener__taskName"><span class="taskName--js"></span></p>
+      <p class="taskContener__description"><span class="description--js"></span></p>
+    </div>
     <main class="main main--js">
       <h1 class="main__title">
         Good <span class="change--word"></span>,<br />
         <span class="type--nick"></span>
       </h1>
-      <button class="main__button addTask--js">Add Task</button>
+      <button class="main__button addTask--js">ADD NEW TASK</button>
       <section class="category">
         <h2 class="category__headline">CATEGORY</h2>
         <div class="swiper-container">

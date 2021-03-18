@@ -22,11 +22,24 @@
     margin-top: 50px;
     height: 250px;
   }
+  &__welcome {
+    font-size: 2rem;
+    padding: 50px 20px;
+    text-align: center;
+  }
+  &__title {
+    font-size: 1.2rem;
+    text-align: center;
+    padding: 0 20px;
+    line-height: 25px;
+    margin: 30px 0;
+  }
   &__text {
     align-self: center;
     padding: 0 20px;
     text-align: center;
-    line-height: 20px;
+    line-height: 22px;
+    margin: 16px 0;
   }
   &__button {
     position: absolute;
@@ -126,7 +139,7 @@
   &__buttonDiv {
     display: flex;
     width: 100%;
-    margin-top: 156px;
+    margin-top: 69px;
   }
 }
 
@@ -136,4 +149,16 @@
 
 .margin--left {
   margin-left: 5px;
+}
+
+.workCategory--color {
+  background: $darkRed;
+}
+
+.personalCategory--color {
+  background: $vivitBlue;
+}
+
+.learningCategory--color {
+  background: $green;
 }
