@@ -60,6 +60,9 @@ const normal = "normal";
 const workPriority = "workPriority";
 const personalPriority = "personalPriority";
 const learningPriority = "learningPriority";
+const workNormal = "workNormal";
+const personalNormal = "personalNormal";
+const learningNormal = "learningNormal";
 
 const numberTasksWork = document.querySelector(".numberOfTaskWork--js");
 const numberTasksPersonal = document.querySelector(".numberOfTaskPersonal--js");
@@ -87,18 +90,16 @@ let selectedGender;
 const menProfile = document.querySelector(".menProfile--js");
 const womenProfile = document.querySelector(".womenProfile--js");
 
-const lsPriority = localStorage.getItem("priority");
-const lsWork = localStorage.getItem("work");
-const lsPersonal = localStorage.getItem("personal");
-const lsLearning = localStorage.getItem("learning");
-
 const taskContener = document.querySelector(".taskContener--js");
 const spanDescription = document.querySelector(".description--js");
 const spanNameTask = document.querySelector(".taskName--js");
 
 const buttonBackTaskSection = document.querySelector(".buttonBackTask--js");
 
-buttonBackTaskSection.addEventListener("click", closeSection.bind(event, taskContener));
+buttonBackTaskSection.addEventListener(
+  "click",
+  closeSection.bind(event, taskContener)
+);
 
 //////////////////////////////////////// WELCOME SECTION /////////////////////////////////////////////////////////////////////
 
@@ -176,10 +177,11 @@ document.addEventListener(
 taskButton.addEventListener("click", addTask);
 taskList.addEventListener("click", deletePriorityTask);
 taskList.addEventListener("click", completeTask);
-taskList.addEventListener("click", openTask.bind(event, lsPriority));
-workList.addEventListener("click", openTask.bind(event, lsWork));
-personalList.addEventListener("click", openTask.bind(event, lsPersonal));
-learningList.addEventListener("click", openTask.bind(event, lsLearning));
+
+taskList.addEventListener("click", openTask.bind(event, priority));
+workList.addEventListener("click", openTask.bind(event, work));
+personalList.addEventListener("click", openTask.bind(event, personal));
+learningList.addEventListener("click", openTask.bind(event, learning));
 
 workList.addEventListener("click", deleteTask);
 personalList.addEventListener("click", deleteTask);
@@ -431,34 +433,34 @@ function addTask(event) {
       case "normal":
         switch (categoryInputValue) {
           case "work":
-            createTask(workList, taskInput.value, normal);
+            createTask(workList, taskInput.value, workNormal);
             saveTasksInLocalStorage(
               taskInput.value,
               descriptionTaskInput.value,
               work,
-              work
+              workNormal
             );
             closeSection(addTaskSection);
             openSection(workCategorySection);
             break;
           case "personal":
-            createTask(personalList, taskInput.value, normal);
+            createTask(personalList, taskInput.value, personalNormal);
             saveTasksInLocalStorage(
               taskInput.value,
               descriptionTaskInput.value,
               personal,
-              personal
+              personalNormal
             );
             closeSection(addTaskSection);
             openSection(personalCategorySection);
             break;
           case "learning":
-            createTask(learningList, taskInput.value, normal);
+            createTask(learningList, taskInput.value, learningNormal);
             saveTasksInLocalStorage(
               taskInput.value,
               descriptionTaskInput.value,
               learning,
-              learning
+              learningNormal
             );
             closeSection(addTaskSection);
             openSection(learningCategorySection);
@@ -541,22 +543,20 @@ function deletePriorityTask(e) {
           }
         }
 
-        const taskPriority = localStorage.getItem("priority");
+        const taskPriority = JSON.parse(localStorage.getItem("priority"));
 
         for (let i = 0; i < taskPriority.length; i++) {
-          // let taskTitle = taskPriority[i].taskTitle;
-          // console.log(taskTitle);
-          let description = taskPriority[i].description;
-          let category = taskPriority[i].category;
           console.log(nameTask1);
           if (task.classList[1] === "workPriority") {
             console.log("MAM KLASE workPriority");
             removeTasksFromLocalStorage(nameTask1, priority);
             removeTasksFromLocalStorage(nameTask1, work);
           } else if (task.classList[1] === "personalPriority") {
+            console.log("MAM KLASE personalPriority");
             removeTasksFromLocalStorage(nameTask1, priority);
             removeTasksFromLocalStorage(nameTask1, personal);
           } else if (task.classList[1] === "learningPriority") {
+            console.log("MAM KLASE learningPriority");
             removeTasksFromLocalStorage(nameTask1, priority);
             removeTasksFromLocalStorage(nameTask1, learning);
           } else {
@@ -600,28 +600,38 @@ function deleteTask(e) {
         console.log(task);
         let childrenTaskList = taskList.childNodes;
 
-        for (let i = 0; i < childrenTaskList.length; i++) {
-          let nameTask = childrenTaskList[i].firstChild.textContent;
-          const element = childrenTaskList[i];
-          if (nameTask == nameTask1) {
-            if (childrenTaskList[i].classList[1] === "workPriority") {
-              console.log(element);
-              element.remove();
-            } else if (
-              childrenTaskList[i].classList[1] === "personalPriority"
-            ) {
-              element.remove();
-            } else if (
-              childrenTaskList[i].classList[1] === "learningPriority"
-            ) {
-              element.remove();
-            } else {
-              console.log("Something wrong");
-            }
-          }
+        if (task.classList[1] === workNormal){
+          removeTasksFromLocalStorage(nameTask1, work);
+        } else if (task.classList[1] === personalNormal){
+          removeTasksFromLocalStorage(nameTask1, personal);
+        } else if (task.classList[1] === learningNormal){
+          removeTasksFromLocalStorage(nameTask1, learning)
+        } else {
+          console.log("nie działaaaaa");
         }
 
-        // if (task.classList[1] === "priority") {
+        // for (let i = 0; i < childrenTaskList.length; i++) {
+        //   let nameTask = childrenTaskList[i].firstChild.textContent;
+        //   const element = childrenTaskList[i];
+        //   if (nameTask == nameTask1) {
+        //     if (childrenTaskList[i].classList[1] === "workPriority") {
+        //       console.log(element);
+        //       element.remove();
+        //     } else if (
+        //       childrenTaskList[i].classList[1] === "personalPriority"
+        //     ) {
+        //       element.remove();
+        //     } else if (
+        //       childrenTaskList[i].classList[1] === "learningPriority"
+        //     ) {
+        //       element.remove();
+        //     } else {
+        //       console.log("Something wrong");
+        //     }
+        //   }
+        // }
+
+        // if (task.classList[1] === "workNormal") {
         //   if (categoryList.classList[1] === "workList") {
         //     removeTasksFromLocalStorage(nameTask1, work);
         //     removeTasksFromLocalStorage(nameTask1, priority);
@@ -681,14 +691,16 @@ function completeTask(e) {
   }
 }
 
-function openTask(localStorage, e) {
+
+function openTask(storage, e) {
   const item = e.target;
   const task = item.parentElement;
   console.log(item);
-  const nameTask = item.firstChild.textContent;
-  let array = JSON.parse(localStorage);
+  const nameTask = item.textContent;
+  let array = JSON.parse(localStorage.getItem(storage));
   console.log(array);
   console.log(nameTask);
+  console.log(task);
   if (nameTask.length > 0) {
     for (let i = 0; i < array.length; i++) {
       if (array[i].taskTitle === nameTask) {
@@ -753,6 +765,7 @@ function closeSection(section) {
   mainSection.style.display = "flex";
 }
 
+
 function createTask(list, value, name) {
   const taskDiv = document.createElement("div");
   const completedButton = document.createElement("button");
@@ -762,8 +775,6 @@ function createTask(list, value, name) {
   taskDiv.classList.add("priorityTask__div");
   taskDiv.classList.add(name);
 
-  taskDiv.classList.add("priorityTask__div");
-  taskDiv.classList.add(name);
 
   newTask.innerText = value;
   newTask.classList.add("taskItem");
@@ -838,9 +849,9 @@ function getLocalStorage() {
   getNick();
   getGender();
   getPriorityTasks();
-  getNormalTasks(workList, work);
-  getNormalTasks(personalList, personal);
-  getNormalTasks(learningList, learning);
+  getNormalTasks(work);
+  getNormalTasks(personal);
+  getNormalTasks(learning);
   getLocalStorageWelcome();
 }
 
@@ -912,18 +923,22 @@ function getPriorityTasks() {
   console.log(tasks);
   for (let i = 0; i < tasks.length; i++) {
     let task = tasks[i].taskTitle;
-    let description = tasks[i].description;
     if (tasks[i].category === workPriority) {
       createTask(taskList, task, workPriority);
+      createTask(workList, task, priority);
     } else if (tasks[i].category === personalPriority) {
       createTask(taskList, task, personalPriority);
-    } else {
+      createTask(personalList, task, priority);
+    } else if (tasks[i].category === learningPriority) {
       createTask(taskList, task, learningPriority);
+      createTask(learningList, task, priority);
+    } else {
+      console.log("coś jest nie tak");
     }
   }
 }
 
-function getNormalTasks(list, category) {
+function getNormalTasks(category) {
   let tasks;
   if (localStorage.getItem(category) === null) {
     tasks = [];
@@ -933,11 +948,14 @@ function getNormalTasks(list, category) {
   console.log(tasks);
   for (let i = 0; i < tasks.length; i++) {
     let task = tasks[i].taskTitle;
-    let description = tasks[i].description;
-    if (tasks[i].category === category) {
-      createTask(list, task, work);
+    if (tasks[i].category === workNormal) {
+      createTask(workList, task, workNormal);
+    } else if (tasks[i].category === personalNormal) {
+      createTask(personalList, task, personalNormal);
+    } else if (tasks[i].category === learningNormal) {
+      createTask(learningList, task, learningNormal);
     } else {
-      console.log("NOT WOOOOORK");
+      console.log("getNormalTasks don't work");
     }
   }
 }
@@ -949,7 +967,6 @@ function removeTasksFromLocalStorage(task, name) {
   } else {
     tasks = JSON.parse(localStorage.getItem(name));
   }
-  console.log(tasks);
   // for (let i = 0; i < tasks.length; i++) {
   //   let taskTitle = tasks[i].taskTitle;
   //   let description = tasks[i].description;
@@ -960,8 +977,14 @@ function removeTasksFromLocalStorage(task, name) {
   //     console.log("NOT WOOOOORK");
   //   }
   // }
+  tasks = tasks.filter (obj => obj.taskTitle != task);
+  localStorage.setItem(name, JSON.stringify(tasks));
 
-  console.log(tasks);
+  // console.log(removeIndex);
+  // console.log(tasks);
+  // tasks.splice(removeIndex, 1);
+  // console.log(tasks);
+  // localStorage.setItem(name, tasks);
   // const removeIndex = tasks.map(function(item) { return item.taskTitle; }).indexOf(task);
   // console.log(removeIndex);
   // tasks.splice(removeIndex, 1);
