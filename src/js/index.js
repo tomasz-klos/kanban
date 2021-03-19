@@ -600,12 +600,12 @@ function deleteTask(e) {
         console.log(task);
         let childrenTaskList = taskList.childNodes;
 
-        if (task.classList[1] === workNormal){
+        if (task.classList[1] === workNormal) {
           removeTasksFromLocalStorage(nameTask1, work);
-        } else if (task.classList[1] === personalNormal){
+        } else if (task.classList[1] === personalNormal) {
           removeTasksFromLocalStorage(nameTask1, personal);
-        } else if (task.classList[1] === learningNormal){
-          removeTasksFromLocalStorage(nameTask1, learning)
+        } else if (task.classList[1] === learningNormal) {
+          removeTasksFromLocalStorage(nameTask1, learning);
         } else {
           console.log("nie działaaaaa");
         }
@@ -670,27 +670,25 @@ function deleteTask(e) {
 function completeTask(e) {
   const item = e.target;
   if (item.classList[0] === "completeButton") {
-    const task = item.parentElement;
-    task.classList.toggle("completed");
-    const Toast = Swal.mixin({
-      toast: true,
-      position: "top-end",
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.addEventListener("mouseenter", Swal.stopTimer);
-        toast.addEventListener("mouseleave", Swal.resumeTimer);
-      },
-    });
+    Swal.fire({
+      title: "Do you want to complete the task?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, do it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const task = item.parentElement;
+        task.classList.toggle("completed");
 
-    Toast.fire({
-      icon: "success",
-      title: "Signed in successfully",
+        Swal.fire("Completed!", "Your task has been completed.", "success");
+      }
     });
+  } else {
+
   }
 }
-
 
 function openTask(storage, e) {
   const item = e.target;
@@ -765,7 +763,6 @@ function closeSection(section) {
   mainSection.style.display = "flex";
 }
 
-
 function createTask(list, value, name) {
   const taskDiv = document.createElement("div");
   const completedButton = document.createElement("button");
@@ -774,7 +771,6 @@ function createTask(list, value, name) {
   // const newDiv = document.createElement("div");
   taskDiv.classList.add("priorityTask__div");
   taskDiv.classList.add(name);
-
 
   newTask.innerText = value;
   newTask.classList.add("taskItem");
@@ -977,7 +973,7 @@ function removeTasksFromLocalStorage(task, name) {
   //     console.log("NOT WOOOOORK");
   //   }
   // }
-  tasks = tasks.filter (obj => obj.taskTitle != task);
+  tasks = tasks.filter((obj) => obj.taskTitle != task);
   localStorage.setItem(name, JSON.stringify(tasks));
 
   // console.log(removeIndex);
