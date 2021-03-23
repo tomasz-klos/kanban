@@ -189,10 +189,7 @@ workList.addEventListener("click", deleteTask);
 personalList.addEventListener("click", deleteTask);
 learningList.addEventListener("click", deleteTask);
 
-workList.addEventListener(
-  "click",
-  completeTask.bind(event, work, workList)
-);
+workList.addEventListener("click", completeTask.bind(event, work, workList));
 personalList.addEventListener(
   "click",
   completeTask.bind(event, personal, personalList)
@@ -700,115 +697,215 @@ function deleteTask(e) {
 
 function completePriorityTask(e) {
   const item = e.target;
-  if (item.classList[0] === "completeButton") {
+  const task = item.parentElement;
+  const nameTask = task.firstChild.textContent;
+  const tasks = JSON.parse(localStorage.getItem(priority));
+  const lsWork = JSON.parse(localStorage.getItem(work));
+  const lsPersonal = JSON.parse(localStorage.getItem(personal));
+  const lsLearning = JSON.parse(localStorage.getItem(learning));
+  const found = tasks.find((x) => x.taskTitle === nameTask);
+  const index = tasks.findIndex((x) => x.taskTitle === nameTask);
+  if (task.classList[2] === uncompleted) {
+    if (item.classList[0] === "completeButton") {
+      Swal.fire({
+        title: "Do you want to complete the task?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, do it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          task.classList.add("completed");
+
+          if (task.classList[1] === workPriority) {
+            let indexOfTaskW = lsWork.findIndex(
+              (x) => x.taskTitle === nameTask
+            );
+            lsWork[indexOfTaskW].status = "completed";
+            localStorage.setItem(work, JSON.stringify(lsWork));
+            workList.innerHTML = "";
+          } else if (task.classList[1] === personalPriority) {
+            let indexOfTaskP = lsPersonal.findIndex(
+              (x) => x.taskTitle === nameTask
+            );
+            lsPersonal[indexOfTaskP].status = "completed";
+            localStorage.setItem(personal, JSON.stringify(lsPersonal));
+            personalList.innerHTML = "";
+          } else if (task.classList[1] === learningPriority) {
+            let indexOfTaskL = lsLearning.findIndex(
+              (x) => x.taskTitle === nameTask
+            );
+            lsLearning[indexOfTaskL].status = "completed";
+            localStorage.setItem(learning, JSON.stringify(lsLearning));
+            learningList.innerHTML = "";
+          }
+
+          tasks.splice(index, 1);
+          console.log(tasks);
+          found.status = "completed";
+          tasks.push(found);
+          localStorage.setItem(priority, JSON.stringify(tasks));
+
+          //// Reload List
+          taskList.innerHTML = "";
+          getPriorityTasks();
+          getPriorityCategoryTasks();
+
+          console.log(tasks);
+
+          Swal.fire("Completed!", "Your task has been completed.", "success");
+        }
+      });
+    } else {
+      console.log("coś nie działa");
+    }
+  } else {
     Swal.fire({
-      title: "Do you want to complete the task?",
-      icon: "question",
+      title: "Are you sure?",
+      text: "Your task is completed",
+      icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, do it!",
+      confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        const task = item.parentElement;
-        const nameTask = task.firstChild.textContent;
-        task.classList.toggle("completed");
-        const tasks = JSON.parse(localStorage.getItem(priority));
-        const lsWork = JSON.parse(localStorage.getItem(work));
-        const lsPersonal = JSON.parse(localStorage.getItem(personal));
-        const lsLearning = JSON.parse(localStorage.getItem(learning));
+        task.classList.remove("completed");
 
-        console.log(tasks);
-        console.log(nameTask);
-        console.log(lsWork);
         if (task.classList[1] === workPriority) {
-          let indexOfTaskW = lsWork.findIndex((x) => x.taskTitle === nameTask);
-          lsWork[indexOfTaskW].status = "completed";
-          console.log(indexOfTaskW);
-          console.log(lsWork);
+          let indexOfTaskW = lsWork.findIndex(
+            (x) => x.taskTitle === nameTask
+          );
+          lsWork[indexOfTaskW].status = "uncompleted";
           localStorage.setItem(work, JSON.stringify(lsWork));
+          workList.innerHTML = "";
         } else if (task.classList[1] === personalPriority) {
           let indexOfTaskP = lsPersonal.findIndex(
             (x) => x.taskTitle === nameTask
           );
-          lsPersonal[indexOfTaskP].status = "completed";
+          lsPersonal[indexOfTaskP].status = "uncompleted";
           localStorage.setItem(personal, JSON.stringify(lsPersonal));
+          personalList.innerHTML = "";
         } else if (task.classList[1] === learningPriority) {
           let indexOfTaskL = lsLearning.findIndex(
             (x) => x.taskTitle === nameTask
           );
-          lsLearning[indexOfTaskL].status = "completed";
+          lsLearning[indexOfTaskL].status = "uncompleted";
           localStorage.setItem(learning, JSON.stringify(lsLearning));
+          learningList.innerHTML = "";
         }
-
-        const found = tasks.find((x) => x.taskTitle === nameTask);
-        console.log(found);
-        // console.log(tasks);
-
-        const index = tasks.findIndex((x) => x.taskTitle === nameTask);
-        console.log(index);
         tasks.splice(index, 1);
         console.log(tasks);
-        found.status = "completed";
+        found.status = "uncompleted";
         tasks.push(found);
+
         localStorage.setItem(priority, JSON.stringify(tasks));
 
-        //// Reload List
-        let taskListChildren = taskList.childNodes;
-        console.log(taskListChildren);
-        taskList.innerHTML = '';
+        /// Reload List
+        taskList.innerHTML = "";
         getPriorityTasks();
-    
-        console.log(tasks);
+        getPriorityCategoryTasks();
 
-        Swal.fire("Completed!", "Your task has been completed.", "success");
+        Swal.fire("Deleted!", "Your file has been deleted.", "success");
       }
     });
-  } else {
-    console.log("coś nie działa");
+    console.log("Mam klase completed");
   }
 }
 
 function completeTask(name, list, e) {
   const item = e.target;
-  if (item.classList[0] === "completeButton") {
+  const task = item.parentElement;
+  const nameTask = task.firstChild.textContent;
+  const taskList = JSON.parse(localStorage.getItem(priority));
+  const tasks = JSON.parse(localStorage.getItem(name));
+  const found = tasks.find((x) => x.taskTitle === nameTask);
+  console.log(found);
+  const index = tasks.findIndex((x) => x.taskTitle === nameTask);
+  console.log(index);
+  if (task.classList[2] === uncompleted) {
+    if (item.classList[0] === "completeButton") {
+      Swal.fire({
+        title: "Do you want to complete the task?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, do it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          task.classList.add("completed");
+
+          if (task.classList[1] === priority) {
+            let indexOfTask = taskList.findIndex(
+              (x) => x.taskTitle === nameTask
+            );
+            taskList[indexOfTask].status = "completed";
+            localStorage.setItem(priority, JSON.stringify(taskList));
+            taskList.innerHTML = "";
+            getPriorityTasks();
+          }  else {
+            console.log("nie działaaaa");
+          }
+          tasks.splice(index, 1);
+          console.log(tasks);
+          found.status = "completed";
+          tasks.push(found);
+
+          localStorage.setItem(name, JSON.stringify(tasks));
+
+          /// Reload List
+          list.innerHTML = "";
+          getNormalTasks(name);
+          getPriorityCategoryTasks();
+
+          Swal.fire("Completed!", "Your task has been completed.", "success");
+        }
+      });
+    } else {
+      console.log("TO nie przycisk completeButton");
+    }
+  } else {
     Swal.fire({
-      title: "Do you want to complete the task?",
-      icon: "question",
+      title: "Are you sure?",
+      text: "Your task is completed",
+      icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, do it!",
+      confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        const task = item.parentElement;
-        const nameTask = task.firstChild.textContent;
-        task.classList.toggle("completed");
-        const tasks = JSON.parse(localStorage.getItem(name));
+        task.classList.remove("completed");
 
-        const found = tasks.find((x) => x.taskTitle === nameTask);
-        console.log(found);
-
-        const index = tasks.findIndex((x) => x.taskTitle === nameTask);
-        console.log(index);
+        if (task.classList[1] === priority) {
+          let indexOfTask = taskList.findIndex(
+            (x) => x.taskTitle === nameTask
+          );
+          taskList[indexOfTask].status = "uncompleted";
+          localStorage.setItem(priority, JSON.stringify(taskList));
+          taskList.innerHTML = "";
+          getPriorityTasks();
+        }  else {
+          console.log("nie działaaaa");
+        }
         tasks.splice(index, 1);
         console.log(tasks);
-        found.status = "completed";
+        found.status = "uncompleted";
         tasks.push(found);
 
         localStorage.setItem(name, JSON.stringify(tasks));
 
-
         /// Reload List
-        list.innerHTML = '';
+        list.innerHTML = "";
         getNormalTasks(name);
+        getPriorityCategoryTasks();
 
-        console.log(tasks);
-
-        Swal.fire("Completed!", "Your task has been completed.", "success");
+        Swal.fire("Deleted!", "Your file has been deleted.", "success");
       }
     });
-  } else {
+    console.log("Mam klase completed");
   }
 }
 
@@ -1002,6 +1099,7 @@ function getLocalStorage() {
   getNick();
   getGender();
   getPriorityTasks();
+  getPriorityCategoryTasks();
   getNormalTasks(work);
   getNormalTasks(personal);
   getNormalTasks(learning);
@@ -1083,25 +1181,58 @@ function getPriorityTasks() {
     if (tasks[i].status === uncompleted) {
       if (tasks[i].category === workPriority) {
         createTask(taskList, task, workPriority, uncompleted);
-        createTask(workList, task, priority, uncompleted);
       } else if (tasks[i].category === personalPriority) {
         createTask(taskList, task, personalPriority, uncompleted);
-        createTask(personalList, task, priority, uncompleted);
       } else if (tasks[i].category === learningPriority) {
         createTask(taskList, task, learningPriority, uncompleted);
-        createTask(learningList, task, priority, uncompleted);
       } else {
         console.log("coś jest nie tak");
       }
     } else if (tasks[i].status === completed) {
       if (tasks[i].category === workPriority) {
         LoadingTask(taskList, task, workPriority, completed);
-        LoadingTask(workList, task, priority, completed);
       } else if (tasks[i].category === personalPriority) {
         LoadingTask(taskList, task, personalPriority, completed);
-        LoadingTask(personalList, task, priority, completed);
       } else if (tasks[i].category === learningPriority) {
         LoadingTask(taskList, task, learningPriority, completed);
+      } else {
+        console.log("coś jest nie tak");
+      }
+    } else {
+      console.log("nie działa 1020");
+    }
+  }
+}
+
+function getPriorityCategoryTasks() {
+  let tasks;
+  if (localStorage.getItem("priority") === null) {
+    tasks = [];
+  } else {
+    tasks = JSON.parse(localStorage.getItem("priority"));
+  }
+  console.log(tasks);
+
+  for (let i = 0; i < tasks.length; i++) {
+    if (tasks[i].status === completed) {
+    }
+    let task = tasks[i].taskTitle;
+    if (tasks[i].status === uncompleted) {
+      if (tasks[i].category === workPriority) {
+        createTask(workList, task, priority, uncompleted);
+      } else if (tasks[i].category === personalPriority) {
+        createTask(personalList, task, priority, uncompleted);
+      } else if (tasks[i].category === learningPriority) {
+        createTask(learningList, task, priority, uncompleted);
+      } else {
+        console.log("coś jest nie tak");
+      }
+    } else if (tasks[i].status === completed) {
+      if (tasks[i].category === workPriority) {
+        LoadingTask(workList, task, priority, completed);
+      } else if (tasks[i].category === personalPriority) {
+        LoadingTask(personalList, task, priority, completed);
+      } else if (tasks[i].category === learningPriority) {
         LoadingTask(learningList, task, priority, completed);
       } else {
         console.log("coś jest nie tak");
