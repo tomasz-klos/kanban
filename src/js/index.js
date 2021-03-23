@@ -63,6 +63,8 @@ const learningPriority = "learningPriority";
 const workNormal = "workNormal";
 const personalNormal = "personalNormal";
 const learningNormal = "learningNormal";
+const uncompleted = "uncompleted";
+const completed = "completed";
 
 const numberTasksWork = document.querySelector(".numberOfTaskWork--js");
 const numberTasksPersonal = document.querySelector(".numberOfTaskPersonal--js");
@@ -176,7 +178,7 @@ document.addEventListener(
 
 taskButton.addEventListener("click", addTask);
 taskList.addEventListener("click", deletePriorityTask);
-taskList.addEventListener("click", completeTask);
+taskList.addEventListener("click", completePriorityTask);
 
 taskList.addEventListener("click", openTask.bind(event, priority));
 workList.addEventListener("click", openTask.bind(event, work));
@@ -187,9 +189,18 @@ workList.addEventListener("click", deleteTask);
 personalList.addEventListener("click", deleteTask);
 learningList.addEventListener("click", deleteTask);
 
-workList.addEventListener("click", completeTask);
-personalList.addEventListener("click", completeTask);
-learningList.addEventListener("click", completeTask);
+workList.addEventListener(
+  "click",
+  completeTask.bind(event, work, workList)
+);
+personalList.addEventListener(
+  "click",
+  completeTask.bind(event, personal, personalList)
+);
+learningList.addEventListener(
+  "click",
+  completeTask.bind(event, learning, learningList)
+);
 
 hamburgerButton.addEventListener("click", openMenuProfile);
 
@@ -377,8 +388,8 @@ function addTask(event) {
       case "priority":
         switch (categoryInputValue) {
           case "work":
-            createTask(taskList, taskInput.value, workPriority);
-            createTask(workList, taskInput.value, priority);
+            createTask(taskList, taskInput.value, workPriority, uncompleted);
+            createTask(workList, taskInput.value, priority, uncompleted);
             saveTasksInLocalStorage(
               taskInput.value,
               descriptionTaskInput.value,
@@ -395,8 +406,13 @@ function addTask(event) {
 
             break;
           case "personal":
-            createTask(taskList, taskInput.value, personalPriority);
-            createTask(personalList, taskInput.value, priority);
+            createTask(
+              taskList,
+              taskInput.value,
+              personalPriority,
+              uncompleted
+            );
+            createTask(personalList, taskInput.value, priority, uncompleted);
             saveTasksInLocalStorage(
               taskInput.value,
               descriptionTaskInput.value,
@@ -412,8 +428,13 @@ function addTask(event) {
             closeSection(addTaskSection);
             break;
           case "learning":
-            createTask(taskList, taskInput.value, learningPriority);
-            createTask(learningList, taskInput.value, priority);
+            createTask(
+              taskList,
+              taskInput.value,
+              learningPriority,
+              uncompleted
+            );
+            createTask(learningList, taskInput.value, priority, uncompleted);
             saveTasksInLocalStorage(
               taskInput.value,
               descriptionTaskInput.value,
@@ -433,7 +454,7 @@ function addTask(event) {
       case "normal":
         switch (categoryInputValue) {
           case "work":
-            createTask(workList, taskInput.value, workNormal);
+            createTask(workList, taskInput.value, workNormal, uncompleted);
             saveTasksInLocalStorage(
               taskInput.value,
               descriptionTaskInput.value,
@@ -444,7 +465,12 @@ function addTask(event) {
             openSection(workCategorySection);
             break;
           case "personal":
-            createTask(personalList, taskInput.value, personalNormal);
+            createTask(
+              personalList,
+              taskInput.value,
+              personalNormal,
+              uncompleted
+            );
             saveTasksInLocalStorage(
               taskInput.value,
               descriptionTaskInput.value,
@@ -455,7 +481,12 @@ function addTask(event) {
             openSection(personalCategorySection);
             break;
           case "learning":
-            createTask(learningList, taskInput.value, learningNormal);
+            createTask(
+              learningList,
+              taskInput.value,
+              learningNormal,
+              uncompleted
+            );
             saveTasksInLocalStorage(
               taskInput.value,
               descriptionTaskInput.value,
@@ -667,7 +698,7 @@ function deleteTask(e) {
   }
 }
 
-function completeTask(e) {
+function completePriorityTask(e) {
   const item = e.target;
   if (item.classList[0] === "completeButton") {
     Swal.fire({
@@ -680,13 +711,104 @@ function completeTask(e) {
     }).then((result) => {
       if (result.isConfirmed) {
         const task = item.parentElement;
+        const nameTask = task.firstChild.textContent;
         task.classList.toggle("completed");
+        const tasks = JSON.parse(localStorage.getItem(priority));
+        const lsWork = JSON.parse(localStorage.getItem(work));
+        const lsPersonal = JSON.parse(localStorage.getItem(personal));
+        const lsLearning = JSON.parse(localStorage.getItem(learning));
+
+        console.log(tasks);
+        console.log(nameTask);
+        console.log(lsWork);
+        if (task.classList[1] === workPriority) {
+          let indexOfTaskW = lsWork.findIndex((x) => x.taskTitle === nameTask);
+          lsWork[indexOfTaskW].status = "completed";
+          console.log(indexOfTaskW);
+          console.log(lsWork);
+          localStorage.setItem(work, JSON.stringify(lsWork));
+        } else if (task.classList[1] === personalPriority) {
+          let indexOfTaskP = lsPersonal.findIndex(
+            (x) => x.taskTitle === nameTask
+          );
+          lsPersonal[indexOfTaskP].status = "completed";
+          localStorage.setItem(personal, JSON.stringify(lsPersonal));
+        } else if (task.classList[1] === learningPriority) {
+          let indexOfTaskL = lsLearning.findIndex(
+            (x) => x.taskTitle === nameTask
+          );
+          lsLearning[indexOfTaskL].status = "completed";
+          localStorage.setItem(learning, JSON.stringify(lsLearning));
+        }
+
+        const found = tasks.find((x) => x.taskTitle === nameTask);
+        console.log(found);
+        // console.log(tasks);
+
+        const index = tasks.findIndex((x) => x.taskTitle === nameTask);
+        console.log(index);
+        tasks.splice(index, 1);
+        console.log(tasks);
+        found.status = "completed";
+        tasks.push(found);
+        localStorage.setItem(priority, JSON.stringify(tasks));
+
+        //// Reload List
+        let taskListChildren = taskList.childNodes;
+        console.log(taskListChildren);
+        taskList.innerHTML = '';
+        getPriorityTasks();
+    
+        console.log(tasks);
 
         Swal.fire("Completed!", "Your task has been completed.", "success");
       }
     });
   } else {
+    console.log("coś nie działa");
+  }
+}
 
+function completeTask(name, list, e) {
+  const item = e.target;
+  if (item.classList[0] === "completeButton") {
+    Swal.fire({
+      title: "Do you want to complete the task?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, do it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const task = item.parentElement;
+        const nameTask = task.firstChild.textContent;
+        task.classList.toggle("completed");
+        const tasks = JSON.parse(localStorage.getItem(name));
+
+        const found = tasks.find((x) => x.taskTitle === nameTask);
+        console.log(found);
+
+        const index = tasks.findIndex((x) => x.taskTitle === nameTask);
+        console.log(index);
+        tasks.splice(index, 1);
+        console.log(tasks);
+        found.status = "completed";
+        tasks.push(found);
+
+        localStorage.setItem(name, JSON.stringify(tasks));
+
+
+        /// Reload List
+        list.innerHTML = '';
+        getNormalTasks(name);
+
+        console.log(tasks);
+
+        Swal.fire("Completed!", "Your task has been completed.", "success");
+      }
+    });
+  } else {
   }
 }
 
@@ -763,7 +885,7 @@ function closeSection(section) {
   mainSection.style.display = "flex";
 }
 
-function createTask(list, value, name) {
+function createTask(list, value, name, status) {
   const taskDiv = document.createElement("div");
   const completedButton = document.createElement("button");
   const newTask = document.createElement("li");
@@ -771,6 +893,7 @@ function createTask(list, value, name) {
   // const newDiv = document.createElement("div");
   taskDiv.classList.add("priorityTask__div");
   taskDiv.classList.add(name);
+  taskDiv.classList.add(status);
 
   newTask.innerText = value;
   newTask.classList.add("taskItem");
@@ -782,7 +905,41 @@ function createTask(list, value, name) {
 
   ////////// Completed button
   completedButton.innerHTML =
-    '<img class="checkmark" src="https://raw.githubusercontent.com/tomasz-klos/kanban/b6794a98bc4df8c7986d0ef919db481d5a55dea8/src/assets/img/Checkmark.svg">';
+    '<img class="checkmark" src="https://raw.githubusercontent.com/tomasz-klos/kanban/dc6682f343225efc296cc54b64e01fe63ec4f290/src/assets/img/Checkmark.svg">';
+  completedButton.classList.add("completeButton");
+  taskDiv.appendChild(completedButton);
+
+  //////// Delete button
+  deleteButton.innerHTML =
+    '<img class="trash" src="https://raw.githubusercontent.com/tomasz-klos/kanban/afc206a9071cf3b905db34c6dd045a6ed960beac/src/assets/img/trash.svg">';
+  deleteButton.classList.add("deleteButton");
+  taskDiv.appendChild(deleteButton);
+
+  ////////// Add div to list
+  list.insertBefore(taskDiv, list.firstChild);
+}
+
+function LoadingTask(list, value, name, status) {
+  const taskDiv = document.createElement("div");
+  const completedButton = document.createElement("button");
+  const newTask = document.createElement("li");
+  const deleteButton = document.createElement("button");
+  // const newDiv = document.createElement("div");
+  taskDiv.classList.add("priorityTask__div");
+  taskDiv.classList.add(name);
+  taskDiv.classList.add(status);
+
+  newTask.innerText = value;
+  newTask.classList.add("taskItem");
+  taskDiv.appendChild(newTask);
+  // /////// Description div
+
+  // newDiv.innerText = descriptionValue;
+  // taskDiv.appendChild(newDiv);
+
+  ////////// Completed button
+  completedButton.innerHTML =
+    '<img class="checkmark" src="https://raw.githubusercontent.com/tomasz-klos/kanban/dc6682f343225efc296cc54b64e01fe63ec4f290/src/assets/img/Checkmark.svg">';
   completedButton.classList.add("completeButton");
   taskDiv.appendChild(completedButton);
 
@@ -902,6 +1059,7 @@ function saveTasksInLocalStorage(task, descriptionValue, name, category) {
     taskTitle: task,
     description: descriptionValue,
     category: category,
+    status: "uncompleted",
   };
   tasks.push(object);
   console.log(JSON.stringify(object));
@@ -917,19 +1075,39 @@ function getPriorityTasks() {
     tasks = JSON.parse(localStorage.getItem("priority"));
   }
   console.log(tasks);
+
   for (let i = 0; i < tasks.length; i++) {
+    if (tasks[i].status === completed) {
+    }
     let task = tasks[i].taskTitle;
-    if (tasks[i].category === workPriority) {
-      createTask(taskList, task, workPriority);
-      createTask(workList, task, priority);
-    } else if (tasks[i].category === personalPriority) {
-      createTask(taskList, task, personalPriority);
-      createTask(personalList, task, priority);
-    } else if (tasks[i].category === learningPriority) {
-      createTask(taskList, task, learningPriority);
-      createTask(learningList, task, priority);
+    if (tasks[i].status === uncompleted) {
+      if (tasks[i].category === workPriority) {
+        createTask(taskList, task, workPriority, uncompleted);
+        createTask(workList, task, priority, uncompleted);
+      } else if (tasks[i].category === personalPriority) {
+        createTask(taskList, task, personalPriority, uncompleted);
+        createTask(personalList, task, priority, uncompleted);
+      } else if (tasks[i].category === learningPriority) {
+        createTask(taskList, task, learningPriority, uncompleted);
+        createTask(learningList, task, priority, uncompleted);
+      } else {
+        console.log("coś jest nie tak");
+      }
+    } else if (tasks[i].status === completed) {
+      if (tasks[i].category === workPriority) {
+        LoadingTask(taskList, task, workPriority, completed);
+        LoadingTask(workList, task, priority, completed);
+      } else if (tasks[i].category === personalPriority) {
+        LoadingTask(taskList, task, personalPriority, completed);
+        LoadingTask(personalList, task, priority, completed);
+      } else if (tasks[i].category === learningPriority) {
+        LoadingTask(taskList, task, learningPriority, completed);
+        LoadingTask(learningList, task, priority, completed);
+      } else {
+        console.log("coś jest nie tak");
+      }
     } else {
-      console.log("coś jest nie tak");
+      console.log("nie działa 1020");
     }
   }
 }
@@ -944,14 +1122,26 @@ function getNormalTasks(category) {
   console.log(tasks);
   for (let i = 0; i < tasks.length; i++) {
     let task = tasks[i].taskTitle;
-    if (tasks[i].category === workNormal) {
-      createTask(workList, task, workNormal);
-    } else if (tasks[i].category === personalNormal) {
-      createTask(personalList, task, personalNormal);
-    } else if (tasks[i].category === learningNormal) {
-      createTask(learningList, task, learningNormal);
-    } else {
-      console.log("getNormalTasks don't work");
+    if (tasks[i].status === uncompleted) {
+      if (tasks[i].category === workNormal) {
+        createTask(workList, task, workNormal, uncompleted);
+      } else if (tasks[i].category === personalNormal) {
+        createTask(personalList, task, personalNormal, uncompleted);
+      } else if (tasks[i].category === learningNormal) {
+        createTask(learningList, task, learningNormal, uncompleted);
+      } else {
+        console.log("getNormalTasks don't work");
+      }
+    } else if (tasks[i].status === completed) {
+      if (tasks[i].category === workNormal) {
+        LoadingTask(workList, task, workNormal, completed);
+      } else if (tasks[i].category === personalNormal) {
+        LoadingTask(personalList, task, personalNormal, completed);
+      } else if (tasks[i].category === learningNormal) {
+        LoadingTask(learningList, task, learningNormal, completed);
+      } else {
+        console.log("getNormalTasks don't work");
+      }
     }
   }
 }
