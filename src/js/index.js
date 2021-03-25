@@ -786,9 +786,15 @@ function completePriorityTask(e) {
           localStorage.setItem(priority, JSON.stringify(tasks));
 
           //// Reload List
+          workList.innerHTML = "";
+          personalList.innerHTML = "";
+          learningList.innerHTML = "";
           taskList.innerHTML = "";
           getPriorityTasks();
           getPriorityCategoryTasks();
+          getNormalTasks(work);
+          getNormalTasks(personal);
+          getNormalTasks(learning);
 
           console.log(tasks);
 
@@ -842,9 +848,15 @@ function completePriorityTask(e) {
           localStorage.setItem(priority, JSON.stringify(tasks));
 
           /// Reload List
+          workList.innerHTML = "";
+          personalList.innerHTML = "";
+          learningList.innerHTML = "";
           taskList.innerHTML = "";
           getPriorityTasks();
           getPriorityCategoryTasks();
+          getNormalTasks(work);
+          getNormalTasks(personal);
+          getNormalTasks(learning);
 
           Swal.fire("Deleted!", "Your file has been deleted.", "success");
         }
@@ -901,8 +913,12 @@ function completeTask(name, list, e) {
           localStorage.setItem(name, JSON.stringify(tasks));
 
           /// Reload List
-          list.innerHTML = "";
-          getNormalTasks(name);
+          learningList.innerHTML = "";
+          workList.innerHTML = "";
+          personalList.innerHTML = "";
+          getNormalTasks(work);
+          getNormalTasks(personal);
+          getNormalTasks(learning);
           getPriorityCategoryTasks();
 
           Swal.fire("Completed!", "Your task has been completed.", "success");
@@ -948,8 +964,12 @@ function completeTask(name, list, e) {
           localStorage.setItem(name, JSON.stringify(tasks));
 
           /// Reload List
-          list.innerHTML = "";
-          getNormalTasks(name);
+          learningList.innerHTML = "";
+          workList.innerHTML = "";
+          personalList.innerHTML = "";
+          getNormalTasks(work);
+          getNormalTasks(personal);
+          getNormalTasks(learning);
           getPriorityCategoryTasks();
 
           Swal.fire("Deleted!", "Your file has been deleted.", "success");
@@ -1367,9 +1387,5 @@ function removeTasksFromLocalStorage(task, name) {
 const swiper = new Swiper(".swiper-container", {
   // Optional parameters
   direction: "horizontal",
-  slidesPerView: 1.8,
-  pagination: {
-    el: ".swiper-pagination",
-    clickable: true,
-  },
+  slidesPerView: 1.6
 });
