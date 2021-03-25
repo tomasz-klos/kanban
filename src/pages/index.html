@@ -174,11 +174,12 @@
       </div>
       <p class="addTaskSection__typeTask">DESCRIPTION TASK</p>
       <div class="addTaskSection__inputDiv">
-        <input
+        <!-- <input
           type="text"
           class="header__input taskDescriptionInput"
           placeholder="description task"
-        />
+        /> -->
+        <textarea class="header__input taskDescriptionInput"></textarea>
       </div>
       <p class="addTaskSection__typeTask">TYPE TASK</p>
 
@@ -416,7 +417,9 @@
         <img  src="../assets/img/buttonBack.svg" alt="" />
       </button>
       <p class="taskContener__taskName"><span class="taskName--js"></span></p>
-      <p class="taskContener__description"><span class="description--js"></span></p>
+      <!-- <p class="taskContener__description"><span class="description--js"></span></p> -->
+      <textarea class="taskContener__description description--js"></textarea>
+      <button class="taskContener__buttonUpdate buttonUpdate--js">UPDATE</button>
     </div>
     <main class="main main--js">
       <h1 class="main__title">
